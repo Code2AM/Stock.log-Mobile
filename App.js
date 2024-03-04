@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import AuthInput from './parkjiho/components/auth/input';
+import TestPage from './parkjiho/pages/test';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <TestPage/>
       <StatusBar style="auto" />
     </View>
   );
