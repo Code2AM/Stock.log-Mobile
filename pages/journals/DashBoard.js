@@ -27,11 +27,12 @@ export default DashBoard;
 
 const styles = StyleSheet.create({
     graphs:{
-        backgroundColor:"green",
+        backgroundColor:"#B5D692",
         width:"100%",
         height:"30%",
         marginBottom:10,
         alignItems:"center",
-        textAlign:"center"
+        textAlign:"center",
+        color:"white"
     }
 })
