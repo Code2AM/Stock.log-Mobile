@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Journals from "./journals/Journals";
-import DashBoard from "./DashBoard";
-import { SocialLogin } from "./auth/SocialLogin";
-import TestPage, { LoginScreen } from "./auth/LoginScreen";
 import Login from "./Login";
 import FindPass from "./FindPass";
+import TestPage from "./auth/LoginScreen";
+import { SocialKakao } from "./auth/SocialLogin";
 
 
 const Tab = createBottomTabNavigator();
@@ -16,19 +15,18 @@ const Index = () => {
             <Tab.Screen
                 name="매매일지"
                 component={Journals}
-                options={{headerShown:false}}
-                name="DashBoard"
-                component={DashBoard}
+                options={{ headerShown: false }}
             />
 
             <Tab.Screen
                 name="Social Login"
-                component={SocialLogin}
+                component={SocialKakao}
             />
 
             <Tab.Screen
                 name="Test"
                 component={TestPage}
+            />
             <Tab.Screen
                 name="Login"
                 component={Login}
