@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import DashBoard from "./DashBoard";
+import Login from "./Login";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -11,7 +13,12 @@ const Index = () => {
                 name="DashBoard"
                 component={DashBoard}
         />
+        <Tab.Screen
+                name="Login"
+                component={Login}
+        />
         </Tab.Navigator>
+
     )
 }
 
