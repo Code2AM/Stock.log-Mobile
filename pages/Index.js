@@ -4,6 +4,8 @@ import { SocialLogin } from "./auth/SocialLogin";
 import TestPage from "./auth/LoginScreen";
 import Login from "./Login";
 import FindPass from "./FindPass";
+import TestPage from "./auth/LoginScreen";
+import { SocialKakao } from "./auth/SocialLogin";
 
 
 const Tab = createBottomTabNavigator();
@@ -20,14 +22,14 @@ const Index = () => {
 
             <Tab.Screen
                 name="Social Login"
-                component={SocialLogin}
+                component={SocialKakao}
             />
 
             <Tab.Screen
                 name="Test"
                 component={TestPage}
             />
-
+                  
             <Tab.Screen
                 name="Login"
                 component={Login}
