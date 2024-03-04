@@ -1,22 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import AuthInput from './parkjiho/components/auth/input';
-import TestPage from './parkjiho/pages/test';
+import { NavigationContainer } from '@react-navigation/native';
+import Index from './pages/Index';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <TestPage/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Index/>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
