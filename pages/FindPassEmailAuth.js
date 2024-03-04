@@ -6,8 +6,8 @@ const FindPassEmailAuth = () =>{
 
     return(
     <NativeBaseProvider>
-        <Text>
-           비밀번호 찾기
+        <Text textAlign="center" fontSize="xl">
+             비밀번호 찾기
         </Text>
         <AuthInput
             type={"email"}

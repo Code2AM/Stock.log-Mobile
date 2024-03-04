@@ -4,6 +4,9 @@ import AuthButton from "../parkjiho/components/auth/AuthButton"
 
 const SignUp = () => {
     <NativeBaseProvider>
+        <Text textAlign="center" fontSize="xl">
+             회원가입
+        </Text>
         <AuthInput
             type={"password"}
             placeholder={"비밀번호"}

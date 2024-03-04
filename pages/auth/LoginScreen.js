@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Linking } from "react-native";
 import { WebView } from 'react-native-webview';
 
 const REST_API_KEY = '90c89051f8411e2bede27122b3866f52';
@@ -21,8 +21,10 @@ const TestPage = () => {
     };
   }
 
+  console.log("Dfdsdfsd")
   return (
-    <View style={Styles.container}>      
+    <View style={Styles.container}>
+    
       <WebView
         style={{ flex: 1 }}
         originWhitelist={['*']}

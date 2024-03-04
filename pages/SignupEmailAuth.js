@@ -6,7 +6,7 @@ const SignupEmailAuth = () =>{
 
     return(
     <NativeBaseProvider>
-        <Text>
+        <Text textAlign="center" fontSize="xl">
          회원가입
         </Text>
         <AuthInput
