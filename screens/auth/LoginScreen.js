@@ -212,3 +212,114 @@ export const LoginScreen = () => {
 //     );
 // };
 
+
+// version5
+
+// import React, { useEffect } from "react";
+// import { View, StyleSheet, Linking } from "react-native";
+// import { WebView } from 'react-native-webview';
+
+// const REST_API_KEY = '90c89051f8411e2bede27122b3866f52';
+// const REDIRECT_URI = 'http://192.168.0.13:8081/callback';
+// const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
+
+// const TestPage = () => {
+
+//   function KakaoLoginWebView (data) {
+
+//     console.log("Data received:", data);
+
+
+//     const exp = "code=";
+//     var condition = data.indexOf(exp);    
+//     if (condition != -1) {
+//       var authorize_code = data.substring(condition + exp.length);
+//       console.log(authorize_code);
+//     };
+//   }
+
+//   console.log("Dfdsdfsd")
+//   return (
+//     <View style={Styles.container}>
+    
+//       <WebView
+//         style={{ flex: 1 }}
+//         originWhitelist={['*']}
+//         scalesPageToFit={false}
+//         source={{
+//           uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
+//         }}
+//         injectedJavaScript={INJECTED_JAVASCRIPT}
+//         javaScriptEnabled
+//         onMessage={event => { KakaoLoginWebView(event.nativeEvent["url"]); }}
+//       />
+//     </View>
+//   )
+// }
+
+// export default TestPage;
+
+// const Styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     marginTop: 24,
+//     backgroundColor: '#fff',
+//   },    
+// });
+
+
+// version 6
+
+// import { Container, Link, NativeBaseProvider, Text } from "native-base"
+// import AuthInput from "../parkjiho/components/auth/AuthInput"
+// import AuthButton from "../parkjiho/components/auth/AuthButton"
+// import { useNavigation } from "@react-navigation/core";
+// import { StyleSheet } from "react-native";
+
+// const Login = () => {
+//     const navigation = useNavigation();
+
+//     const handleFindPass = () => {
+//         navigation.navigate('FindPass'); // 비밀번호 찾기 화면으로 이동
+//     };
+
+//     const handleSignUp = () => {
+//         navigation.navigate('LoginAuth'); // 회원가입 화면으로 이동
+//     };
+
+//     return(  
+//         <NativeBaseProvider>
+//             <Container styles={styles.container}> 
+//                 <Text textAlign="center" fontSize="xl">
+//                     회원가입
+//                 </Text>
+//                 <AuthInput
+//                     type={"email"}
+//                     placeholder={"Email"}
+//                     styles={styles.container}
+//                 />
+//                 <AuthInput
+//                     type={"password"}
+//                     placeholder={"Password"}
+//                     styles={styles.container}
+//                 />
+//                 <Link onPress={handleFindPass}>비밀번호를 잊어버리셨나요?</Link>
+//                 <AuthButton
+//                     value={"로그인"}
+//                 />
+//                 <Link onPress={handleSignUp} >회원가입</Link>
+//             </Container>
+//         </NativeBaseProvider>
+//     );
+// }
+
+
+// export default Login;
+
+// const styles = StyleSheet.create({
+//     container:{
+//         flex: 1,
+//         alignItems: 'center',
+//         justifyContent: 'center'
+//     }
+// })
