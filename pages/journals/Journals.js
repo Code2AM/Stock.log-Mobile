@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DashBoard from "./DashBoardScreen";
+import DashBoard from "./DashBoard";
 import JournalsDetail from "./JournalsDetail";
 import { StyleSheet } from "react-native";
 
