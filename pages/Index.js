@@ -11,6 +11,8 @@ import StrategiesSetting from "./setting/StrategiesSetting";
 import Label from "./setting/Label";
 import Fee from "./setting/Fee";
 import Darkmode from "./setting/Darkmode";
+import { SocialLogin } from "./auth/SocialLogin";
+import FindPass from "./FindPass";
 
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +22,7 @@ const Index = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="매매일지"
+                name="Journals"
                 component={Journals}
                 options={{headerShown:false}}
             />
@@ -34,6 +36,7 @@ const Index = () => {
                 name="Test"
                 component={TestPage}
             />
+                  
             <Tab.Screen
                 name="Login"
                 component={Login}
