@@ -1,16 +1,6 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Journals from "./journals/Journals";
-import { SocialKakao } from "./auth/SocialLogin";
-import TestPage, { LoginScreen } from "./auth/LoginScreen";
-import Login from "./Login";
-import FindPassEmailAuth from "./FindPassEmailAuth";
-import SignupEmailAuth from "./SignupEmailAuth";
-import SignupPassConfirm from "./SignupPassConfirm";
-import Setting from "./setting/Setting";
-import StrategiesSetting from "./setting/StrategiesSetting";
-import Label from "./setting/Label";
-import Fee from "./setting/Fee";
-import Darkmode from "./setting/Darkmode";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Journals } from "../pages/journals/Journals";
+
 
 
 
@@ -27,54 +17,62 @@ export const IndexStack = () => {
                 options={{headerShown:false}}
             />
 
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Social Login"
                 component={SocialKakao}
-            />
+            /> */}
 
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Test"
                 component={TestPage}
-            />
+            /> */}
                   
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Login"
                 component={Login}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="FindPass"
                 component={FindPassEmailAuth}
                 title={"이메일 인증"}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="LoginAuth"
                 component={SignupEmailAuth}
                 title={"회원가입"}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="SignupPassConfirm"
                 component={SignupPassConfirm}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="SettingList"
                 component={Setting}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="매매전략 페이지"
                 component={StrategiesSetting}
-            />
-             <Tab.Screen
+            /> */}
+
+             {/* <Tab.Screen
                 name="라벨 페이지"
                 component={Label}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="증권사 및 수수료"
                 component={Fee}
-            />
-            <Tab.Screen
+            /> */}
+
+            {/* <Tab.Screen
                 name="다크모드"
                 component={Darkmode}
-            />
+            /> */}
         </Tab.Navigator>
     )
 }
