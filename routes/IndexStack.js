@@ -1,5 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
+import NotesScreen from "../screens/notes/NotesScreen";
+import SettingScreen from "../screens/Setting/SettingScreen";
+import { NotesStack } from "./NotesStack";
+import { SettingStack } from "./SettingStack";
 
 
 
@@ -73,6 +77,16 @@ export const IndexStack = () => {
                 name="다크모드"
                 component={Darkmode}
             /> */}
+
+            <Tab.Screen
+                name="Notes"
+                component={NotesStack}
+            />
+
+            <Tab.Screen
+                name="Settings"
+                component={SettingStack}
+            />
         </Tab.Navigator>
     )
 }

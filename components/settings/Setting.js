@@ -1,9 +1,7 @@
 import { NativeBaseProvider, View } from "native-base";
-import SettingListBtn from "../../parkjiho/components/setting/SettingListBtn"
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StrategiesSetting from "./StrategiesSetting";
 
 const Setting = () => {
     const navigation = useNavigation();
