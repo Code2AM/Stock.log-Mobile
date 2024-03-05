@@ -1,54 +1,62 @@
-// import { request } from "../Api";
+import { request } from "../common/Api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-// // 회원가입 요청 API
-// export const signupRequest = async (data) => {
 
-//   try {
-//     const response = await request.post("/auth/signup", { ...data });
-//     // 성공적으로 응답을 받은 경우
-//     return response.data;
-//   } catch (error) {
-//     console.error("Signup Request Error:", error);
-//     throw error; 
-//   }
+// 회원가입 요청 API
+export const signupRequest = async (data) => {
 
-// };
+  try {
+    const response = await request.post("/auth/signup", { ...data });
+    // 성공적으로 응답을 받은 경우
+    return response.data;
+  } catch (error) {
+    console.error("Signup Request Error:", error);
+    throw error; 
+  }
+
+};
 
 
-// // 로그인 요청 API
-// export const loginRequest = async (data) => {
+// 로그인 요청 API
+export const loginRequest = async (data) => {
 
-//   try {
-//     const response = await request.post("auth/login", { ...data } );
-//     // 성공적으로 로그인한 경우
+  try {
+    const response = await request.post("auth/login", { ...data } );
+    // 성공적으로 로그인한 경우
 
-//     storeTokens(response)
+    // 구조분해할당으로 토큰을 저장
+    const { accessToken, refreshToken, accessTokenExpiresIn } = response.data;
 
-//     return response.data;
+    await storeTokens({ accessToken, refreshToken, accessTokenExpiresIn });
 
-//   } 
-//   catch (error) {
-//     console.error("login Request Error:", error);
-//     throw error; 
-//   }
+    return response.data;
 
-// };
+  } 
+  catch (error) {
+    console.error("login Request Error:", error);
+    throw error; 
+  }
 
-// export const storeTokens = (response) => {
+};
 
-//   const { data } = response;
-//     const { accessToken, refreshToken, accessTokenExpiresIn } = data;
+// Secure token storage using AsyncStorage
+export const storeTokens = async (tokens) => {
+    const { accessToken, refreshToken, accessTokenExpiresIn } = tokens;
   
-//    // localStorage에 저장
-//       localStorage.setItem("accessToken", accessToken);
-//       localStorage.setItem("refreshToken", refreshToken);
-//       localStorage.setItem("expiresAt", Date.now() + accessTokenExpiresIn);
-//       localStorage.setItem("isLogin", true);
-
-//       console.log("accessToken: "+accessToken);
-//       console.log("refreshToken: "+refreshToken);
-// }
+    try {
+      await AsyncStorage.multiSet([
+        ["accessToken", accessToken],
+        ["refreshToken", refreshToken],
+        ["expiresAt", JSON.stringify(Date.now() + accessTokenExpiresIn)], // Store expiry time as a string for reliable parsing
+        ["isLogin", "true"], // Consider using a boolean value instead of "true"
+      ]);
+      console.log("Tokens stored successfully!");
+    } catch (error) {
+      console.error("Error storing tokens:", error);
+      // Handle storage failures gracefully (e.g., display an error message)
+    }
+  };
 
 
 

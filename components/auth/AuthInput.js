@@ -1,6 +1,6 @@
-import { Input, NativeBaseProvider, Stack, Text } from "native-base";
+import { Input, NativeBaseProvider, Stack } from "native-base";
 import React from "react";
-import { Pressable, StyleSheet } from "react-native";
+
 
 const AuthInput = ( {placeholder, type} ) => {
 

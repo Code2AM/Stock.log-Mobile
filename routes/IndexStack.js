@@ -1,5 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Journals } from "../pages/journals/Journals";
+import { Login2 } from "../screens/auth/test/Login2";
+import { Login3 } from "../screens/auth/test/Login3";
+import { Login4 } from "../screens/auth/test/Login4";
+import { Login5 } from "../screens/auth/test/Login5";
 
 
 
@@ -14,7 +18,7 @@ export const IndexStack = () => {
             <Tab.Screen
                 name="Journals"
                 component={Journals}
-                options={{headerShown:false}}
+                options={{ headerShown: false }}
             />
 
             {/* <Tab.Screen
@@ -26,7 +30,7 @@ export const IndexStack = () => {
                 name="Test"
                 component={TestPage}
             /> */}
-                  
+
             {/* <Tab.Screen
                 name="Login"
                 component={Login}
@@ -59,7 +63,7 @@ export const IndexStack = () => {
                 component={StrategiesSetting}
             /> */}
 
-             {/* <Tab.Screen
+            {/* <Tab.Screen
                 name="라벨 페이지"
                 component={Label}
             /> */}
@@ -73,6 +77,30 @@ export const IndexStack = () => {
                 name="다크모드"
                 component={Darkmode}
             /> */}
+
+            <Tab.Screen
+                name="Login2"
+                component={Login2}
+            />
+
+            {/* 카카오 로그인 관련  */}
+            <Tab.Screen
+                name="Login3"
+                component={Login3}
+            />
+
+            {/* 카카오 로그인 2  */}
+            <Tab.Screen
+                name="Login4"
+                component={Login4}
+            />
+
+            {/* 로그인 테스트 5  */}
+            <Tab.Screen
+                name="Login5"
+                component={Login5}
+            />
+
         </Tab.Navigator>
     )
 }
