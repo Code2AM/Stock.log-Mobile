@@ -1,16 +1,13 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Journals from "./journals/Journals";
-import { SocialLogin } from "./auth/SocialLogin";
-import TestPage from "./auth/LoginScreen";
-import Login from "./Login";
-import FindPass from "./FindPass";
-import TestPage from "./auth/LoginScreen";
-import { SocialKakao } from "./auth/SocialLogin";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Journals } from "../pages/journals/Journals";
+import { SocialKakao } from "../components/auth/social/SocialKakao";
+import { TestPage } from "../pages/auth/LoginScreen";
+
 
 
 const Tab = createBottomTabNavigator();
 
-const Index = () => {
+export const IndexStack = () => {
 
     return (
         <Tab.Navigator>
@@ -41,5 +38,3 @@ const Index = () => {
         </Tab.Navigator>
     )
 }
-
-export default Index;

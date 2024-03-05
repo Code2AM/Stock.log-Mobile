@@ -3,7 +3,7 @@ import JournalList from "./JournalList";
 import { StyleSheet } from "react-native";
 
 
-const DashBoard = ({navigation}) => {
+const DashBoardScreen = ({navigation}) => {
 
     return (
         <>

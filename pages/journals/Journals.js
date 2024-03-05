@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DashBoard from "./DashBoard";
+import DashBoard from "./DashBoardScreen";
 import JournalsDetail from "./JournalsDetail";
 import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-const Journals = () => {
+export const Journals = () => {
 
     return (
         <>
@@ -33,8 +33,6 @@ const Journals = () => {
         </>
     )
 }
-
-export default Journals;
 
 const styles = StyleSheet.create({
     journalsHeader : {
