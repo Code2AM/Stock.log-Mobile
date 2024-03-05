@@ -2,11 +2,12 @@ import { NativeBaseProvider, Text } from "native-base";
 import AuthInput from "../parkjiho/components/auth/AuthInput";
 import AuthButton from "../parkjiho/components/auth/AuthButton";
 
-const FindPass = () =>{
+const FindPassEmailAuth = () =>{
+
     return(
     <NativeBaseProvider>
-        <Text>
-            비밀번호 찾기
+        <Text textAlign="center" fontSize="xl">
+             비밀번호 찾기
         </Text>
         <AuthInput
             type={"email"}
@@ -19,4 +20,4 @@ const FindPass = () =>{
     )
 }
 
-export default FindPass;
+export default FindPassEmailAuth;
