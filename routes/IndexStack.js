@@ -11,13 +11,13 @@ import StrategiesSetting from "./setting/StrategiesSetting";
 import Label from "./setting/Label";
 import Fee from "./setting/Fee";
 import Darkmode from "./setting/Darkmode";
-import { SocialLogin } from "./auth/SocialLogin";
-import FindPass from "./FindPass";
+
+
 
 
 const Tab = createBottomTabNavigator();
 
-const Index = () => {
+export const IndexStack = () => {
 
     return (
         <Tab.Navigator>
@@ -78,5 +78,3 @@ const Index = () => {
         </Tab.Navigator>
     )
 }
-
-export default Index;

@@ -1,6 +1,6 @@
 import { NativeBaseProvider, Text } from "native-base";
-import AuthInput from "../parkjiho/components/auth/AuthInput";
-import AuthButton from "../parkjiho/components/auth/AuthButton";
+import AuthInput from "../../components/auth/AuthInput";
+import AuthButton from "../../components/auth/buttons/AuthButton";
 
 const SignupEmailAuth = () =>{
 

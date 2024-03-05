@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
-const Journals = () => {
+export const Journals = () => {
 
     return (
         <>
@@ -33,8 +33,6 @@ const Journals = () => {
         </>
     )
 }
-
-export default Journals;
 
 const styles = StyleSheet.create({
     journalsHeader : {
