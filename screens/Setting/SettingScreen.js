@@ -9,7 +9,7 @@ const SettingScreen = () => {
     }
     return(
             <NativeBaseProvider>
-                <Button onPress={hanlderBtnPress}>이동</Button>
+                <Button onPress={hanlderBtnPress}>라벨</Button>
             </NativeBaseProvider>
     )
 }
