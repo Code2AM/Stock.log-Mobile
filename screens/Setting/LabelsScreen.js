@@ -1,6 +1,6 @@
 import { Text } from "native-base";
 
-const LabelsScreen = () => {
+const LabelsScreen = ({navigation}) => {
     return(
         <Text>라벨</Text>
     )
