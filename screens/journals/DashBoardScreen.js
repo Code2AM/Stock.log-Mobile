@@ -1,9 +1,9 @@
-import { Center, Container, FlatList, Heading, NativeBaseProvider, Text } from "native-base";
-import JournalList from "./JournalList";
+import { Center, Container, Heading, NativeBaseProvider } from "native-base";
 import { StyleSheet } from "react-native";
+import JournalListScreen from "./JournalListScreen";
 
 
-const DashBoard = ({navigation}) => {
+const DashBoardScreen = ({navigation}) => {
 
     return (
         <>
@@ -14,7 +14,7 @@ const DashBoard = ({navigation}) => {
                 <Center>
                     <Container>
                         {/* <FlatList data={data}> */}
-                            <JournalList navigation={navigation}/>
+                            <JournalListScreen navigation={navigation}/>
                         {/* </FlatList> */}
                     </Container>
                 </Center>
@@ -23,7 +23,7 @@ const DashBoard = ({navigation}) => {
     )
 }
 
-export default DashBoard;
+export default DashBoardScreen;
 
 const styles = StyleSheet.create({
     graphs:{
