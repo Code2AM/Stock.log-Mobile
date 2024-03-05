@@ -1,18 +1,18 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DashBoard from "./DashBoard";
-import JournalsDetail from "./JournalsDetail";
 import { StyleSheet } from "react-native";
+import DashBoardScreen from "../../screens/journals/DashBoardScreen";
+import JournalsDetailScreen from "../../screens/journals/JournalsDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
-export const Journals = () => {
+export const JournalsStack = () => {
 
     return (
         <>
             <Stack.Navigator>
                 <Stack.Screen
                     name="매매일지"
-                    component={DashBoard}
+                    component={DashBoardScreen}
                     options={{
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
@@ -21,7 +21,7 @@ export const Journals = () => {
                 />
                 <Stack.Screen
                     name="세부내역"
-                    component={JournalsDetail}
+                    component={JournalsDetailScreen}
                     options={{
                         title:"매매기록",
                         headerStyle:styles.journalsHeader, 

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Journals } from "../pages/journals/Journals";
+import { JournalsStack } from "./journals/JournalsStack";
 
 
 
@@ -13,7 +13,7 @@ export const IndexStack = () => {
         <Tab.Navigator>
             <Tab.Screen
                 name="Journals"
-                component={Journals}
+                component={JournalsStack}
                 options={{headerShown:false}}
             />
 
@@ -26,7 +26,7 @@ export const IndexStack = () => {
                 name="Test"
                 component={TestPage}
             /> */}
-                  
+                
             {/* <Tab.Screen
                 name="Login"
                 component={Login}
@@ -59,7 +59,7 @@ export const IndexStack = () => {
                 component={StrategiesSetting}
             /> */}
 
-             {/* <Tab.Screen
+            {/* <Tab.Screen
                 name="라벨 페이지"
                 component={Label}
             /> */}
