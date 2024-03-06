@@ -85,6 +85,12 @@ export const IndexStack = () => {
                 name="Settings"
                 component={SettingStack}
             />
+
+            <Tab.Screen
+                name="TestScreen"
+                component={TestScreen}
+            />
+            
         </Tab.Navigator>
     )
 }

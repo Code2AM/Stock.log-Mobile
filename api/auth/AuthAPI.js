@@ -1,54 +1,84 @@
-// import { request } from "../Api";
+import { makeRequest, request } from "../common/Api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-// // 회원가입 요청 API
-// export const signupRequest = async (data) => {
 
-//   try {
-//     const response = await request.post("/auth/signup", { ...data });
-//     // 성공적으로 응답을 받은 경우
-//     return response.data;
-//   } catch (error) {
-//     console.error("Signup Request Error:", error);
-//     throw error; 
-//   }
+// 회원가입 요청 API
+export const signupRequest = async (data) => {
 
-// };
+  console.log(data)
+
+  try {
+      const response = await makeRequest("/auth/signup", "POST", { ...data });
+
+    // const response = await request.post("/auth/signup", { ...data });
+    // 성공적으로 응답을 받은 경우
+    return response.data;
+  } catch (error) {
+    console.error("Signup Request Error:", error);
+
+    if (error.response) {
+      // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
+      console.log(error.response.data)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+    } else if (error.request) {
+      // 요청이 이루어 졌으나 응답을 받지 못했습니다.
+      // `error.request`는 브라우저의 XMLHttpRequest 인스턴스 또는
+      // Node.js의 http.ClientRequest 인스턴스입니다.
+      console.log(error.request)
+    } else {
+      // 오류를 발생시킨 요청을 설정하는 중에 문제가 발생했습니다.
+      console.log('Error', error.message)
+    }
+    console.log(error.config)
+    throw error;
+  }
+};
 
 
-// // 로그인 요청 API
-// export const loginRequest = async (data) => {
+// 로그인 요청 API
+export const loginRequest = async (data) => {
 
-//   try {
-//     const response = await request.post("auth/login", { ...data } );
-//     // 성공적으로 로그인한 경우
+  try {
+    const response = await makeRequest("auth/login", "POST", { ...data } );
+    // const response = await request.post("auth/login", { ...data });
+    // 성공적으로 로그인한 경우
 
-//     storeTokens(response)
+    // 구조분해할당으로 토큰을 저장
+    const { accessToken, refreshToken, accessTokenExpiresIn } = response.data;
 
-//     return response.data;
+    await storeTokens(accessToken, refreshToken, accessTokenExpiresIn);
 
-//   } 
-//   catch (error) {
-//     console.error("login Request Error:", error);
-//     throw error; 
-//   }
+    return response.data;
 
-// };
+  }
+  catch (error) {
+    console.error("login Request Error:", error);
+    throw error;
+  }
 
-// export const storeTokens = (response) => {
+};
 
-//   const { data } = response;
-//     const { accessToken, refreshToken, accessTokenExpiresIn } = data;
-  
-//    // localStorage에 저장
-//       localStorage.setItem("accessToken", accessToken);
-//       localStorage.setItem("refreshToken", refreshToken);
-//       localStorage.setItem("expiresAt", Date.now() + accessTokenExpiresIn);
-//       localStorage.setItem("isLogin", true);
+// Secure token storage using AsyncStorage
+export const storeTokens = async (accessToken, refreshToken, accessTokenExpiresIn) => {
 
-//       console.log("accessToken: "+accessToken);
-//       console.log("refreshToken: "+refreshToken);
-// }
+  console.log("fdsfdsf")
+  console.log(accessToken)
+  console.log(refreshToken)
+  console.log(accessTokenExpiresIn)
+
+  try {
+    await AsyncStorage.setItem("accessToken", accessToken);
+    await AsyncStorage.setItem("refreshToken", refreshToken);
+    await AsyncStorage.setItem("expiresAt", JSON.stringify(Date.now() + accessTokenExpiresIn));
+    await AsyncStorage.setItem("isLogin", "true");
+    console.log("Tokens stored successfully!");
+    } catch (error) {
+  console.error("Error storing tokens:", error);
+  // Handle storage failures gracefully (e.g., display an error message)
+}
+  };
 
 
 
