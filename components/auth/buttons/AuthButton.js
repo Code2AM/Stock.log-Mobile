@@ -1,6 +1,8 @@
 import { Box, Button, NativeBaseProvider } from "native-base"
 import { StyleSheet } from "react-native";
 
+
+
 const AuthButton = ({ value }) => {
 
 
