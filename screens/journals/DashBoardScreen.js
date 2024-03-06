@@ -1,9 +1,25 @@
-import { Center, Container, Heading, NativeBaseProvider } from "native-base";
+import { Center, Container, Heading, NativeBaseProvider, Text } from "native-base";
 import { StyleSheet } from "react-native";
 import JournalListScreen from "./JournalListScreen";
+import { useEffect, useState } from "react";
+import { makeRequest } from "../../api/common/Api";
+import { journalRequest } from "../../api/journals/JournalsAPI";
 
 
 const DashBoardScreen = ({navigation}) => {
+
+    const [journals, setJournals] = useState([]);
+
+    const handleJournals = async () => {
+
+        const journalsList = await journalRequest();
+        console.log(journalsList);
+        setJournals(journalsList);
+    }
+    // 데이터 가져옴
+    useEffect(() => {
+        handleJournals();
+    },[])
 
     return (
         <>
@@ -11,11 +27,12 @@ const DashBoardScreen = ({navigation}) => {
                 <Heading style={styles.graphs}>
                     그래프 공간
                 </Heading>
+                <Text></Text>
                 <Center>
                     <Container>
-                        {/* <FlatList data={data}> */}
+                        <FlatList data={journals}>
                             <JournalListScreen navigation={navigation}/>
-                        {/* </FlatList> */}
+                        </FlatList>
                     </Container>
                 </Center>
             </NativeBaseProvider>
