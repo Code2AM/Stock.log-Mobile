@@ -1,10 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
 import { Button } from "native-base"
 
 
 export const KakaoButton = () => {
+    
+    const navigation = useNavigation();
 
     const handleKakaoLogin = () => {
-        console.log("KakaoLogin")
+        navigation.navigate('AuthStack', { screen: 'KakaoWebViewScreen' });
     }
 
 

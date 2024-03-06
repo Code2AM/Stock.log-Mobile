@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
+import { TestScreen } from "../screens/auth/test/TestScreen";
+import { Login3 } from "../screens/auth/test/Login3";
 
 
 
@@ -14,7 +16,7 @@ export const IndexStack = () => {
             <Tab.Screen
                 name="Journals"
                 component={JournalsStack}
-                options={{headerShown:false}}
+                options={{ headerShown: false }}
             />
 
             {/* <Tab.Screen
@@ -26,7 +28,7 @@ export const IndexStack = () => {
                 name="Test"
                 component={TestPage}
             /> */}
-                
+
             {/* <Tab.Screen
                 name="Login"
                 component={Login}
@@ -77,6 +79,11 @@ export const IndexStack = () => {
             <Tab.Screen
                 name="TestScreen"
                 component={TestScreen}
+            />
+
+            <Tab.Screen
+                name="Login3"
+                component={Login3}
             />
 
         </Tab.Navigator>
