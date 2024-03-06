@@ -1,8 +1,8 @@
 import { Text } from "native-base";
 
-const Label = () => {
+const LabelsScreen = ({navigation}) => {
     return(
         <Text>라벨</Text>
     )
 }
-export default Label;
+export default LabelsScreen;
