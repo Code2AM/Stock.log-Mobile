@@ -2,7 +2,7 @@ import { Box, Center, Container, Flex, Heading, Icon, NativeBaseProvider, Pressa
 import { StyleSheet } from "react-native";
 
 
-const JournalList = ({navigation}) => {
+const JournalListScreen = ({navigation}) => {
 
     const goToDetail = () => {
         navigation.navigate("세부내역");
@@ -60,7 +60,7 @@ const JournalList = ({navigation}) => {
     )
 }
 
-export default JournalList;
+export default JournalListScreen;
 
 const styles = StyleSheet.create({
     journalBox:{

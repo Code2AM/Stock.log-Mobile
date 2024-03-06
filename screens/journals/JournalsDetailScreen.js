@@ -1,7 +1,7 @@
 import { NativeBaseProvider, Text } from "native-base";
 
 
-const JournalsDetail = ({navigation}) => {
+const JournalsDetailScreen = ({navigation}) => {
 
     return (
         <>
@@ -12,4 +12,4 @@ const JournalsDetail = ({navigation}) => {
     )
 }
 
-export default JournalsDetail;
+export default JournalsDetailScreen;
