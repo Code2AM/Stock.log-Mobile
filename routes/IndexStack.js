@@ -73,6 +73,12 @@ export const IndexStack = () => {
                 name="다크모드"
                 component={Darkmode}
             /> */}
+
+            <Tab.Screen
+                name="TestScreen"
+                component={TestScreen}
+            />
+
         </Tab.Navigator>
     )
 }
