@@ -43,6 +43,3 @@ export const kakaoLoginRequest = async (code) => {
       }
 
 }
-
-
-

@@ -1,9 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "native-base"
+import { Button, Image } from "native-base"
+
+const image = require('../../../assets/icons/auth/kakao_login_medium_narrow.png');
 
 
 export const KakaoButton = () => {
-    
+
+
     const navigation = useNavigation();
 
     const handleKakaoLogin = () => {
@@ -12,16 +15,14 @@ export const KakaoButton = () => {
 
 
     return (
-
-        <Button
-            onPress={handleKakaoLogin}
-            p={5}
-            m={30}
-            borderRadius={50}
-            bg="yellow.300"
-            width={100}  
-            height={100}
-        >Kakao</Button>
-
-    )
+        <Button onPress={handleKakaoLogin}
+            bgColor={	"#FEE500"}
+            _style={{ alignSelf: 'center' }}
+            width={180} // Adjust width as needed
+            height={12}
+            marginTop={12}
+            marginLeft={39}>
+            <Image source={image} alt="카카오로그인" />
+        </Button>
+    );
 }
