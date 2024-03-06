@@ -4,25 +4,25 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const TestScreen = () => {
 
-    const handleTest  = () => {
-      const result = testRequest();
+    const handleTest = () => {
+        const result = testRequest();
 
-      console.log(result)
-      alert("성공")
+        console.log(result)
+        alert("성공")
     }
 
     const handleLogOut = async () => {
         await AsyncStorage.removeItem("accessToken");
     }
-  
+
     return (
         <NativeBaseProvider>
             <Button
-                    onPress={handleTest}
-                >테스트 버튼</Button>
-                <Button
-                    onPress={handleLogOut}
-                >로그아웃</Button>
+                onPress={handleTest}
+            >테스트 버튼</Button>
+            <Button
+                onPress={handleLogOut}
+            >로그아웃</Button>
         </NativeBaseProvider>
     )
 }
