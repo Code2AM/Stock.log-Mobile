@@ -1,6 +1,7 @@
 import { Button, Container, Input, NativeBaseProvider, Text } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
+import LabelSheetBtn from "../../../components/settings/labels/LabelSheetBtn";
 
 const LabelsScreen = () => {
     const [isInputVisible, setIsInputVisible] = useState(false);
@@ -20,9 +21,9 @@ const LabelsScreen = () => {
             ) : (
                 <>
                 <Container style={styles.Container}>
-                   <Input variant="rounded" placeholder="라벨 입력" style={styles.Input}/> <Button style={styles.LabelAddButton}>추가</Button>
+                   <Input style={styles.Input} variant="rounded" placeholder="라벨 입력" /> <Button style={styles.LabelAddButton}>추가</Button>
+                    {/* <LabelSheetBtn onPress={handleCancelButtonClick} value={"수정"} /> */}
                 </Container>
-                    <Button onPress={handleCancelButtonClick} style={styles.LabelButton}>취소</Button>
                 </>
             )}
         </NativeBaseProvider>
@@ -35,12 +36,12 @@ const styles = StyleSheet.create({
 
     Container:{
         flex:1,
-        flexDirection:"row",
-        alignItems:"center"
+        flexDirection:"row"
     },
 
     Input: {
-       borderColor:"#B5D692"
+        width:"20%",
+        borderColor:"#B5D692"
     },
 
     LabelAddButton:{
@@ -49,11 +50,8 @@ const styles = StyleSheet.create({
 
     LabelButton: {
         width:"30%",
-        alignItems: "center",
-        justifyContent: "center",
         backgroundColor: "#B5D692",
         marginLeft:"70%",
-        marginTop:"100%"
     }
 
 })

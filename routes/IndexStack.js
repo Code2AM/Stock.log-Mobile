@@ -4,7 +4,6 @@ import { TestScreen } from "../screens/auth/test/TestScreen";
 import { Login3 } from "../screens/auth/test/Login3";
 import { NotesStack } from "./NotesStack";
 import { SettingStack } from "./SettingStack";
-import { TestScreen } from "../screens/auth/test/TestScreen";
 
 
 
@@ -90,7 +89,7 @@ export const IndexStack = () => {
                 component={SettingStack}
             />
 
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="TestScreen"
                 component={TestScreen}
             />
@@ -98,7 +97,7 @@ export const IndexStack = () => {
             <Tab.Screen
                 name="Login3"
                 component={Login3}
-            />
+            /> */}
         </Tab.Navigator>
     )
 }
