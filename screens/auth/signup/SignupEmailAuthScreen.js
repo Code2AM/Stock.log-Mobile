@@ -2,27 +2,41 @@
 import { useNavigation } from "@react-navigation/native";
 import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
 import { useState } from "react";
+import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
 
  export const SignupEmailAuthScreen = () => {
 
     const [ email,setEmail ] = useState("");
+    const [ isSending, setIsSending ] = useState(null);
 
     const navigation = useNavigation();
 
-    const handleEmailAuth = () => {
+    const handleEmailAuth = async () => {
 
-        // data에 담아서 보내지 않으면 안 보내짐
         const data = {
-            email: email,
-        };
+            email : email
+        }
 
-        navigation.navigate('SignupStack', { 
-            screen: 'SignupAuthVerifyScreen',
-            params: {
-                data,
-            }
-         })
+        if(!isSending){
+            setIsSending(true)
+            const result = await sendCodeRequest(data)
+            console.log(result)
+
+            setIsSending(null)
+
+            navigation.navigate('SignupStack', { 
+                screen: 'SignupAuthVerifyScreen',
+                params: {
+                    data,
+                }
+             })
+        }
+        else {
+            alert("이메일을 발송 중입니다.")
+        }
+
+        
 
     }
 
