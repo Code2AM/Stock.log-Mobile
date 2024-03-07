@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LabelsScreen from "../screens/Setting/LabelsScreen";
 import SettingScreen from "../screens/Setting/SettingScreen";
+import LabelsScreen from "../screens/Setting/labels/LabelsScreen";
 
 const Stack = createNativeStackNavigator();
 
