@@ -5,9 +5,6 @@ import { View, StyleSheet } from "react-native";
 import { WebView } from 'react-native-webview';
 import { kakaoLoginRequest } from "../../../api/auth/SocialAPI";
 
-// const REST_API_KEY = '90c89051f8411e2bede27122b3866f52';
-// const REDIRECT_URI = 'http://192.168.0.13:8081/callback';
-
 const REST_API_KEY = process.env.EXPO_PUBLIC_REST_API_KEY;
 const REDIRECT_URI = process.env.EXPO_PUBLIC_REDIRECT_URL;
 

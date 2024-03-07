@@ -1,9 +1,73 @@
-// import axios from "axios";
+import { makeRequest } from "../common/Api";
 
 
-// export const callNoteList = async ({journalId}) => {
-//     await axios("/notes",{
-//             journalId:journalId
-//     })
-//         .then(data => (data))
-// }
+
+/* 신규 노트 API */
+export const newNoteRequest = async (data) => {
+    try {
+        const response = await makeRequest("/notes/create", "POST", data)
+        console.log(response)
+
+        return "등록성공";
+    }
+    catch (error) {
+        console.error("newNoteRequest Error:", error);
+
+        if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+        } else if (error.request) {
+            console.log(error.request)
+        } else {
+            console.log('Error', error.message)
+        }
+        console.log(error.config)
+        throw error;
+    }
+}
+
+
+/* 모든 노트 API */
+export const notesRequest = async () => {
+    try {
+        console.log("noteRequest")
+
+        const response = await makeRequest("/notes/allNotes", "POST")
+        console.log(response)
+
+        return response.data
+    }
+    catch (error) {
+        console.error("newNoteRequest Error:", error);
+
+        if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+        } else if (error.request) {
+            console.log(error.request)
+        } else {
+            console.log('Error', error.message)
+        }
+        console.log(error.config)
+        throw error;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
