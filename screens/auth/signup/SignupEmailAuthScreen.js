@@ -20,10 +20,14 @@ import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
         if(!isSending){
             setIsSending(true)
+
+            alert("인증번호를 발송했습니다.")
             const result = await sendCodeRequest(data)
             console.log(result)
 
             setIsSending(null)
+            
+            alert("인증코드가 발송되었습니다.")
 
             navigation.navigate('SignupStack', { 
                 screen: 'SignupAuthVerifyScreen',

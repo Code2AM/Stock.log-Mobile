@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, Heading, Input, NativeBaseProvider, Text, VStack } from "native-base";
 import { useEffect, useState } from "react";
+import { signupRequest } from "../../../api/auth/AuthAPI";
 
 export const SignupPassConfirmScreen = () => {
 

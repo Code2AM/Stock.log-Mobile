@@ -2,12 +2,14 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Box, Button, Center, FormControl, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
 import { useState } from "react";
+import { codeVerifyRequest } from "../../../api/auth/MailAPI";
 
 
 
 export const SignupAuthVerifyScreen = () => {
 
     const [code, setCode] = useState();
+    const [ isSending , setIsSending ] = useState(null)
 
     const navigation = useNavigation();
     const route = useRoute();
@@ -16,24 +18,62 @@ export const SignupAuthVerifyScreen = () => {
     const { data } = route.params;
     const email = data.email;
 
+    const handleResendCode = async () => {
 
+        const data = {
+            email : email
+        }
 
-    const handleResendCode = () => {
+        if(!isSending){
+            setIsSending(true)
+            const result = await sendCodeRequest(data)
+            console.log(result)
+
+            setIsSending(null)
+
+            alert("인증코드가 발송되었습니다.")
+        }
+        else {
+            alert("이메일을 발송 중입니다.")
+        }
 
     }
 
-    const handleConfirmCode = () => {
+    const handleConfirmCode = async () => {
 
         const data = {
-            email: email
+            email: email,
+            authCode : code,
         }
 
-        navigation.navigate('SignupStack', {
-            screen: 'SignupPassConfirmScreen',
-            params: {
-                data,
+        if(!isSending){
+            setIsSending(true)
+        
+            const result = await codeVerifyRequest(data);
+
+            console.log(result)
+
+            setIsSending(null)
+
+            if (result == 1){
+
+                alert("인증번호가 일치합니다")
+
+                navigation.navigate('SignupStack', {
+                    screen: 'SignupPassConfirmScreen',
+                    params: {
+                        data,
+                    }
+                })
             }
-        })
+
+    
+
+            
+        }
+        else {
+            alert("이메일을 발송 중입니다.")
+        }
     }
 
     return (
