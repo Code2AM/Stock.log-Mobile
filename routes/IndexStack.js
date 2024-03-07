@@ -1,15 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
-import { SignupEmailAuthScreen } from "../screens/auth/signup/SignupEmailAuthScreen";
-import { SignupAuthVerifyScreen } from "../screens/auth/signup/SignupAuthVerifyScreen";
-import { SignupPassConfirmScreen } from "../screens/auth/signup/SignupPassConfirmScreen";
-import { FindPassEmailAuthScreen } from "../screens/auth/findpass/FindPassEmailAuthScreen";
-import { FindPassAuthVerifyScreen } from "../screens/auth/findpass/FindPassAuthVerifyScreen";
-import { FindPassPassConfirmScreen } from "../screens/auth/findpass/FindPassPassConfirmScreen";
-
-
-
-
 
 
 const Tab = createBottomTabNavigator();
@@ -82,10 +72,14 @@ export const IndexStack = () => {
             /> */}
 
             <Tab.Screen
-                name="Test"
-                component={FindPassPassConfirmScreen}
+                name="Notes"
+                component={NotesStack}
             />
 
+            <Tab.Screen
+                name="Settings"
+                component={SettingStack}
+            />
         </Tab.Navigator>
     )
 }
