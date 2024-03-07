@@ -1,4 +1,4 @@
-import { makeRequest, request } from "../common/Api";
+import { makeRequest } from "../common/Api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
