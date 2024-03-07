@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
+import { SettingStack } from "./SettingStack";
+import { NotesStack } from "./NotesStack";
 
 
 const Tab = createBottomTabNavigator();
