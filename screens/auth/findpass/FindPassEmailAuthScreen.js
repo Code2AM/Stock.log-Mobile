@@ -1,6 +1,6 @@
-
+ 
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, Heading, Input, Link, NativeBaseProvider, Text, VStack, useSafeArea } from "native-base";
+import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
 import { useState } from "react";
 
 export const FindPassEmailAuthScreen = () => {
@@ -10,7 +10,17 @@ export const FindPassEmailAuthScreen = () => {
 
     const handleEmailAuth = () => {
 
-        navigation.navigate('FindPassStack', { screen: 'FindPassAuthVerifyScreen' })
+        // data에 담아서 보내지 않으면 안 보내짐
+        const data = {
+            email: email,
+        };
+
+        navigation.navigate('FindPassStack', { 
+            screen: 'FindPassAuthVerifyScreen',
+            params: {
+                data,
+            }
+        })
     }
    
     return (
@@ -47,22 +57,6 @@ export const FindPassEmailAuthScreen = () => {
                             onPress={handleEmailAuth}>
                             인증번호 보내기
                         </Button>
-                         {/* <HStack mt="6" justifyContent="center">
-                            <Text fontSize="sm" color="coolGray.600" _dark={{
-                                color: "warmGray.200"
-                            }}>
-                                아이디가 없으신가요? {" "}
-                            </Text>
-                            <Link _text={{
-                                color: "#B5D692",
-                                fontWeight: "medium",
-                                fontSize: "sm"
-                            }}
-                                onPress={handleSignUp}>
-                                회원가입
-                            </Link>
-
-                        </HStack> */}
                     </VStack>
                     
                 </Box>

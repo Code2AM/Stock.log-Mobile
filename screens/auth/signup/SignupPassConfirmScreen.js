@@ -1,33 +1,53 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const SignupPassConfirmScreen = () => {
 
-    const [ password , setPassword ] = useState();
-    const [ confirmPassword , setConfirmPassword ] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+    const [passwordCheck, setPasswordCheck] = useState(null);
 
     const navigation = useNavigation();
+    const route = useRoute();
+
+    // 전달받은 이메일을 저장
+    const { data } = route.params;
+    const email = data.email;
+
+    console.log("PassConfirmEmail : " + email)
+
+    // 비밀번호 동적으로 체크
+    useEffect(() => {
+        if (confirmPassword) {
+            // 일치하면 true를 반환
+            setPasswordCheck(password === confirmPassword);
+        } else {
+            setPasswordCheck(null);
+        }
+    }, [confirmPassword, password]);
 
     const handleSignUp = async () => {
-        console.log("여기까지 옴")
-  
-        console.log(username)
-        console.log(password)
-  
-        /* 이제 username 과 password를 data에 담아서 backend로 보내면 됨  */
-  
-        const data = {
-          email: username,
-          password: password,
-        };
-  
-        console.log(data);
-        const result = await signupRequest(data);
-        alert(result)
-  
-        navigation.navigate('AuthStack', { screen: 'LoginScreen' })
-      }
+
+        if (passwordCheck) {
+            try {
+                const data = {
+                    email: email,
+                    password: password,
+                };
+
+                const result = await signupRequest(data);
+                alert(result);
+                navigation.navigate("AuthStack", { screen: "LoginScreen" });
+            } catch (error) {
+                console.error("Signup Error:", error);
+                alert("회원가입 실패: " + error.message);
+            }
+        } else {
+            alert("비밀번호가 일치하지 않습니다.");
+        }
+
+    }
 
     return (
         <NativeBaseProvider>
@@ -47,7 +67,6 @@ export const SignupPassConfirmScreen = () => {
 
                     <VStack space={3} mt="5" >
                         <FormControl>
-                            {/* <FormControl.Label>Email</FormControl.Label> */}
                             <Input
                                 type={"password"}
                                 placeholder={"비밀번호"}
@@ -57,7 +76,6 @@ export const SignupPassConfirmScreen = () => {
                         </FormControl>
 
                         <FormControl>
-                            {/* <FormControl.Label>Email</FormControl.Label> */}
                             <Input
                                 type={"confirmPassword"}
                                 placeholder={"비밀번호 확인"}
@@ -67,38 +85,27 @@ export const SignupPassConfirmScreen = () => {
                         </FormControl>
 
                         <VStack mt="6" justifyContent="center">
-                        <Text fontSize="sm" color="#B5D692" _dark={{
-                            color: "warmGray.200"
-                        }}>
-                            비밀번호가 일치합니다
-                        </Text>
 
-                        <Button
-                            mt="2"
-                            bgColor="#B5D692"
-                            marginTop={10}
-                            onPress={handleSignUp}>
-                           확인
-                        </Button>
+                            { passwordCheck ? (
+                                <Text fontSize="sm" color="#B5D692" _dark={{ color: "warmGray.200" }}>
+                                    비밀번호가 일치합니다
+                                </Text>
+                            ) : passwordCheck === false ? (
+                                <Text fontSize="sm" color="#E53935" _dark={{ color: "warmGray.200" }}>
+                                    비밀번호가 다릅니다
+                                </Text>
+                            ) : null}
 
-                        
-                    </VStack>
-                        {/* <HStack mt="6" justifyContent="center">
-                            <Text fontSize="sm" color="coolGray.600" _dark={{
-                                color: "warmGray.200"
-                            }}>
-                                아이디가 없으신가요? {" "}
-                            </Text>
-                            <Link _text={{
-                                color: "#B5D692",
-                                fontWeight: "medium",
-                                fontSize: "sm"
-                            }}
+                            <Button
+                                mt="2"
+                                bgColor="#B5D692"
+                                marginTop={10}
                                 onPress={handleSignUp}>
-                                회원가입
-                            </Link>
+                                확인
+                            </Button>
 
-                        </HStack> */}
+
+                        </VStack>
                     </VStack>
 
                 </Box>

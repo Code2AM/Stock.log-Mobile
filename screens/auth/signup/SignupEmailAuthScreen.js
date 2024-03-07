@@ -12,8 +12,20 @@ import { useState } from "react";
 
     const handleEmailAuth = () => {
 
-        navigation.navigate('SignupStack', { screen: 'SignupAuthVerifyScreen' })
+        // data에 담아서 보내지 않으면 안 보내짐
+        const data = {
+            email: email,
+        };
+
+        navigation.navigate('SignupStack', { 
+            screen: 'SignupAuthVerifyScreen',
+            params: {
+                data,
+            }
+         })
+
     }
+
    
     return (
         <NativeBaseProvider>
@@ -49,24 +61,7 @@ import { useState } from "react";
                             onPress={handleEmailAuth}>
                             인증번호 보내기
                         </Button>
-                         {/* <HStack mt="6" justifyContent="center">
-                            <Text fontSize="sm" color="coolGray.600" _dark={{
-                                color: "warmGray.200"
-                            }}>
-                                아이디가 없으신가요? {" "}
-                            </Text>
-                            <Link _text={{
-                                color: "#B5D692",
-                                fontWeight: "medium",
-                                fontSize: "sm"
-                            }}
-                                onPress={handleSignUp}>
-                                회원가입
-                            </Link>
-
-                        </HStack> */}
                     </VStack>
-                    
                 </Box>
             </Center>
         </NativeBaseProvider>
