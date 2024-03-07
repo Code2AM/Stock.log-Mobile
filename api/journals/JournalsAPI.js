@@ -23,7 +23,7 @@ export const journalRequest = async () => {
   
     }
     catch (error) {
-      console.error("login Request Error:", error);
+      console.error("매매일지 조회 요청 실패");
       throw error;
     }
   

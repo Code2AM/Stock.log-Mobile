@@ -1,9 +1,8 @@
-import { Center, Container, Heading, NativeBaseProvider, Text } from "native-base";
+import { Center, Container, FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
 import { StyleSheet } from "react-native";
-import JournalListScreen from "./JournalListScreen";
 import { useEffect, useState } from "react";
-import { makeRequest } from "../../api/common/Api";
 import { journalRequest } from "../../api/journals/JournalsAPI";
+import JournalsList from "../../components/journals/JournalsList";
 
 
 const DashBoardScreen = ({navigation}) => {
@@ -16,10 +15,19 @@ const DashBoardScreen = ({navigation}) => {
         console.log(journalsList);
         setJournals(journalsList);
     }
-    // 데이터 가져옴
+    
     useEffect(() => {
-        handleJournals();
-    },[])
+        const unsubscribe = navigation.addListener('focus', () => {
+            handleJournals();
+        });
+
+        // Clean up
+        return unsubscribe;
+    }, [navigation]);
+
+    function onPressHandler(item){
+        navigation.navigate("JournalDetail", {journals:item});
+    };
 
     return (
         <>
@@ -29,11 +37,15 @@ const DashBoardScreen = ({navigation}) => {
                 </Heading>
                 <Text></Text>
                 <Center>
-                    <Container>
-                        <FlatList data={journals}>
-                            <JournalListScreen navigation={navigation}/>
-                        </FlatList>
-                    </Container>
+                        <FlatList 
+                            data={journals} 
+                            renderItem={({item}) => 
+                            <Pressable onPress={() => onPressHandler(item)}>
+                                <JournalsList journals={item}/>
+                            </Pressable>
+                            }
+                            keyExtractor={(item) => item.journalId}
+                        />
                 </Center>
             </NativeBaseProvider>
         </>
