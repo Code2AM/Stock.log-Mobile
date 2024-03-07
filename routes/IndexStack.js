@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
+import { SettingStack } from "./SettingStack";
 
 
 const Tab = createBottomTabNavigator();
@@ -71,10 +72,10 @@ export const IndexStack = () => {
                 component={Darkmode}
             /> */}
 
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Notes"
                 component={NotesStack}
-            />
+            /> */}
 
             <Tab.Screen
                 name="Settings"

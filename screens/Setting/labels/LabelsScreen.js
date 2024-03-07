@@ -1,7 +1,7 @@
-import { AddIcon, Button, CheckIcon, Container, HStack, Icon, Input, NativeBaseProvider, Text, VStack } from "native-base";
-import { useState } from "react";
+import { AddIcon, Button, CheckIcon, Container, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { labelRequest } from "../../../api/labels/LabelsAPI";
+import { labelList } from "../../../api/labels/LabelsAPI";
 
 const LabelsScreen = () => {
 
@@ -12,10 +12,22 @@ const LabelsScreen = () => {
         setShowInput(!showInput);
         setButtonText(showInput ? '추가' : '취소');
     };
-    
-    const dataLocation = labelRequest();
 
-    console.log(dataLocation);
+    const [labelData, setLabelData] = useState(null);
+
+    useEffect(() => {
+    const fetchData = async () => {
+        try {
+        const response = await labelList();
+        setLabelData(response);
+        } catch (error) {
+        console.error(error);
+        }
+    };
+
+    fetchData();
+    }, []);
+
 
     return (
         <NativeBaseProvider>
@@ -30,7 +42,14 @@ const LabelsScreen = () => {
                         </>
                     )}
                 </HStack>
-                
+                {labelData && (
+                <View>
+                    {labelData.map((label) => (
+                    <Text key={label.labelsId}>{label.labelsTitle}</Text>
+                    ))}
+                </View>
+                )}
+
                 {/* 추가 버튼 */}
                 <Button style={styles.addBtn} onPress={toggleInput} leftIcon={<AddIcon name="cloud-upload-outline" size="sm" />}>
                     {buttonText}
@@ -44,8 +63,8 @@ export default LabelsScreen;
 const styles = StyleSheet.create({
     addBtn: {
         position: 'absolute', // 절대 위치 지정
-        bottom:5,
-        right:5,
+        marginTop:"90%",
+        marginLeft:"50%",
         backgroundColor: "#B5D692",
     },
     
