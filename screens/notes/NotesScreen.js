@@ -1,5 +1,5 @@
 
-import { Button, NativeBaseProvider } from "native-base"
+import { Button, Link, NativeBaseProvider } from "native-base"
 
 const NotesScreen = ({navigation}) => {
 
@@ -9,7 +9,7 @@ const NotesScreen = ({navigation}) => {
 
     return (
         <NativeBaseProvider>
-            <Button onPress={handleNewNotePress}>노트 추가</Button>
+            <Button onPress={handleNewNotePress} variant={Link}>노트 추가</Button>
         </NativeBaseProvider>
     );
 }

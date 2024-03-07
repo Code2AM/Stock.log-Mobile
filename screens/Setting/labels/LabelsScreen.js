@@ -1,58 +1,61 @@
-import { Button, Container, Input, NativeBaseProvider, Text } from "native-base";
+import { AddIcon, Button, CheckIcon, Container, HStack, Icon, Input, NativeBaseProvider, Text, VStack } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import LabelSheetBtn from "../../../components/settings/labels/LabelSheetBtn";
+import { labelRequest } from "../../../api/labels/LabelsAPI";
 
 const LabelsScreen = () => {
-    const [isInputVisible, setIsInputVisible] = useState(false);
 
-    const handleAddLabelClick = () => {
-        setIsInputVisible(true);
-    };
+    const [showInput, setShowInput] = useState(false);
+    const [buttonText, setButtonText] = useState('추가');
 
-    const handleCancelButtonClick = () => {
-        setIsInputVisible(false);
+    const toggleInput = () => {
+        setShowInput(!showInput);
+        setButtonText(showInput ? '추가' : '취소');
     };
+    
+    const dataLocation = labelRequest();
+
+    console.log(dataLocation);
 
     return (
         <NativeBaseProvider>
-            {!isInputVisible ? (
-                <Button onPress={handleAddLabelClick} style={styles.LabelButton}>라벨 추가 버튼</Button>
-            ) : (
-                <>
-                <Container style={styles.Container}>
-                   <Input style={styles.Input} variant="rounded" placeholder="라벨 입력" /> <Button style={styles.LabelAddButton}>추가</Button>
-                    {/* <LabelSheetBtn onPress={handleCancelButtonClick} value={"수정"} /> */}
-                </Container>
-                </>
-            )}
+            <Container>
+                {/* Input과 CheckIcon */}
+                <HStack style={styles.hstack}>
+                    {/* Input과 CheckIcon */}
+                    {showInput && (
+                        <>
+                            <Input variant="filled" placeholder="라벨 이름을 입력해주세요" />
+                            <CheckIcon style={styles.check} name="check-circle" size="sm" />
+                        </>
+                    )}
+                </HStack>
+                
+                {/* 추가 버튼 */}
+                <Button style={styles.addBtn} onPress={toggleInput} leftIcon={<AddIcon name="cloud-upload-outline" size="sm" />}>
+                    {buttonText}
+                </Button>
+            </Container>
         </NativeBaseProvider>
     );
 };
-
 export default LabelsScreen;
 
 const styles = StyleSheet.create({
-
-    Container:{
-        flex:1,
-        flexDirection:"row"
-    },
-
-    Input: {
-        width:"20%",
-        borderColor:"#B5D692"
-    },
-
-    LabelAddButton:{
-        backgroundColor:"#B5D692"
-    },
-
-    LabelButton: {
-        width:"30%",
+    addBtn: {
+        position: 'absolute', // 절대 위치 지정
+        bottom:5,
+        right:5,
         backgroundColor: "#B5D692",
-        marginLeft:"70%",
+    },
+    
+    hstack:{
+      marginLeft:"20%",
+      marginTop:"5%",
+      space:"2",
+      alignItems:"center"
+    },
+    check:{
+        marginLeft:"5%"
     }
-
-})
-
+});
