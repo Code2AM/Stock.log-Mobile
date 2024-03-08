@@ -55,3 +55,13 @@ export const postSellRequest = async (data) => {
     console.error(error);
   }
 }
+
+// 매매일지 삭제
+export const deleteJournalsRequest = async (data) => {
+  try {
+    console.log(data)
+    const response = await makeRequest("/journals/delete", "POST", data)
+  } catch (error) {
+    console.error(error);
+  }
+}

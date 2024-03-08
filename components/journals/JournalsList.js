@@ -16,7 +16,7 @@ const JournalsList = ({journals}) => {
                                 </HStack>
                             <Text>매매전략(미구현)</Text>
                         </VStack>
-                        <Text>{journals.lastedTradeDate}</Text>
+                        <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
                         <Text>상승/하락 이미지</Text>
                     </HStack>
                     <HStack>
