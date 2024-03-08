@@ -20,7 +20,6 @@ export const LoginScreen = () => {
             password: password,
         };
 
-        console.log(data)
 
         const result = await loginRequest(data);
         console.log(result)

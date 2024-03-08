@@ -1,9 +1,33 @@
-import { Center, Container, Heading, NativeBaseProvider } from "native-base";
+import { Center, Container, FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
 import { StyleSheet } from "react-native";
-import JournalListScreen from "./JournalListScreen";
+import { useEffect, useState } from "react";
+import { journalRequest } from "../../api/journals/JournalsAPI";
+import JournalsList from "../../components/journals/JournalsList";
 
 
 const DashBoardScreen = ({navigation}) => {
+
+    const [journals, setJournals] = useState([]);
+
+    const handleJournals = async () => {
+
+        const journalsList = await journalRequest();
+        console.log(journalsList);
+        setJournals(journalsList);
+    }
+    
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            handleJournals();
+        });
+
+        // Clean up
+        return unsubscribe;
+    }, [navigation]);
+
+    function onPressHandler(item){
+        navigation.navigate("JournalDetail", {journals:item});
+    };
 
     return (
         <>
@@ -11,12 +35,17 @@ const DashBoardScreen = ({navigation}) => {
                 <Heading style={styles.graphs}>
                     그래프 공간
                 </Heading>
+                <Text></Text>
                 <Center>
-                    <Container>
-                        {/* <FlatList data={data}> */}
-                            <JournalListScreen navigation={navigation}/>
-                        {/* </FlatList> */}
-                    </Container>
+                        <FlatList 
+                            data={journals} 
+                            renderItem={({item}) => 
+                            <Pressable onPress={() => onPressHandler(item)}>
+                                <JournalsList journals={item}/>
+                            </Pressable>
+                            }
+                            keyExtractor={(item) => item.journalId}
+                        />
                 </Center>
             </NativeBaseProvider>
         </>

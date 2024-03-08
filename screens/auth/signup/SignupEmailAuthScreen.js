@@ -5,6 +5,7 @@ import { useState } from "react";
 import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
 
+
  export const SignupEmailAuthScreen = () => {
 
     const [ email,setEmail ] = useState("");
@@ -26,7 +27,7 @@ import { sendCodeRequest } from "../../../api/auth/MailAPI";
             console.log(result)
 
             setIsSending(null)
-            
+
             alert("인증코드가 발송되었습니다.")
 
             navigation.navigate('SignupStack', { 

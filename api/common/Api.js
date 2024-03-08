@@ -5,38 +5,43 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
 // 토큰 가져오기
 const getAccessToken = async () => {
-    const accessToken = await AsyncStorage.getItem("accessToken");
-    return accessToken;
-  };
+  const accessToken = await AsyncStorage.getItem("accessToken");
+  return accessToken;
+};
 
 
-  const getHeaders = async () => {
-    const accessToken = await getAccessToken();
-    if (accessToken) {
-      return {
-        Authorization: `BEARER ${accessToken}`,
-      };
-    } else {
-      return {};
-    }
+// Header에 토큰 담기
+const getHeaders = async () => {
+  const accessToken = await getAccessToken();
+  const headers = {
+    'Content-Type': 'application/json',
   };
-  
-  // axios 기본 인스턴스 생성
-  export const request = axios.create({
-    baseURL: BACKEND_URL,
-    withCredentials: true, // 기본 옵션으로 설정
+  if (accessToken) {
+    headers.Authorization = `BEARER ${accessToken}`;
+  }
+  return headers;
+};
+
+
+
+// axios 기본 인스턴스 생성
+export const request = axios.create({
+  baseURL: BACKEND_URL,
+  withCredentials: true, // 기본 옵션으로 설정
+});
+
+
+
+// 모든 요청에 헤더 전달
+export const makeRequest = async (url, method, data) => {
+  const headers = await getHeaders();
+  return request({
+    url,
+    method,
+    data,
+    headers,
   });
-  
-  // 모든 요청에 헤더 전달
-  export const makeRequest = async (url, method, data) => {
-    const headers = await getHeaders();
-    return request({
-      url,
-      method,
-      data,
-      headers,
-    });
-  };
+};
 
 
 
@@ -59,7 +64,7 @@ const getAccessToken = async () => {
 
 
 
-  // axios 인터셉터 설정
+// axios 인터셉터 설정
 // axios.interceptors.request.use(async (config) => {
 //   const accessToken = await getAccessToken();
 
