@@ -60,7 +60,6 @@ export const LoginScreen = () => {
                         <FormControl>
                             <FormControl.Label>Email ID</FormControl.Label>
                             <Input
-                                type={"email"}
                                 placeholder={"Email"}
                                 value={username}
                                 onChangeText={setUsername}
@@ -69,7 +68,6 @@ export const LoginScreen = () => {
                         <FormControl>
                             <FormControl.Label>Password</FormControl.Label>
                             <Input
-                                type={"password"}
                                 placeholder={"Password"}
                                 value={password}
                                 onChangeText={setPassword}
