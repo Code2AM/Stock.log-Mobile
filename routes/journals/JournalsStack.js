@@ -6,6 +6,7 @@ import JournalDetailScreen from "../../screens/journals/JournalDetailScreen";
 const Stack = createNativeStackNavigator();
 
 export const JournalsStack = () => {
+    
 
     return (
         <>

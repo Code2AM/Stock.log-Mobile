@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoginScreen } from "../screens/auth/LoginScreen";
-import { SignUpScreen } from "../screens/auth/SignupScreen";
-import { KakaoWebViewScreen } from "../screens/auth/KakaoWebViewScreen";
-import { SignupStack } from "./auth/SignupStack";
-import { FindPassStack } from "./auth/FindPassStack";
+import { SignupStack } from "./SignupStack";
+import { FindPassStack } from "./FindPassStack";
+import { LoginScreen } from "../../screens/auth/LoginScreen";
+import { KakaoWebViewScreen } from "../../screens/auth/KakaoWebViewScreen";
+
 
 
 const Stack = createNativeStackNavigator();
