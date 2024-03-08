@@ -10,7 +10,7 @@ import { useNotes } from "../../zustand/notes/useNotes";
  
 export const NewNoteScreen = () => {
 
-    const { setNotes } = useStore(useNotes);
+    const { fetchAllNotes } = useStore(useNotes);
 
     const [ noteName , setNoteName ] = useState("");
     const [ noteContents , setNoteContents ] = useState("");
@@ -28,13 +28,15 @@ export const NewNoteScreen = () => {
       
         const result = await newNoteRequest(data);
 
-        /* 사용자의 Notes들을 불러옴 */
-        const fetchedNotes = await notesRequest();
-        setNotes(fetchedNotes);
+        // /* 사용자의 Notes들을 불러옴 */
+        // const fetchedNotes = await notesRequest();
+        // setNotes(fetchedNotes);
+
+        fetchAllNotes();
         
         
         toast.show({
-            title: result,
+            title: "등록 성공",
             duration: 1500,
             placement: "top",
             avoidKeyboard: true,
