@@ -1,13 +1,14 @@
-import { AddIcon, Button, CheckIcon, Container, HStack, Icon, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { AddIcon, Button, CheckIcon, Container, FlatList, HStack, Icon, Input, NativeBaseProvider, Text, VStack, View, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { labelAdd, labelList } from "../../../api/labels/LabelsAPI";
+import { labelAdd, labelDelete, labelList, labelUpdate } from "../../../api/labels/LabelsAPI";
 
 const LabelsScreen = () => {
 
     const [showInput, setShowInput] = useState(false);
     const [buttonText, setButtonText] = useState('추가');
     const [labelsTitle, setLabelsTitle] = useState('');
+    const toast = useToast();
   
     const toggleInput = () => {
       setShowInput(!showInput);
@@ -15,7 +16,8 @@ const LabelsScreen = () => {
     };
   
     const [labelData, setLabelData] = useState(null);
-  
+    
+    // 라벨 리스트 뿌려줌
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -29,44 +31,79 @@ const LabelsScreen = () => {
       fetchData();
     }, []);
 
+    // 라벨 추가
     const handleAddLabel = async () => {
-        try {
-            await labelAdd(labelsTitle);
-            setLabelsTitle(''); 
-        } catch (error) {
-            console.error(error);
-        }
+
+      const data = {
+        labelsTitle: labelsTitle
+      }
+      
+      const result = await labelAdd(data);
+      toast.show({
+        title: result,
+        duration: 1500,
+        placement: "top",
+        avoidKeyboard: true
+      })
     };
+
+    // 라벨 삭제
+    const handleDeleteLabel = async(labelsId) => {
+      console.log(labelsId);
+      console.log(typeof labelsId);
+      const result = await labelDelete(labelsId);
+
+        toast.show({
+          title: result,
+          duration: 1500,
+          placement: "top",
+          avoidKeyboard: true
+        })
+    }
+
+    // // 라벨 수정
+    // const handleUpdateLabel = async() => {
+    //   const data = {
+    //     labelsTitle: labelsTitle
+    //   }
+
+    //   const result = await labelUpdate(data);
+    //   toast.show({
+    //     title: result,
+    //     duration: 1500,
+    //     placement: "top",
+    //     avoidKeyboard: true
+    //   })
+
+    // } 
   
     return (
       <NativeBaseProvider>
         <Container>
-          {/* Input과 CheckIcon */}
           <HStack style={styles.hstack}>
             {showInput && (
               <>
                 <Input
                   variant="filled"
                   placeholder="라벨 이름을 입력해주세요"
-                  onChangeText={(text) => setLabelsTitle(text)}
+                  onChangeText={setLabelsTitle}
+                  value={labelsTitle}
                 />
-                 <CheckIcon
-                    style={styles.check}
-                    name="check-circle"
-                    size="sm"
-                    onPress={handleAddLabel} // CheckIcon 클릭 시 라벨 추가 함수 호출
-                />
+                 <Button onPress={handleAddLabel}>추가</Button>
               </>
             )}
           </HStack>
   
-          {labelData && (
-            <View>
-              {labelData.map((label) => (
-                <Text key={label.labelsId}>{label.labelsTitle}</Text>
-              ))}
-            </View>
-          )}
+    {labelData && (
+      <Container style={styles.labelTitle}>
+        {labelData.map((label) => (
+          <View key={label.labelsId}>
+            <Text>{label.labelsTitle}</Text>
+            <Button onPress={() => handleDeleteLabel(label.labelsId)}>삭제</Button>
+          </View>
+        ))}
+      </Container>
+)}
   
           {/* 추가 버튼 */}
           <Button
@@ -98,5 +135,5 @@ const styles = StyleSheet.create({
     },
     check:{
         marginLeft:"5%"
-    }
+    },
 });

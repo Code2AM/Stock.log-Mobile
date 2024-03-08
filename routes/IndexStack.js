@@ -1,7 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
-import { SettingStack } from "./SettingStack";
-import { NotesStack } from "./NotesStack";
 import { NotesStack } from "./notes/NotesStack";
 import { SettingStack } from "./setting/SettingStack";
 import { TestScreen } from "../screens/auth/test/TestScreen";
