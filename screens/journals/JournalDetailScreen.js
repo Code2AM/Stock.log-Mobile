@@ -1,9 +1,8 @@
-import { Box, Button, HStack, Heading, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Divider, HStack, Heading, NativeBaseProvider, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
-import { BuyDetailList } from "../../components/journals/JournalsDetailList";
+import { BuyDetailList, SellDetailList } from "../../components/journals/JournalsDetailList";
 
-
-const JournalDetailScreen = ({route}) => {
+const JournalDetailScreen = ({route, navigation}) => {
 
     const {journals} = route.params;
 
@@ -15,6 +14,10 @@ const JournalDetailScreen = ({route}) => {
     const totalInvestment = () => {
         const value = assetValue() + Math.abs(journals.profit);
         return value;
+    }
+
+    const inputHandler = () => {
+        navigation.navigate("BuyAndSellInput", {journals});
     }
 
     return (
@@ -63,7 +66,21 @@ const JournalDetailScreen = ({route}) => {
                         </Box>
                     </VStack>
                 </Box>
-                <BuyDetailList journals = {journals}/>
+                <Button onPress={inputHandler}>기록 추가</Button>
+                <HStack>
+                    <VStack>
+                        <BuyDetailList journals = {journals}/>
+                    </VStack>
+                    <Divider
+            bg="emerald.500"
+            thickness="2"
+            mx="2"
+            orientation="vertical"
+          />
+                    <VStack>
+                        <SellDetailList journals={journals}/>
+                    </VStack>
+                </HStack>
             </NativeBaseProvider>
         </>
     )
