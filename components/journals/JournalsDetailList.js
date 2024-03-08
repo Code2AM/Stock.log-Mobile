@@ -1,20 +1,30 @@
 import { Button, Divider, FlatList, HStack, Text, VStack } from "native-base";
-import { useState } from "react";
-import { makeRequest } from "../../api/common/Api";
+import { useEffect, useState } from "react";
 import { SellRequest, buyRequest } from "../../api/journals/JournalsAPI";
+import { useIsFocused } from "@react-navigation/native";
 
 export const BuyDetailList = ({ journals }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [buyList, setBuyList] = useState([]);
 
+  const buyListHandler = async () => {
+    setBuyList(await buyRequest(journals));
+    console.log(buyList);
+    setIsOpen(!isOpen);
+  };
+
+  // 일단 이렇게 함
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+        buyListHandler();
+    }
+  }, [isFocused]);
+
   return (
     <>
       <Button
-        onPress={async () => {
-          setBuyList(await buyRequest(journals));
-          console.log(buyList);
-          setIsOpen(!isOpen);
-        }}>
+        onPress={buyListHandler}>
         매수기록
       </Button>
       {isOpen && (
@@ -85,6 +95,13 @@ export const SellDetailList = ({ journals }) => {
     console.log(sellList);
     setIsOpen(!isOpen);
   };
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+        sellListHandler();
+    }
+  }, [isFocused]);
 
   return (
     <>

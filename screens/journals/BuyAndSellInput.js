@@ -13,8 +13,6 @@ const BuyAndSellInput = ({navigation, route}) => {
     const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(0);
 
-    const [data, setData] = useState({});
-
     const showDatePicker = () => {
         setDatePickerVisibility(true);
       };

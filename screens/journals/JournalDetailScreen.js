@@ -34,7 +34,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                         <HStack>
                             <Heading>{journals.stockName}</Heading>
                             <Text>상태 아이콘</Text>
-                            <DeleteDialog journals={journals}/>
+                            <DeleteDialog journals={journals} navigation={navigation}/>
                         </HStack>
                         <HStack>
                             <Text>매수가</Text>
@@ -94,13 +94,14 @@ const JournalDetailScreen = ({route, navigation}) => {
 
 export default JournalDetailScreen;
 
-export const DeleteDialog = ({journals}) => {
+export const DeleteDialog = ({journals, navigation}) => {
     const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => setIsOpen(false);
 
   const corfirmDelete = async () => {
     await deleteJournalsRequest(journals);
+    navigation.goBack();
   }
 
   const cancelRef = useRef(null);
