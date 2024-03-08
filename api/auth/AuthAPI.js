@@ -9,7 +9,7 @@ export const signupRequest = async (data) => {
   console.log(data)
 
   try {
-      const response = await makeRequest("/auth/signup", "POST", { ...data });
+      const response = await makeRequest("/auth/signup", "POST", data);
 
     // const response = await request.post("/auth/signup", { ...data });
     // 성공적으로 응답을 받은 경우
@@ -41,7 +41,7 @@ export const signupRequest = async (data) => {
 export const loginRequest = async (data) => {
 
   try {
-    const response = await makeRequest("auth/login", "POST", { ...data } );
+    const response = await makeRequest("auth/login", "POST", data );
     // const response = await request.post("auth/login", { ...data });
     // 성공적으로 로그인한 경우
 

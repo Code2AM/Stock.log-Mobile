@@ -1,6 +1,10 @@
 import { Button, Input, NativeBaseProvider, TextArea } from "native-base";
 
-const NoteEditorScreen = ({navigation}) => {
+const NoteEditorScreen = () => {
+
+    
+
+
     return(
         <NativeBaseProvider>
             <Input
@@ -11,7 +15,7 @@ const NoteEditorScreen = ({navigation}) => {
                 placeholder="내용을 입력해주세요"
             />
 
-            <Button>저장</Button>
+            <Button>수정</Button>
         </NativeBaseProvider>
     )
 }
