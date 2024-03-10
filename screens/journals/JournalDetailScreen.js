@@ -6,7 +6,7 @@ import { deleteJournalsRequest } from "../../api/journals/JournalsAPI";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
-    const {journals} = route.params;
+    let {journals} = route.params;
 
     const assetValue = () => {
         const value = (journals.avgBuyPrice * journals.totalQuantity)
@@ -22,54 +22,44 @@ const JournalDetailScreen = ({route, navigation}) => {
         navigation.navigate("BuyAndSellInput", {journals});
     }
 
-    const deleteHandler = () => {
-
-    }
-
     return (
         <>
             <NativeBaseProvider>
-                <Box>
+                <Box style={styles.journalsDetailContainer}>
                     <VStack>
                         <HStack>
                             <Heading>{journals.stockName}</Heading>
                             <Text>상태 아이콘</Text>
                             <DeleteDialog journals={journals} navigation={navigation}/>
-                        </HStack>
+                        </HStack>                    
                         <HStack>
-                            <Text>매수가</Text>
+                            <VStack>
+                                <Text bold>매수가</Text>
+                                <Text bold>매도가</Text>
+                                <Text bold>보유물량</Text>
+                                <Text bold>총투자금</Text>
+                                <Text bold>자산가치</Text>
+                                <Text bold>실익</Text>
+                                <Text bold>최초거래일</Text>
+                                <Text bold>최종거래일</Text>
+                            </VStack>
+                            <Divider
+                            bg="emerald.500"
+                            thickness="2"
+                            mx="2"
+                            orientation="vertical"
+                            />
+                            <VStack>
                             <Text>{journals.avgBuyPrice}</Text>
-                        </HStack>
-                        <HStack>
-                            <Text>매도가</Text>
                             <Text>{journals.avgSellPrice}</Text>
-                        </HStack>
-                        <HStack>
-                            <Text>보유물량</Text>
                             <Text>{journals.totalQuantity}</Text>
-                        </HStack>
-                        <HStack>
-                            <Text>총투자금</Text>
                             <Text>{totalInvestment()}</Text>
-                        </HStack>
-                        <HStack>
-                            <Text>자산가치</Text>
                             <Text>{assetValue()}</Text>
-                        </HStack>
-                        <HStack>
-                            <Text>실익</Text>
                             <Text>{journals.profit}</Text>
-                        </HStack>
-                        <Box>
-                            <HStack>
-                                <Text>최초거래일</Text>
-                                <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.journalDate))}</Text>
-                            </HStack>
-                            <HStack>
-                                <Text>최종거래일</Text>
-                                <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
-                            </HStack>
-                        </Box>
+                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.journalDate))}</Text>
+                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                            </VStack>                            
+                        </HStack>                        
                     </VStack>
                 </Box>
                 <Button onPress={inputHandler}>기록 추가</Button>
@@ -131,10 +121,11 @@ export const DeleteDialog = ({journals, navigation}) => {
     </Center>;
 }
 
-
-
-
-
 const styles = StyleSheet.create({
-
+    journalsDetailContainer:{
+        marginVertical:"4%",
+        backgroundColor:"white",
+        padding:"5%",
+        marginHorizontal:"2.5%"
+    }
 })
