@@ -13,7 +13,7 @@ export const JournalsStack = () => {
         <>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="Journals"
+                    name="JournalsMain"
                     component={DashBoardScreen}
                     options={{
                         title:"매매일지",

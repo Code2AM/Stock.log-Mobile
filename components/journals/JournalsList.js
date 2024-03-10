@@ -1,25 +1,34 @@
 import { Box, HStack, Heading, Text, VStack } from "native-base";
-import { StyleSheet } from "react-native";
-
+import { StyleSheet, Image } from "react-native";
 
 const JournalsList = ({journals}) => {
 
+    const determineUpImage = () => {
+      if (journals.profit > 0) {
+        return <Image source={require("../../assets/icons/journals/상승.png")} alt="image" cache="reload"/>
+      } else if (journals.profit < 0) {
+        return <Image source={require("../../assets/icons/journals/하락.png")} alt="image" cache="reload"/>
+      } else {
+        return <Image source={require("../../assets/icons/journals/제로섬.png")} alt="image" cache="reload"/>
+      }
+    };
+
     return (
         <>
-            <Box>
+            <Box style={styles.journalsDetailContainer}>
                 <VStack>
-                    <HStack>
+                    <HStack justifyContent="space-between">
                         <VStack>
                             <HStack>
                                 <Heading>{journals.stockName}</Heading>
-                                <Text>여기는 상태표시</Text>
+                                <Text></Text>
                                 </HStack>
                             <Text>매매전략(미구현)</Text>
                         </VStack>
-                        <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
-                        <Text>상승/하락 이미지</Text>
+                        <Text>{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                        {determineUpImage()}
                     </HStack>
-                    <HStack>
+                    <HStack justifyContent="space-between">
                         <VStack>
                             <Text>물량</Text>
                             <Text>{journals.totalQuantity}</Text>
@@ -47,6 +56,9 @@ export default JournalsList;
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
-
+        marginHorizontal:"1%",
+        marginBottom:"2%",
+        backgroundColor:"white",
+        padding:"2%"
     }
 })
