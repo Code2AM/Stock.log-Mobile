@@ -1,34 +1,106 @@
 
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, Heading, Input, Link, NativeBaseProvider, Text, VStack, useToast } from "native-base";
 import { useState } from "react";
+import { codeVerifyRequest, sendCodeRequest } from "../../../api/auth/MailAPI";
 
 export const FindPassAuthVerifyScreen = () => {
+
     const [code, setCode] = useState();
+    const [isSending, setIsSending] = useState(null)
 
     const navigation = useNavigation();
     const route = useRoute();
+    const toast = useToast();
 
     // 전달받은 이메일 저장
     const { data } = route.params;
     const email = data.email;
 
-    const handleResendCode = () => {
-
-    }
-
-    const handleConfirmCode = () => {
+    const handleResendCode = async () => {
 
         const data = {
             email: email
         }
 
-        navigation.navigate('FindPassStack', {
-            screen: 'FindPassPassConfirmScreen',
-            params: {
-                data,
+        console.log("보내려는 data")
+        console.log(email)
+
+        if (!isSending) {
+            setIsSending(true)
+
+            toast.show({
+                title: "인증번호를 발송했습니다.",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+            })
+
+            const result = await sendCodeRequest(data)
+            console.log(result)
+
+            setIsSending(null)
+
+            toast.show({
+                title: "인증번호가 도착했습니다, 이메일을 확인해주세요.",
+                duration: 3000,
+                placement: "top",
+                avoidKeyboard: true,
+            })
+        }
+        else {
+            toast.show({
+                title: "인증번호를 발송 중입니다. 잠시만 기달려주세요",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+            })
+        }
+
+    }
+
+    const handleConfirmCode = async () => {
+
+        const data = {
+            email: email,
+            authCode : code,
+        }
+
+        if (!isSending) {
+            setIsSending(true)
+
+
+            console.log("보내려는 data")
+            console.log(email)
+
+            const result = await codeVerifyRequest(data);
+
+            console.log(result)
+
+            setIsSending(null)
+
+            if (result == 1) {
+
+                toast.show({
+                    title: "인증번호가 일치합니다.",
+                    duration: 1800,
+                    placement: "top",
+                    avoidKeyboard: true,
+                })
+
+                navigation.navigate('FindPassStack', {
+                    screen: 'FindPassPassConfirmScreen',
+                    params: {
+                        data,
+                    }
+                })
             }
-        })
+        }
+        else {
+            alert("이메일을 발송 중입니다.")
+        }
+
+
     }
 
     return (
