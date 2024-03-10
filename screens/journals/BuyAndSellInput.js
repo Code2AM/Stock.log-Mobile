@@ -2,11 +2,14 @@ import { Button, Center, Container, HStack, Input, NativeBaseProvider, Radio, Te
 import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { postBuyRequest, postSellRequest } from "../../api/journals/JournalsAPI";
+import useJournals from "../../zustand/journals/useJournals";
 
 
 const BuyAndSellInput = ({navigation, route}) => {
+
+    const {journals, setJournals} = useJournals();
     
-    const {journals} = route.params;
+    const {item} = route.params;
     const [value, setValue] = useState(1);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -15,34 +18,39 @@ const BuyAndSellInput = ({navigation, route}) => {
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
-      };
+    };
     
-      const hideDatePicker = () => {
-        setDatePickerVisibility(false);
-      };
-    
-      const handleConfirm = (date) => {
-        setDate(date);
-        hideDatePicker();
-      };
-    
-      const handlePrice = value => {
-        setPrice(value);
-        console.log(price);
-      }
-      
-      const handleQuantity = value => {
-        setQuantity(value);
-        console.log(quantity);
-      }
+    const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+    };
 
-      const submitData = async () => {
+    const handleConfirm = (date) => {
+    setDate(date);
+    hideDatePicker();
+    };
+
+    const handlePrice = value => {
+    setPrice(value);
+    console.log(price);
+    }
+    
+    const handleQuantity = value => {
+    setQuantity(value);
+    console.log(quantity);
+    }
+
+    const submitData = async () => {
+
+        if (isNaN(price) || isNaN(quantity)) {
+            alert("가격과 물량은 숫자로 입력되어야 합니다.");
+            return; // 숫자가 아니면 함수 종료
+        }
 
         let dataToSubmit;
     
         if(value === 1){
             dataToSubmit = {
-                journals,
+                journals:item,
                 buyDate:date,
                 buyPrice:price,
                 buyQuantity:quantity
@@ -52,7 +60,7 @@ const BuyAndSellInput = ({navigation, route}) => {
 
         }else if(value === 2){
             dataToSubmit = {
-                journals,
+                journals:item,
                 sellDate:date,
                 sellPrice:price,
                 sellQuantity:quantity
@@ -67,9 +75,8 @@ const BuyAndSellInput = ({navigation, route}) => {
 
         }else{
             console.warn("불가능한 값입니다.");
-        }
-    
-        console.log(dataToSubmit);
+        };
+
         await navigation.goBack();
     }
     
@@ -84,6 +91,8 @@ const BuyAndSellInput = ({navigation, route}) => {
                             <Radio value={2}>매도</Radio>
                         </HStack>
                     </Radio.Group>
+                    <HStack>
+                    <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(date.toString()))}</Text>
                     <View>
                         <Button onPress={showDatePicker}>날짜선택</Button>
                         <DateTimePickerModal
@@ -93,6 +102,7 @@ const BuyAndSellInput = ({navigation, route}) => {
                             onCancel={hideDatePicker}
                         />
                     </View>
+                    </HStack>
                     <Text>
                         가격
                     </Text>

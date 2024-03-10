@@ -1,26 +1,40 @@
 import { AlertDialog, Box, Button, Center, Divider, HStack, Heading, NativeBaseProvider, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
 import { BuyDetailList, SellDetailList } from "../../components/journals/JournalsDetailList";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { deleteJournalsRequest } from "../../api/journals/JournalsAPI";
+import useJournals from "../../zustand/journals/useJournals";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
-    let {journals} = route.params;
+    let {journalId} = route.params;
+
+    const {journals, setJournals} = useJournals();
+
+    const journal = journals.find((journal) => journal.journalId === journalId);
 
     const assetValue = () => {
-        const value = (journals.avgBuyPrice * journals.totalQuantity)
+        const value = (journal.avgBuyPrice * journal.totalQuantity)
         return value;
     }
 
     const totalInvestment = () => {
-        const value = assetValue() + Math.abs(journals.profit);
+        const value = assetValue() + Math.abs(journal.profit);
         return value;
     }
 
     const inputHandler = () => {
-        navigation.navigate("BuyAndSellInput", {journals});
+        navigation.navigate("BuyAndSellInput", {item:journal});
     }
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setJournals();
+        });
+
+        // Clean up
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <>
@@ -28,9 +42,9 @@ const JournalDetailScreen = ({route, navigation}) => {
                 <Box style={styles.journalsDetailContainer}>
                     <VStack>
                         <HStack>
-                            <Heading>{journals.stockName}</Heading>
+                            <Heading>{journal.stockName}</Heading>
                             <Text>상태 아이콘</Text>
-                            <DeleteDialog journals={journals} navigation={navigation}/>
+                            <DeleteDialog journals={journal} navigation={navigation}/>
                         </HStack>                    
                         <HStack>
                             <VStack>
@@ -50,14 +64,14 @@ const JournalDetailScreen = ({route, navigation}) => {
                             orientation="vertical"
                             />
                             <VStack>
-                            <Text>{journals.avgBuyPrice}</Text>
-                            <Text>{journals.avgSellPrice}</Text>
-                            <Text>{journals.totalQuantity}</Text>
+                            <Text>{journal.avgBuyPrice}</Text>
+                            <Text>{journal.avgSellPrice}</Text>
+                            <Text>{journal.totalQuantity}</Text>
                             <Text>{totalInvestment()}</Text>
                             <Text>{assetValue()}</Text>
-                            <Text>{journals.profit}</Text>
-                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.journalDate))}</Text>
-                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                            <Text>{journal.profit}</Text>
+                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.journalDate))}</Text>
+                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.lastedTradeDate))}</Text>
                             </VStack>                            
                         </HStack>                        
                     </VStack>
@@ -65,7 +79,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                 <Button onPress={inputHandler}>기록 추가</Button>
                 <HStack>
                     <VStack>
-                        <BuyDetailList journals = {journals}/>
+                        <BuyDetailList journals = {journal}/>
                     </VStack>
                         <Divider
                             bg="emerald.500"
@@ -74,7 +88,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                             orientation="vertical"
                         />
                     <VStack>
-                        <SellDetailList journals={journals}/>
+                        <SellDetailList journals={journal}/>
                     </VStack>
                 </HStack>
             </NativeBaseProvider>
