@@ -36,7 +36,6 @@ const DashBoardScreen = ({navigation}) => {
                     그래프 공간
                 </Heading>
                 <Text></Text>
-                <Center>
                         <FlatList 
                             data={journals} 
                             renderItem={({item}) => 
@@ -46,7 +45,6 @@ const DashBoardScreen = ({navigation}) => {
                             }
                             keyExtractor={(item) => item.journalId}
                         />
-                </Center>
             </NativeBaseProvider>
         </>
     )
@@ -59,7 +57,6 @@ const styles = StyleSheet.create({
         backgroundColor:"#B5D692",
         width:"100%",
         height:"30%",
-        marginBottom:10,
         alignItems:"center",
         textAlign:"center",
         color:"white"
