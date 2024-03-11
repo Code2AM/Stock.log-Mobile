@@ -65,3 +65,13 @@ export const deleteJournalsRequest = async (data) => {
     console.error(error);
   }
 }
+
+// 매매일지 추가
+export const createJournalsRequest = async (data) => {
+  try {
+    console.log(data);
+    const response = await makeRequest("/journals", "POST", data)
+  } catch (error) {
+    console.error("일지 등록 실패");
+  }
+}

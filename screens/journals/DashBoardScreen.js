@@ -4,20 +4,23 @@ import { useEffect} from "react";
 import JournalsList from "../../components/journals/JournalsList";
 import useJournals from "../../zustand/journals/useJournals";
 import AddJournalsButton from "../../components/journals/AddJournalsButton";
+import { useStocks } from "../../zustand/stocks/useStocks";
 
 
 const DashBoardScreen = ({navigation}) => {
 
     // 전역 변수화
     const {journals, setJournals} = useJournals();
+    const {fetchStocks} = useStocks();
 
     const handleJournals = async () => {
-        setJournals();
+        await setJournals();
     }
     
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            handleJournals();
+        const unsubscribe = navigation.addListener('focus', async () => {
+            await handleJournals();
+            await fetchStocks();
         });
 
         // Clean up
@@ -28,7 +31,6 @@ const DashBoardScreen = ({navigation}) => {
         navigation.navigate("JournalDetail", {journalId:item.journalId});
     };
 
-    console.log(journals); // 확인
     return (
         <>
             <NativeBaseProvider>
