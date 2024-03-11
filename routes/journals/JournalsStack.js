@@ -5,6 +5,8 @@ import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import { useEffect } from "react";
 import JournalDetailScreen from "../../screens/journals/JournalDetailScreen";
+import BuyAndSellInput from "../../screens/journals/BuyAndSellInput";
+import AddJournalsScreen from "../../screens/journals/AddJournalsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +23,7 @@ export const JournalsStack = () => {
         <>
             <Stack.Navigator>
                 <Stack.Screen
-                    name="Journals"
+                    name="JournalsMain"
                     component={DashBoardScreen}
                     options={{
                         title:"매매일지",
@@ -37,6 +39,26 @@ export const JournalsStack = () => {
                         title:"매매기록",
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
+                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                    }}
+                />
+                <Stack.Screen
+                    name="BuyAndSellInput"
+                    component={BuyAndSellInput}
+                    options={{
+                        title:"기록 추가",
+                        headerStyle:styles.journalsHeader, 
+                        headerTitleAlign:"center", 
+                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                    }}
+                />
+                <Stack.Screen
+                    name="AddJournals"
+                    component={AddJournalsScreen}
+                    options={{
+                        title:"일지 추가",
+                        headerStyle:styles.journalsHeader,
+                        headerTitleAlign:"center",
                         headerTitleStyle:styles.journalsHeaderTitleStyle
                     }}
                 />

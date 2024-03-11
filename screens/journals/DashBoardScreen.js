@@ -1,24 +1,29 @@
-import { Center, Container, FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
+import { FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
 import { StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
-import { journalRequest } from "../../api/journals/JournalsAPI";
+import { useEffect} from "react";
 import JournalsList from "../../components/journals/JournalsList";
+import useJournals from "../../zustand/journals/useJournals";
+import AddJournalsButton from "../../components/journals/AddJournalsButton";
+import { useStocks } from "../../zustand/stocks/useStocks";
 
 
 const DashBoardScreen = ({navigation}) => {
 
-    const [journals, setJournals] = useState([]);
+    // 전역 변수화
+    const {journals, setJournals} = useJournals();
+    const {stocks, fetchStocks} = useStocks();
 
     const handleJournals = async () => {
-
-        const journalsList = await journalRequest();
-        console.log(journalsList);
-        setJournals(journalsList);
+        await setJournals();
     }
     
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            handleJournals();
+        const unsubscribe = navigation.addListener('focus', async () => {
+            await handleJournals();
+
+            if(stocks == []){
+                await fetchStocks();
+            }
         });
 
         // Clean up
@@ -26,7 +31,7 @@ const DashBoardScreen = ({navigation}) => {
     }, [navigation]);
 
     function onPressHandler(item){
-        navigation.navigate("JournalDetail", {journals:item});
+        navigation.navigate("JournalDetail", {journalId:item.journalId});
     };
 
     return (
@@ -35,8 +40,6 @@ const DashBoardScreen = ({navigation}) => {
                 <Heading style={styles.graphs}>
                     그래프 공간
                 </Heading>
-                <Text></Text>
-                <Center>
                         <FlatList 
                             data={journals} 
                             renderItem={({item}) => 
@@ -46,7 +49,7 @@ const DashBoardScreen = ({navigation}) => {
                             }
                             keyExtractor={(item) => item.journalId}
                         />
-                </Center>
+                        <AddJournalsButton journals={journals} navigation={navigation}/>
             </NativeBaseProvider>
         </>
     )
@@ -59,9 +62,9 @@ const styles = StyleSheet.create({
         backgroundColor:"#B5D692",
         width:"100%",
         height:"30%",
-        marginBottom:10,
         alignItems:"center",
         textAlign:"center",
-        color:"white"
+        color:"white",
+        marginBottom:"2%"
     }
 })

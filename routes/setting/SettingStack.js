@@ -3,6 +3,7 @@ import SettingScreen from "../../screens/Setting/SettingScreen";
 import LabelsScreen from "../../screens/Setting/labels/LabelsScreen";
 import { NewLabelScreen } from "../../screens/Setting/labels/NewLabelScreen";
 import EditLabelScreen from "../../screens/Setting/labels/EditLabelScreen";
+import { StrategiesStack } from "../strategies/StrategiesStack";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +31,12 @@ export const SettingStack = () => {
                 name="EditLabelScreen"
                 component={EditLabelScreen}
             />
-            
+            <Stack.Screen
+                name="StrategiesStack"
+                component={StrategiesStack}
+                options={{ title: '매매전략' }}
+                
+            />
             
         </Stack.Navigator>
     )

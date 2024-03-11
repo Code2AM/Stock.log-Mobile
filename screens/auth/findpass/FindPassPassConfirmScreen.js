@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack, useToast } from "native-base";
 import { useEffect, useState } from "react";
+import { changePasswordRequest } from "../../../api/auth/AuthAPI";
 
 export const FindPassPassConfirmScreen = () => {
 
@@ -10,6 +11,7 @@ export const FindPassPassConfirmScreen = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
+    const toast = useToast();
 
     // 전달받은 이메일을 저장
     const { data } = route.params;
@@ -27,10 +29,35 @@ export const FindPassPassConfirmScreen = () => {
 
     const handleChangPass = async () => {
 
-        // FIXME
-        // 비밀번호 변경 API 필요
+        if (passwordCheck){
 
-        navigation.navigate('AuthStack', { screen: 'LoginScreen' })
+            const data = {
+                email : email,
+                password : password,
+            }
+
+            const result = await changePasswordRequest(data);
+
+            toast.show({
+                title: result,
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+              })
+
+            navigation.navigate('AuthStack', { screen: 'LoginScreen' })
+
+        }
+        else {
+            toast.show({
+                title: "비밀번호가 다릅니다! 비밀번호를 다시 입력해주세요",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+              })
+        }
+
+        
     }
 
     return (

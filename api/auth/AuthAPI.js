@@ -9,7 +9,7 @@ export const signupRequest = async (data) => {
   console.log(data)
 
   try {
-      const response = await makeRequest("/auth/signup", "POST", data);
+    const response = await makeRequest("/auth/signup", "POST", data);
 
     // const response = await request.post("/auth/signup", { ...data });
     // 성공적으로 응답을 받은 경우
@@ -41,7 +41,7 @@ export const signupRequest = async (data) => {
 export const loginRequest = async (data) => {
 
   try {
-    const response = await makeRequest("auth/login", "POST", data );
+    const response = await makeRequest("auth/login", "POST", data);
     // const response = await request.post("auth/login", { ...data });
     // 성공적으로 로그인한 경우
 
@@ -60,7 +60,44 @@ export const loginRequest = async (data) => {
 
 };
 
-// Secure token storage using AsyncStorage
+
+
+// 로그아웃 요청 API
+export const logoutRequest = async (data) => {
+
+  try {
+    const response = await makeRequest("auth/logout", "POST", data);
+
+    return response.data;
+
+  }
+  catch (error) {
+    console.error("login Request Error:", error);
+    throw error;
+  }
+
+};
+
+
+// 로그아웃 요청 API
+export const changePasswordRequest = async (data) => {
+
+  try {
+    const response = await makeRequest("auth/changePassword", "POST", data);
+
+    return response.data;
+
+  }
+  catch (error) {
+    console.error("changePassword Error:", error);
+    throw error;
+  }
+
+};
+
+
+
+// 토큰 저장
 export const storeTokens = async (accessToken, refreshToken, accessTokenExpiresIn) => {
 
   console.log("fdsfdsf")
@@ -74,11 +111,11 @@ export const storeTokens = async (accessToken, refreshToken, accessTokenExpiresI
     await AsyncStorage.setItem("expiresAt", JSON.stringify(Date.now() + accessTokenExpiresIn));
     await AsyncStorage.setItem("isLogin", "true");
     console.log("Tokens stored successfully!");
-    } catch (error) {
-  console.error("Error storing tokens:", error);
-  // Handle storage failures gracefully (e.g., display an error message)
-}
-  };
+  } catch (error) {
+    console.error("Error storing tokens:", error);
+    // Handle storage failures gracefully (e.g., display an error message)
+  }
+};
 
 
 
