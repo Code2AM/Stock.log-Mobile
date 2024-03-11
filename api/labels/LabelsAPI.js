@@ -43,10 +43,10 @@ export const labelList = async () => {
   }
 
   // 라벨을 삭제
-  export const labelDelete = async ( lablesId ) => {
+  export const labelDelete = async ( data ) => {
 
     try{
-      const response = await makeRequest("/labels/delete", "POST", lablesId);
+      const response = await makeRequest("/labels/delete", "POST", data);
       console.log(response);
 
       return "라벨 삭제";
@@ -71,8 +71,7 @@ export const labelList = async () => {
   // 라벨을 수정
   export const labelUpdate = async (data) => {
     try{
-
-      const response = await makeRequest("/labels/update", "PUT", data);
+      const response = await makeRequest("/labels/update", "POST", data);
       console.log(response);
 
       return "라벨 수정";

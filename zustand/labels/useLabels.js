@@ -10,6 +10,9 @@ const useLabels = create((set) => ({
     /* 사용자의 모든 라벨을 가져온다 */
     fetchAllLabels: async () => {
       const fetchedLabels = await labelList();
+
+      console.log("useLabels");
+      console.log(fetchedLabels);
   
       set({labels : fetchedLabels})
     }

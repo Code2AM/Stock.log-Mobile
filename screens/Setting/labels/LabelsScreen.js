@@ -5,73 +5,34 @@ import { useStore } from "zustand";
 import useLabels from "../../../zustand/labels/useLabels";
 import LabelsItem from "../../../components/labels/labelsItem";
 import { TextInput } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 
 const LabelsScreen = () => {
 
-    const [showInput, setShowInput] = useState(false);
-    const [buttonText, setButtonText] = useState('추가');
-    const [labelsTitle, setLabelsTitle] = useState('');
-    const toast = useToast();
+    const navigation = useNavigation();
   
-    const { labels } = useStore(useLabels);
+    const { labels, fetchAllLabels } = useStore(useLabels);
 
-    const handleToggleInput = () => {
-      setShowInput(!showInput);
-      setButtonText(showInput ? '추가' : '취소');
-  };
+    useEffect(() =>{
+      fetchAllLabels();
+    },[])
 
-    // 라벨 추가
-    const handleAddLabel = async () => {
+    console.log(labels);
 
-      const data = {
-        labelsTitle: labelsTitle
-      }
-      
-      const result = await labelAdd(data);
-      toast.show({
-        title: result,
-        duration: 1500,
-        placement: "top",
-        avoidKeyboard: true
-      })
-    };
-
-    // 라벨 삭제
-    const handleDeleteLabel = async(labelsId) => {
-      console.log(labelsId);
-      console.log(typeof labelsId);
-      const result = await labelDelete(labelsId);
-
-        toast.show({
-          title: result,
-          duration: 1500,
-          placement: "top",
-          avoidKeyboard: true
-        })
+    const handleNewLabelScreen = () => {
+      navigation.navigate("NewLabelScreen");
     }
 
     return (
         <NativeBaseProvider>
-            <View>
-            {showInput && (
-                <TextInput
-                    value={labelsTitle}
-                    onChangeText={setLabelsTitle}
-                    placeholder="라벨 이름 입력"
-                />
-            )}
-            <Button title={buttonText} onPress={handleToggleInput} />
-            {showInput && (
-                <Button title="저장" onPress={handleAddLabel}>저장</Button>
-            )}
-            </View>
             <Box>
                 <FlatList
                     data={labels}
-                    renderItem={ ({ item }) => <LabelsItem item ={item}/>}
+                    renderItem={ ({ item }) => <LabelsItem item = {item}/>}
                     keyExtractor={item => item.labelsId} />
             </Box>
+            <Button onPress={handleNewLabelScreen}>라벨 추가</Button>
         </NativeBaseProvider>
     );
   }
