@@ -11,7 +11,7 @@ const DashBoardScreen = ({navigation}) => {
 
     // 전역 변수화
     const {journals, setJournals} = useJournals();
-    const {fetchStocks} = useStocks();
+    const {stocks, fetchStocks} = useStocks();
 
     const handleJournals = async () => {
         await setJournals();
@@ -20,7 +20,10 @@ const DashBoardScreen = ({navigation}) => {
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', async () => {
             await handleJournals();
-            await fetchStocks();
+
+            if(stocks == []){
+                await fetchStocks();
+            }
         });
 
         // Clean up

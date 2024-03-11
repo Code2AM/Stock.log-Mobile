@@ -1,5 +1,5 @@
-import { Button, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
-import { useEffect, useState } from "react";
+import { Button, Center, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useStocks } from "../../zustand/stocks/useStocks";
 import { AutocompleteDropdown, AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
@@ -31,6 +31,11 @@ const AddJournalsScreen = ({navigation}) => {
     };
 
     const stocksToDataSet = () => {
+
+        if(!stocks){
+            return;
+        }
+
         return stocks.map(item => ({
             id:item.srtnCd, 
             title:item.itmsNm
@@ -102,10 +107,10 @@ const AddJournalsScreen = ({navigation}) => {
         <>
         <NativeBaseProvider>
                 <VStack>
-                    <Text bold>종목 이름</Text>
-                    <View style={{zIndex:999}}>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>종목 이름</Text>
+                    <Center>
+                    <View style={{zIndex:999, marginTop:5, width:"90%"}}>
                     <AutocompleteDropdownContextProvider>
-                        {stocks &&
                                 <AutocompleteDropdown
                                 clearOnFocus={false}
                                 closeOnBlur={true}
@@ -115,16 +120,23 @@ const AddJournalsScreen = ({navigation}) => {
                                 dataSet={stocksToDataSet}
                                 suggestionsListContainerStyle={{
                                     position:"absolute",
-                                    top:-84
+                                    top:-110,
+                                    right:21
                                 }}
+                                inputContainerStyle={{
+                                    backgroundColor:"white"
+                                }}
+                                emptyResultText="해당하는 데이터가 존재하지 않습니다."
+                                textInputProps={{placeholder:"종목명을 입력해주세요..."}}
                             />
-                        }
                     </AutocompleteDropdownContextProvider>
                     </View>
-                    <HStack>
-                    <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(date.toString()))}</Text>
+                    </Center>
+                    <Center>
+                    <HStack textAlign={"center"} justifyItems={"center"} marginTop={5}>
+                    <Input color={"black"} width={"70%"} value={new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(date.toString()))} isDisabled/>
                     <View>
-                        <Button onPress={showDatePicker}>날짜선택</Button>
+                        <Button onPress={showDatePicker} backgroundColor={"#B5D692"}>날짜선택</Button>
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
                             mode="datetime"
@@ -133,20 +145,21 @@ const AddJournalsScreen = ({navigation}) => {
                         />
                     </View>
                     </HStack>
-                    <Text bold>매매전략</Text>
-                    <Text bold>첫 매수가</Text>
-                    <HStack>
-                        <Input placeholder="첫 매수가를 입력해주세요..." onChangeText={handlePrice}/><Text>원</Text>
+                    </Center>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>매매전략</Text>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>첫 매수가</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                        <Input backgroundColor="white" placeholder="첫 매수가를 입력해주세요..." onChangeText={handlePrice} width={"100%"} InputRightElement={<Text marginRight={4}>(원)</Text>}/>
                     </HStack>
-                    <Text bold>첫 매수량</Text>
-                    <HStack>
-                    <Input placeholder="첫 매수량을 입력해주세요..." onChangeText={handleQuantity}/><Text>주</Text>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>첫 매수량</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                    <Input backgroundColor="white" placeholder="첫 매수량을 입력해주세요..." onChangeText={handleQuantity} width={"100%"} InputRightElement={<Text marginRight={4}>(주)</Text>}/>
                     </HStack>
-                    <Text bold>매도 수수료 설정</Text>
-                    <HStack>
-                    <Input placeholder="해당 일지의 매도 수수료를 설정해주세요..." onChangeText={handleFee}/><Text>%</Text>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>매도 수수료 설정</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                    <Input backgroundColor="white" placeholder="해당 일지의 매도 수수료를 설정해주세요..." onChangeText={handleFee} width={"100%"} InputRightElement={<Text marginRight={4}>(%)</Text>}/>
                     </HStack>
-                    <Button onPress={submitDataToJournals}>일지 등록</Button>
+                    <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"}>일지 등록</Button>
                 </VStack>
         </NativeBaseProvider>
         </>
