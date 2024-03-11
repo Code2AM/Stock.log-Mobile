@@ -1,39 +1,52 @@
-import { Box, HStack, Heading, Text, VStack } from "native-base";
-import { StyleSheet } from "react-native";
-
+import { Box, Center, HStack, Heading, Spacer, Text, VStack } from "native-base";
+import { StyleSheet, Image } from "react-native";
 
 const JournalsList = ({journals}) => {
 
+    const determineUpImage = () => {
+      if (journals.profit > 0) {
+        // 이미지는 네이티브 베이스에서 불러올 경우 cache를 지우지 못해서 변경이 안된다.
+        return <Image source={require("../../assets/icons/journals/상승.png")} alt="image" cache="reload"/>
+      } else if (journals.profit < 0) {
+        return <Image source={require("../../assets/icons/journals/하락.png")} alt="image" cache="reload"/>
+      } else {
+        return <Image source={require("../../assets/icons/journals/제로섬.png")} alt="image" cache="reload"/>
+      }
+    };
+
     return (
         <>
-            <Box>
+            <Box style={styles.journalsDetailContainer}>
                 <VStack>
-                    <HStack>
+                    <HStack justifyContent="space-between">
                         <VStack>
                             <HStack>
                                 <Heading>{journals.stockName}</Heading>
-                                <Text>여기는 상태표시</Text>
+                                <Text></Text>
                                 </HStack>
-                            <Text>매매전략(미구현)</Text>
+                            <Text style={styles.notImportantFont} >매매전략(미구현)</Text>
                         </VStack>
-                        <Text>{journals.lastedTradeDate}</Text>
-                        <Text>상승/하락 이미지</Text>
-                    </HStack>
-                    <HStack>
                         <VStack>
-                            <Text>물량</Text>
+                        <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit'}).format(new Date(journals.lastedTradeDate))}</Text>
+                        <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', {hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                        </VStack>
+                        {determineUpImage()}
+                    </HStack>
+                    <HStack justifyContent="space-between">
+                        <VStack>
+                            <Text bold>물량</Text>
                             <Text>{journals.totalQuantity}</Text>
                         </VStack>
                         <VStack>
-                            <Text>매매가</Text>
+                            <Text bold>매매가</Text>
                             <Text>{journals.avgBuyPrice}</Text>
                         </VStack>
                         <VStack>
-                            <Text>매도가</Text>
+                            <Text bold>매도가</Text>
                             <Text>{journals.avgSellPrice}</Text>
                         </VStack>
                         <VStack>
-                            <Text>실익</Text>
+                            <Text bold>실익</Text>
                             <Text>{journals.profit}</Text>
                         </VStack>
                     </HStack>
@@ -47,6 +60,13 @@ export default JournalsList;
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
+        marginBottom:"4%",
+        backgroundColor:"white",
+        padding:"10%",
+        marginHorizontal:"2.5%"
+    },
 
+    notImportantFont : {
+        color:"gray"
     }
 })

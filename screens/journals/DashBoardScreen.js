@@ -1,19 +1,17 @@
-import { Center, Container, FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
+import { FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
 import { StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
-import { journalRequest } from "../../api/journals/JournalsAPI";
+import { useEffect} from "react";
 import JournalsList from "../../components/journals/JournalsList";
+import useJournals from "../../zustand/journals/useJournals";
 
 
 const DashBoardScreen = ({navigation}) => {
 
-    const [journals, setJournals] = useState([]);
+    // 전역 변수화
+    const {journals, setJournals} = useJournals();
 
     const handleJournals = async () => {
-
-        const journalsList = await journalRequest();
-        console.log(journalsList);
-        setJournals(journalsList);
+        setJournals();
     }
     
     useEffect(() => {
@@ -26,9 +24,10 @@ const DashBoardScreen = ({navigation}) => {
     }, [navigation]);
 
     function onPressHandler(item){
-        navigation.navigate("JournalDetail", {journals:item});
+        navigation.navigate("JournalDetail", {journalId:item.journalId});
     };
 
+    console.log(journals); // 확인
     return (
         <>
             <NativeBaseProvider>
@@ -36,7 +35,6 @@ const DashBoardScreen = ({navigation}) => {
                     그래프 공간
                 </Heading>
                 <Text></Text>
-                <Center>
                         <FlatList 
                             data={journals} 
                             renderItem={({item}) => 
@@ -46,7 +44,6 @@ const DashBoardScreen = ({navigation}) => {
                             }
                             keyExtractor={(item) => item.journalId}
                         />
-                </Center>
             </NativeBaseProvider>
         </>
     )
@@ -59,7 +56,6 @@ const styles = StyleSheet.create({
         backgroundColor:"#B5D692",
         width:"100%",
         height:"30%",
-        marginBottom:10,
         alignItems:"center",
         textAlign:"center",
         color:"white"
