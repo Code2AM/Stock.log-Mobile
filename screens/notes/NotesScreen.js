@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
-import { NoteItem } from "../../components/auth/notes/items/NoteItem";
+import { NoteItem } from "../../components/items/NoteItem";
+
 
 
 const NotesScreen = () => {
@@ -34,11 +35,6 @@ const NotesScreen = () => {
     return (
         <NativeBaseProvider>
 
-
-
-                {/* <Heading fontSize="xl" p="4" pb="3">
-                    Inbox
-                </Heading> */}
                 <Box>
                     <FlatList
                         data={notes}

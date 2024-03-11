@@ -17,9 +17,7 @@ const SettingScreen = () => {
     };
 
     const handleStrategies = () => {
-      navigation.navigate("StrategiesStacks", {
-        screen : "StrategiesScreen"
-      })
+      navigation.navigate("StrategiesStack")
     }
 
 

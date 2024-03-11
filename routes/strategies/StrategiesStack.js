@@ -9,12 +9,13 @@ import { NewStrategyScreen } from "../../screens/strategies/NewStrategyScreen";
 
 const Stack = createNativeStackNavigator();
 
-export const StrategiesStacks = () => {
+export const StrategiesStack = () => {
 
     return (
 
         <Stack.Navigator
-            initialRouteName='LoginScreen'>
+            initialRouteName='StrategiesScreen'
+            screenOptions={{ headerShown: false }}>
 
             <Stack.Screen
                 name="StrategiesScreen"
@@ -25,11 +26,13 @@ export const StrategiesStacks = () => {
             <Stack.Screen
                 name="NewStrategyScreen"
                 component={NewStrategyScreen}
+                options={{ title: '새 매매전략' }}
             />
 
             <Stack.Screen
                 name="EditStrategyScreen"
                 component={EditStrategyScreen}
+                options={{ title: '매매전략 수정' }}
             />
 
         </Stack.Navigator>
