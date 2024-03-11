@@ -13,7 +13,7 @@ export const NotesStack = () => {
     return (
 
         <Stack.Navigator
-            initialRouteName='LoginScreen'>
+            initialRouteName='NotesScreen'>
 
             <Stack.Screen
                 name="NotesScreen"
