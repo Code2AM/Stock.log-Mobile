@@ -56,6 +56,26 @@ const AddJournalsScreen = ({navigation}) => {
             return; // 숫자가 아니면 함수 종료
         }
 
+        if(fee <= 0){
+            alert("수수료가 0% 이하일 수는 없습니다.");
+            return;
+        }
+
+        if(selectedItem.title == ""){
+            alert("종목명을 선택하지 않으셨습니다.");
+            return;
+        }
+
+        if(price <= 0){
+            alert("매수가는 0원 이하일 수 없습니다.");
+            return;
+        }
+
+        if(quantity <= 0){
+            alert("매수량이 존재하지 않습니다.");
+            return;
+        }
+
         const data = {
             stockName:selectedItem.title,        
             journalDate:date,
@@ -75,7 +95,7 @@ const AddJournalsScreen = ({navigation}) => {
         setPrice(0);
         setFee(0);
 
-        // navigation.goBack();
+        navigation.goBack();
     }
 
     return (
