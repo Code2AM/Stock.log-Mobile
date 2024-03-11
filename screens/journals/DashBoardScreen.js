@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { useEffect} from "react";
 import JournalsList from "../../components/journals/JournalsList";
 import useJournals from "../../zustand/journals/useJournals";
+import AddJournalsButton from "../../components/journals/AddJournalsButton";
 
 
 const DashBoardScreen = ({navigation}) => {
@@ -34,7 +35,6 @@ const DashBoardScreen = ({navigation}) => {
                 <Heading style={styles.graphs}>
                     그래프 공간
                 </Heading>
-                <Text></Text>
                         <FlatList 
                             data={journals} 
                             renderItem={({item}) => 
@@ -44,6 +44,7 @@ const DashBoardScreen = ({navigation}) => {
                             }
                             keyExtractor={(item) => item.journalId}
                         />
+                        <AddJournalsButton journals={journals} navigation={navigation}/>
             </NativeBaseProvider>
         </>
     )
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
         height:"30%",
         alignItems:"center",
         textAlign:"center",
-        color:"white"
+        color:"white",
+        marginBottom:"2%"
     }
 })

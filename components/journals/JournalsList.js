@@ -60,7 +60,7 @@ export default JournalsList;
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
-        marginBottom:"4%",
+        marginVertical:"2%",
         backgroundColor:"white",
         padding:"10%",
         marginHorizontal:"2.5%"
