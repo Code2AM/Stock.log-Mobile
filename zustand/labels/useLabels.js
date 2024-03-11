@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { labelList } from "../../api/labels/LabelsAPI";
 
-export const useLabels = create((set) => ({
+const useLabels = create((set) => ({
 
     labels : [],
   
@@ -12,8 +12,9 @@ export const useLabels = create((set) => ({
       const fetchedLabels = await labelList();
   
       set({labels : fetchedLabels})
-    },
-  
-    /* 사용자의 노트를 업데이트 */
-  
+    }
+
+    
   }));
+  
+  export default useLabels;

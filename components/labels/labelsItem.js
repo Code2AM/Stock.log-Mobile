@@ -1,14 +1,12 @@
 import { Box, HStack, Text, VStack } from "native-base";
 
-const labelsItem = ({item}) => {
+const LabelsItem = ({item}) => {
 
     console.log(item);
 
-
     return (
         <Box>
-            <HStack space={[2, 3]} justifyContent="space-between">
-
+            <HStack>
                 <VStack>
                     <Text>
                         {item.labelsTitle}
@@ -18,4 +16,4 @@ const labelsItem = ({item}) => {
         </Box>
     )
 }
-export default labelsItem;
+export default LabelsItem;
