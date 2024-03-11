@@ -33,7 +33,7 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-            <ScrollView>
+
 
 
                 {/* <Heading fontSize="xl" p="4" pb="3">
@@ -47,7 +47,7 @@ const NotesScreen = () => {
                     <Button onPress={handleNewNotePress} variant={Link}>노트 추가</Button>
                 </Box>
 
-            </ScrollView>
+
         </NativeBaseProvider>
     );
 }
