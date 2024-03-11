@@ -1,5 +1,7 @@
 import { Box, Center, HStack, Heading, Spacer, Text, VStack } from "native-base";
 import { StyleSheet, Image } from "react-native";
+import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
+import { useState } from "react";
 
 const JournalsList = ({journals}) => {
 
@@ -14,6 +16,15 @@ const JournalsList = ({journals}) => {
       }
     };
 
+    const [strategyName, setStrategyName] = useState("");
+    const getStrategyName = async () => {
+        const response = await strategyFindByIdRequest(journals);
+        const strategyName = response;
+        setStrategyName(strategyName);
+    }
+
+    getStrategyName();
+    
     return (
         <>
             <Box style={styles.journalsDetailContainer}>
@@ -24,7 +35,7 @@ const JournalsList = ({journals}) => {
                                 <Heading>{journals.stockName}</Heading>
                                 <Text></Text>
                                 </HStack>
-                            <Text style={styles.notImportantFont} >매매전략(미구현)</Text>
+                            <Text style={styles.notImportantFont} >{strategyName}</Text>
                         </VStack>
                         <VStack>
                         <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit'}).format(new Date(journals.lastedTradeDate))}</Text>

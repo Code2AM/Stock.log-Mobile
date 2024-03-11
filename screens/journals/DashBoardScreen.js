@@ -5,6 +5,7 @@ import JournalsList from "../../components/journals/JournalsList";
 import useJournals from "../../zustand/journals/useJournals";
 import AddJournalsButton from "../../components/journals/AddJournalsButton";
 import { useStocks } from "../../zustand/stocks/useStocks";
+import { useStrategies } from "../../zustand/strategies/useStrategies";
 
 
 const DashBoardScreen = ({navigation}) => {
@@ -12,6 +13,7 @@ const DashBoardScreen = ({navigation}) => {
     // 전역 변수화
     const {journals, setJournals} = useJournals();
     const {stocks, fetchStocks} = useStocks();
+    const {strategies, fetchStrategies} = useStrategies();
 
     const handleJournals = async () => {
         await setJournals();
@@ -21,14 +23,14 @@ const DashBoardScreen = ({navigation}) => {
         const unsubscribe = navigation.addListener('focus', async () => {
             await handleJournals();
 
-            if(stocks == []){
-                await fetchStocks();
-            }
+            await fetchStocks();
+            
+            await fetchStrategies();
         });
 
         // Clean up
         return unsubscribe;
-    }, [navigation]);
+    }, [navigation, strategies]);
 
     function onPressHandler(item){
         navigation.navigate("JournalDetail", {journalId:item.journalId});

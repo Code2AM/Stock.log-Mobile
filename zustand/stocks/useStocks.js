@@ -6,9 +6,6 @@ export const useStocks = create((set) => ({
     fetchStocks: async () => {
         const fetchedStocks = await stockRequest();
 
-        console.log("this is useStocks")
-        console.log(fetchedStocks)
-
         set({ stocks: fetchedStocks })
     }
 

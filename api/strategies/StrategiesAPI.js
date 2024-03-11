@@ -109,3 +109,17 @@ export const deleteStrategyRequest = async (data) => {
         throw error;
     }
 }
+
+/* 특정 매매전략 조회 */
+export const strategyFindByIdRequest = async (data) => {
+
+    try {
+        const response = await makeRequest("/strategies/read", "POST", data);
+        console.log("내가 원하는 것",response.data);
+        const result = response.data.strategyName;
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error("strategyFindByIdRequest Error", error);
+    }
+}
