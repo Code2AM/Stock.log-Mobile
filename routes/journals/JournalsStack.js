@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
 import DashBoardScreen from "../../screens/journals/DashBoardScreen";
-import JournalsDetailScreen from "../../screens/journals/JournalsDetailScreen";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import { useEffect } from "react";
 import JournalDetailScreen from "../../screens/journals/JournalDetailScreen";
 import BuyAndSellInput from "../../screens/journals/BuyAndSellInput";
+import AddJournalsScreen from "../../screens/journals/AddJournalsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +49,16 @@ export const JournalsStack = () => {
                         title:"기록 추가",
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
+                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                    }}
+                />
+                <Stack.Screen
+                    name="AddJournals"
+                    component={AddJournalsScreen}
+                    options={{
+                        title:"일지 추가",
+                        headerStyle:styles.journalsHeader,
+                        headerTitleAlign:"center",
                         headerTitleStyle:styles.journalsHeaderTitleStyle
                     }}
                 />
