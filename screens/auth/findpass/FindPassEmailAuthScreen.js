@@ -1,26 +1,62 @@
  
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack, useTheme, useToast } from "native-base";
 import { useState } from "react";
+import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
 export const FindPassEmailAuthScreen = () => {
     const [ email,setEmail ] = useState("");
+    const [ isSending, setIsSending ] = useState(null);
 
     const navigation = useNavigation();
+    const toast = useToast();
 
-    const handleEmailAuth = () => {
+    const handleEmailAuth = async () => {
 
-        // data에 담아서 보내지 않으면 안 보내짐
+
         const data = {
             email: email,
         };
 
-        navigation.navigate('FindPassStack', { 
-            screen: 'FindPassAuthVerifyScreen',
-            params: {
-                data,
-            }
-        })
+        if(!isSending){
+            setIsSending(true)
+
+            toast.show({
+                title: "인증번호를 발송했습니다.",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+              })
+
+            const result = await sendCodeRequest(data)
+            console.log(result)
+
+            setIsSending(null)
+
+            toast.show({
+                title: "인증번호가 도착했습니다, 이메일을 확인해주세요.",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+              })
+
+            navigation.navigate('FindPassStack', { 
+                screen: 'FindPassAuthVerifyScreen',
+                params: {
+                    data,
+                }
+            })
+        }
+        else {
+            toast.show({
+                title: "인증번호를 발송 중입니다. 잠시만 기달려주세요",
+                duration: 1800,
+                placement: "top",
+                avoidKeyboard: true,
+              })
+        }
+
+        
     }
    
     return (

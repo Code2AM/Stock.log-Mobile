@@ -1,0 +1,169 @@
+import { Button, Center, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { useStocks } from "../../zustand/stocks/useStocks";
+import { AutocompleteDropdown, AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
+import { createJournalsRequest } from "../../api/journals/JournalsAPI";
+
+
+const AddJournalsScreen = ({navigation}) => {
+
+    const {stocks} = useStocks();
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [strategyId, setStrategyId] = useState(0);
+    const [quantity, setQuantity] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [fee, setFee] = useState(0);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    
+    const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+    setDate(date);
+    hideDatePicker();
+    };
+
+    const stocksToDataSet = () => {
+
+        if(!stocks){
+            return;
+        }
+
+        return stocks.map(item => ({
+            id:item.srtnCd, 
+            title:item.itmsNm
+        }))
+    }
+
+    const handleQuantity = value => {
+        setQuantity(value);
+    }
+
+    const handlePrice = value => {
+        setPrice(value);
+    }
+
+    const handleFee = value => {
+        setFee(value / 100);
+    }
+
+    const submitDataToJournals = async () => {
+
+        if (isNaN(price) || isNaN(quantity) || isNaN(fee)) {
+            alert("가격과 물량, 수수료는 숫자로 입력되어야 합니다.");
+            return; // 숫자가 아니면 함수 종료
+        }
+
+        if(fee <= 0){
+            alert("수수료가 0% 이하일 수는 없습니다.");
+            return;
+        }
+
+        if(selectedItem.title == ""){
+            alert("종목명을 선택하지 않으셨습니다.");
+            return;
+        }
+
+        if(price <= 0){
+            alert("매수가는 0원 이하일 수 없습니다.");
+            return;
+        }
+
+        if(quantity <= 0){
+            alert("매수량이 존재하지 않습니다.");
+            return;
+        }
+
+        const data = {
+            stockName:selectedItem.title,        
+            journalDate:date,
+            strategyId:strategyId,
+            buyQuantity:quantity,        
+            buyPrice:price,        
+            fee:fee
+        }
+
+        console.log(selectedItem.title)
+
+        await createJournalsRequest(data);
+
+        setSelectedItem(null);
+        setStrategyId(0);
+        setQuantity(0);
+        setPrice(0);
+        setFee(0);
+
+        navigation.goBack();
+    }
+
+    return (
+        <>
+        <NativeBaseProvider>
+                <VStack>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>종목 이름</Text>
+                    <Center>
+                    <View style={{zIndex:999, marginTop:5, width:"90%"}}>
+                    <AutocompleteDropdownContextProvider>
+                                <AutocompleteDropdown
+                                clearOnFocus={false}
+                                closeOnBlur={true}
+                                closeOnSubmit={false}
+                                initialValue={{ id: '1' }} // or just '2'
+                                onSelectItem={setSelectedItem}
+                                dataSet={stocksToDataSet}
+                                suggestionsListContainerStyle={{
+                                    position:"absolute",
+                                    top:-110,
+                                    right:21
+                                }}
+                                inputContainerStyle={{
+                                    backgroundColor:"white"
+                                }}
+                                emptyResultText="해당하는 데이터가 존재하지 않습니다."
+                                textInputProps={{placeholder:"종목명을 입력해주세요..."}}
+                            />
+                    </AutocompleteDropdownContextProvider>
+                    </View>
+                    </Center>
+                    <Center>
+                    <HStack textAlign={"center"} justifyItems={"center"} marginTop={5}>
+                    <Input color={"black"} width={"70%"} value={new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(date.toString()))} isDisabled/>
+                    <View>
+                        <Button onPress={showDatePicker} backgroundColor={"#B5D692"}>날짜선택</Button>
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="datetime"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                        />
+                    </View>
+                    </HStack>
+                    </Center>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>매매전략</Text>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>첫 매수가</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                        <Input backgroundColor="white" placeholder="첫 매수가를 입력해주세요..." onChangeText={handlePrice} width={"100%"} InputRightElement={<Text marginRight={4}>(원)</Text>}/>
+                    </HStack>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>첫 매수량</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                    <Input backgroundColor="white" placeholder="첫 매수량을 입력해주세요..." onChangeText={handleQuantity} width={"100%"} InputRightElement={<Text marginRight={4}>(주)</Text>}/>
+                    </HStack>
+                    <Text bold marginX={5} marginTop={5} fontSize={"lg"}>매도 수수료 설정</Text>
+                    <HStack marginX={5} marginTop={2.5}>
+                    <Input backgroundColor="white" placeholder="해당 일지의 매도 수수료를 설정해주세요..." onChangeText={handleFee} width={"100%"} InputRightElement={<Text marginRight={4}>(%)</Text>}/>
+                    </HStack>
+                    <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"}>일지 등록</Button>
+                </VStack>
+        </NativeBaseProvider>
+        </>
+    )
+}
+
+export default AddJournalsScreen;

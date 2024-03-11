@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
-import { NoteItem } from "../../components/auth/notes/items/NoteItem";
+import { NoteItem } from "../../components/items/NoteItem";
+
 
 
 const NotesScreen = () => {
@@ -33,12 +34,7 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-            <ScrollView>
 
-
-                {/* <Heading fontSize="xl" p="4" pb="3">
-                    Inbox
-                </Heading> */}
                 <Box>
                     <FlatList
                         data={notes}
@@ -47,7 +43,7 @@ const NotesScreen = () => {
                     <Button onPress={handleNewNotePress} variant={Link}>노트 추가</Button>
                 </Box>
 
-            </ScrollView>
+
         </NativeBaseProvider>
     );
 }
