@@ -16,11 +16,17 @@ const SettingScreen = () => {
         await logout(navigation, toast);
     };
 
+    const handleStrategies = () => {
+      navigation.navigate("StrategiesStacks", {
+        screen : "StrategiesScreen"
+      })
+    }
+
 
     return (
         <NativeBaseProvider>
             <Button size="lg" variant={Link} onPress={hanlderBtnPress} style={styles.button}>라벨</Button>
-            <Button size="lg" variant={Link} onPress={hanlderBtnPress} style={styles.button}>매매전략 관리</Button>
+            <Button size="lg" variant={Link} onPress={handleStrategies} style={styles.button}>매매전략</Button>
             <Button size="lg" variant={Link} onPress={handleLogout} style={styles.button}>로그아웃</Button>
         </NativeBaseProvider>
     )
