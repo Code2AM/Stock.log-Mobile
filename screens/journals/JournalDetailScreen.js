@@ -6,6 +6,7 @@ import useJournals from "../../zustand/journals/useJournals";
 import BuyAndSellTabNavigator from "./buyAndSell/BuyAndSellTabNavigator";
 import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
 import TradeCloseButton from "../../components/journals/TradeCloseButton";
+import CommentListContainer from "../../components/journals/CommentListContainer";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
