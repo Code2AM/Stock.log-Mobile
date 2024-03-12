@@ -22,8 +22,8 @@ export const labelList = async () => {
     try{
       const response = await makeRequest("/labels/create", "POST", data);
       console.log(response);
-
-      return "라벨 등록";
+      
+      return response;
     }
     catch (error) {
       console.error( "Error:", error);

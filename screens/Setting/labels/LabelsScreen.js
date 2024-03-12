@@ -1,9 +1,8 @@
-import { AddIcon, Box, Button, CheckIcon, Container, Fab, FlatList, HStack, Icon, Input, NativeBaseProvider, Tag, Text, VStack, View, useToast } from "native-base";
+import { AddIcon, Box, Button, CheckIcon, Container, Fab, FlatList, HStack, Icon, Input, NativeBaseProvider, ScrollView, Tag, Text, VStack, View, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
 import useLabels from "../../../zustand/labels/useLabels";
 import LabelsItem from "../../../components/labels/labelsItem";
-import { StyleSheet, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -26,12 +25,14 @@ const LabelsScreen = () => {
 
     return (
         <NativeBaseProvider>
+          <ScrollView>
             <Box>
                 <FlatList
                     data={labels}
                     renderItem={ ({ item }) => <LabelsItem item = {item}/>}
                     keyExtractor={item => item.labelsId} />
             </Box>
+            </ScrollView>
             <Fab
                 bg={"#B5D692"}
                 onPress={handleNewLabelScreen}
@@ -43,18 +44,10 @@ const LabelsScreen = () => {
                 right={10}
                 _pressed={{backgroundColor:"lime.500"}}
             />
+          
         </NativeBaseProvider>
     );
   }
 
 export default LabelsScreen;
 
-const styles = StyleSheet.create({
-  btn:{
-    width:"50%",
-    backgroundColor:"#B5D692",
-    marginTop:10
-  }
-
-  
-})

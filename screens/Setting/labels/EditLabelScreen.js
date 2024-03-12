@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Button, Input, NativeBaseProvider, useToast } from "native-base";
+import { Box, Button, Input, NativeBaseProvider, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { labelDelete, labelUpdate } from "../../../api/labels/LabelsAPI";
@@ -92,14 +92,23 @@ const EditLabelScreen = () =>{
 
     return(
         <NativeBaseProvider>
+        <Box flex={1} marginTop={10} alignItems="center">
             <Input
-             placeholder="라벨의 이름을 입력해주세요."
-             value={labelsTitle}
-             onChangeText={setLabelsTitle}
-             />
-            <Button onPress={handleupdateLabel}>수정</Button>
-            <Button onPress={handleDeleteLabel}>삭제</Button>
-        </NativeBaseProvider>
+                variant="underlined"
+                placeholder="라벨의 이름을 입력해주세요."
+                size="lg"
+                width={200}
+                onChangeText={setLabelsTitle}
+                value={labelsTitle}
+            />
+            <Button onPress={handleupdateLabel} mt={4} backgroundColor={"#B5D692"}>
+                수정
+            </Button>
+            <Button onPress={handleDeleteLabel} mt={4} backgroundColor={"#B5D692"}>
+                삭제
+            </Button>
+        </Box>
+    </NativeBaseProvider>
     )
 }
 export default EditLabelScreen;

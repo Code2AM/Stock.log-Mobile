@@ -34,13 +34,14 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-
+            <ScrollView>
                 <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }
                         keyExtractor={item => item.noteId} />
                 </Box>
+            </ScrollView>
                 <Fab
                     bg={"#B5D692"}
                     onPress={handleNewNotePress}
