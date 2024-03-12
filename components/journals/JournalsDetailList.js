@@ -208,9 +208,6 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler}) =
         buyId:buyId
       }
       await deleteBuyRequest(buyJson);
-
-      await setJournals();
-      await buyListHandler(journals);
     }
 
     if(sellId){
@@ -218,12 +215,13 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler}) =
         sellId:sellId
       }
       await deleteSellRequest(sellJson);
-
-      await setJournals();
-      await sellListHandler(journals);
     }
 
     onClose();
+
+    await setJournals();
+    await buyListHandler(journals);
+    await sellListHandler(journals);
   }
 
   const cancelRef = useRef(null);
