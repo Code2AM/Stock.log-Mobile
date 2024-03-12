@@ -1,9 +1,9 @@
 import { AlertDialog, Box, Button, Center, Divider, HStack, Heading, NativeBaseProvider, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
-import { BuyDetailList, SellDetailList } from "../../components/journals/JournalsDetailList";
 import { useEffect, useRef, useState } from "react";
 import { deleteJournalsRequest } from "../../api/journals/JournalsAPI";
 import useJournals from "../../zustand/journals/useJournals";
+import BuyAndSellTabNavigator from "./buyAndSell/BuyAndSellTabNavigator";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
@@ -77,20 +77,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                     </VStack>
                 </Box>
                 <Button onPress={inputHandler}>기록 추가</Button>
-                <HStack>
-                    <VStack>
-                        <BuyDetailList journals = {journal}/>
-                    </VStack>
-                        <Divider
-                            bg="emerald.500"
-                            thickness="2"
-                            mx="2"
-                            orientation="vertical"
-                        />
-                    <VStack>
-                        <SellDetailList journals={journal}/>
-                    </VStack>
-                </HStack>
+                <BuyAndSellTabNavigator journals={journal}/>
             </NativeBaseProvider>
         </>
     )
