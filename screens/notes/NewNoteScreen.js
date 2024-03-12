@@ -1,11 +1,11 @@
-import { Box, Button, Center, Checkbox, FlatList, Input, NativeBaseProvider, Select, TextArea, useToast } from "native-base";
+import { Box, Button, Center, Checkbox, Container, FlatList, Input, NativeBaseProvider, Select, TextArea, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { newNoteRequest, notesRequest } from "../../api/notes/NotesAPI";
 import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
-import LabelsSelectItem from "../../components/labels/LabelsSelectItem";
+import { StyleSheet } from "react-native";
 
 
 
@@ -13,10 +13,6 @@ import LabelsSelectItem from "../../components/labels/LabelsSelectItem";
 export const NewNoteScreen = () => {
     const { fetchAllNotes } = useStore(useNotes);
     const { labels, fetchAllLabels } = useStore(useLabels);
-  
-    useEffect(() => {
-      fetchAllLabels();
-    }, []);
   
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
@@ -34,6 +30,9 @@ export const NewNoteScreen = () => {
       }
   
       const result = await newNoteRequest(data);
+
+      console.log(selectedLabel);
+      console.log(selectedLabelValue);
   
       fetchAllNotes();
   
@@ -51,6 +50,21 @@ export const NewNoteScreen = () => {
   
     return (
       <NativeBaseProvider>
+        <Container style={styles.container}>
+        <Box maxW="300">
+          <Select
+            minWidth="200"
+            accessibilityLabel="Choose Service"
+            placeholder="라벨을 선택해주세요"
+            value={selectedLabel} // 선택된 라벨 값 설정
+            onValueChange={(itemValue) => setSelectedLabel(itemValue)} // 선택된 라벨 값 변경 시 상태 업데이트
+          >
+            {labels.map((label) => (
+              <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
+            ))}
+          </Select>
+        </Box>
+                
         <Input
           placeholder="제목을 입력해주세요"
           type={"noteName"}
@@ -63,23 +77,25 @@ export const NewNoteScreen = () => {
           type={"noteContents"}
           value={noteContents}
           onChangeText={setNoteContents}
+          style={styles.textArea}
         />
   
-        <Box maxW="300">
-          <Select
-            minWidth="200"
-            accessibilityLabel="Choose Service"
-            placeholder="라벨 선택"
-            value={selectedLabel} // 선택된 라벨 값 설정
-            onValueChange={(itemValue) => setSelectedLabel(itemValue)} // 선택된 라벨 값 변경 시 상태 업데이트
-          >
-            {labels.map((label) => (
-              <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
-            ))}
-          </Select>
-        </Box>
-  
         <Button onPress={handleNewNote}>저장</Button>
+        </Container>
       </NativeBaseProvider>
     );
   }
+
+  const styles = StyleSheet.create({
+    container:{
+      flex:1
+    },
+
+    textArea:{
+     
+    },
+
+    titleInput:{
+
+    }
+  })

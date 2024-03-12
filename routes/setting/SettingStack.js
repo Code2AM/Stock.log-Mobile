@@ -1,9 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SettingScreen from "../../screens/Setting/SettingScreen";
-import LabelsScreen from "../../screens/Setting/labels/LabelsScreen";
-import { NewLabelScreen } from "../../screens/Setting/labels/NewLabelScreen";
-import EditLabelScreen from "../../screens/Setting/labels/EditLabelScreen";
 import { StrategiesStack } from "../strategies/StrategiesStack";
+import { LabelsStack } from "../labels/LabelsStack";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,23 +17,14 @@ export const SettingStack = () => {
 
             <Stack.Screen
                 name="LabelsScreen"
-                component={LabelsScreen}
+                component={LabelsStack}
+                options={{ title: '라벨' }}
             />
 
-            <Stack.Screen
-                name="NewLabelScreen"
-                component={NewLabelScreen}
-            />
-
-            <Stack.Screen
-                name="EditLabelScreen"
-                component={EditLabelScreen}
-            />
             <Stack.Screen
                 name="StrategiesStack"
                 component={StrategiesStack}
-                options={{ title: '매매전략' }}
-                
+                options={{ title: '매매전략' }}   
             />
             
         </Stack.Navigator>

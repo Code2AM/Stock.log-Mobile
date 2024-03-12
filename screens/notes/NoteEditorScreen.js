@@ -11,8 +11,8 @@ const NoteEditorScreen = () => {
   
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
-    const { labels, fetchAllLabels } = useStore(useLabels);
-    const [selectedLabel, setSelectedLabel] = useState(null); // 선택된 라벨 상태 추가
+    const { labels } = useStore(useLabels);
+    const [selectedLabel, setSelectedLabel] = useState(labels); // 선택된 라벨 상태 추가
   
     const route = useRoute();
     const { item } = route.params;
@@ -24,23 +24,25 @@ const NoteEditorScreen = () => {
       if (item) {
         setNoteName(item.noteName);
         setNoteContents(item.noteContents);
-        setSelectedLabel(item.label); // 선택된 라벨 설정
+        setSelectedLabel(item.labelsDTO); // 선택된 라벨 설정
       }
     }, [item])
   
     const handleUpdate = async () => {
-      const data = {
+      const selectedLabelValue = labels.find(label => label.labelsId === selectedLabel);
+      const data = {    
         noteId: item.noteId,
         noteName: noteName,
         noteContents: noteContents,
         noteDate: item.noteDate,
         noteStatus: item.noteStatus,
         userId: item.userId,
-        LabelsDTO: selectedLabel // 수정된 라벨 추가
+        labelsDTO: selectedLabelValue // 수정된 라벨 추가
       }
   
       const result = await updateNoteRequest(data);
-      console.log(result);
+      console.log(selectedLabel);
+      console.log(selectedLabelValue);
   
       fetchAllNotes();
   
@@ -55,6 +57,7 @@ const NoteEditorScreen = () => {
     }
   
     const handleDelete = async () => {
+      const selectedLabelValue = labels.find(label => label.labelsId === selectedLabel);
       const data = {
         noteId: item.noteId,
         noteName: noteName,
@@ -62,11 +65,10 @@ const NoteEditorScreen = () => {
         noteDate: item.noteDate,
         noteStatus: item.noteStatus,
         userId: item.userId,
-        labelsDTO: selectedLabel // 삭제 시에도 라벨 추가
+        labelsDTO: selectedLabelValue
       }
   
       const result = await deleteNoteRequest(data);
-      console.log(result);
   
       fetchAllNotes();
   

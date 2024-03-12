@@ -52,12 +52,11 @@ const EditLabelScreen = () =>{
             avoidKeyboard: true,
           })
 
+          navigation.navigate("LabelsScreen");
           fetchAllLabels();
 
         // 수정 후 라벨 메인 페이지로 이동
-        navigation.navigate("Settings",{
-            screen: "LabelsScreen",
-        })
+       
     }
 
     // 삭제
@@ -88,9 +87,7 @@ const EditLabelScreen = () =>{
           fetchAllLabels();
 
         // 수정 후 라벨 메인 페이지로 이동
-        navigation.navigate("Settings",{
-            screen: "LabelsScreen",
-        })
+          navigation.navigate("LabelsScreen");
     }
 
     return(

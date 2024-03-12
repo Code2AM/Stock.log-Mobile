@@ -46,6 +46,12 @@ export const NoteItem = ({item}) => {
                         _dark={{ color: "warmGray.200" }}>
                         {item.noteContents}
                     </Text>
+
+                    <Text
+                        color="coolGray.600"
+                        _dark={{ color: "warmGray.200" }}>
+                        
+                    </Text>
                 </VStack>
 
                 <Spacer />

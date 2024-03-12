@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useStore } from "zustand";
 import useLabels from "../../../zustand/labels/useLabels";
+import { StyleSheet } from "react-native";
 
 export const NewLabelScreen = () =>{
 
@@ -37,19 +38,27 @@ export const NewLabelScreen = () =>{
           fetchAllLabels();
 
         // 등록 후 라벨 메인 페이지로 이동
-        navigation.navigate("Settings",{
-            screen: "LabelsScreen",
-        })
+        navigation.navigate("LabelsScreen");
     }
 
     return(
         <NativeBaseProvider>
             <Input
+             style={styles.input}
              placeholder="라벨의 이름을 입력해주세요."
              value={labelsTitle}
              onChangeText={setLabelsTitle}
+             variant={"rounded"}
              />
             <Button onPress={handleNewLabel}>등록</Button>
         </NativeBaseProvider>
     )
 }
+
+const styles = StyleSheet.create({
+    input:{
+        flex:1,
+        height:30,
+        width:50
+    }
+})
