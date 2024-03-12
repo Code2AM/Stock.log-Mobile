@@ -1,4 +1,4 @@
-import { Button, Center, HStack, Input, NativeBaseProvider, Radio, Text, VStack, View } from "native-base";
+import { Button, Center, HStack, Input, NativeBaseProvider, Radio, ScrollView, Text, VStack, View } from "native-base";
 import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useStocks } from "../../zustand/stocks/useStocks";
@@ -9,7 +9,7 @@ import { useStrategies } from "../../zustand/strategies/useStrategies";
 
 const AddJournalsScreen = ({navigation}) => {
 
-    const {stocks} = useStocks();
+    const {stocks, fetchStocks} = useStocks();
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [date, setDate] = useState(new Date());
     const [selectedItem, setSelectedItem] = useState(null);
@@ -48,7 +48,7 @@ const AddJournalsScreen = ({navigation}) => {
                     {strategies.map(item => {
                         return (
                             <>
-                                <Radio value={item.strategyId} marginLeft={5} marginTop={2.5}>{item.strategyName}</Radio>
+                                <Radio key={item.strategyId} value={item.strategyId} marginLeft={5} marginTop={2.5}>{item.strategyName}</Radio>
                             </>
                         )
                     })}
@@ -58,17 +58,17 @@ const AddJournalsScreen = ({navigation}) => {
         )
     }
 
-    // 데이터를 못 가져오고 있음!!!
     const stocksToDataSet = () => {
 
-        // if(stocks){
-        //     return;
-        // }
+        if(stocks.length === 0){
+            fetchStocks();
+            return;
+        }
 
-        // return stocks.map(item => ({
-        //     id:item.srtnCd, 
-        //     title:item.itmsNm
-        // }))
+        return stocks.map(item => ({
+            id:item.srtnCd, 
+            title:item.itmsNm
+        }))
     }
 
     const handleQuantity = value => {
@@ -141,7 +141,8 @@ const AddJournalsScreen = ({navigation}) => {
     return (
         <>
         <NativeBaseProvider>
-                <VStack>
+            <ScrollView>
+            <VStack>
                     <Text bold marginX={5} marginTop={5} fontSize={"lg"}>종목 이름</Text>
                     <Center>
                     <View style={{zIndex:999, marginTop:5, width:"90%"}}>
@@ -197,6 +198,7 @@ const AddJournalsScreen = ({navigation}) => {
                     </HStack>
                     <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"}>일지 등록</Button>
                 </VStack>
+            </ScrollView>
         </NativeBaseProvider>
         </>
     )
