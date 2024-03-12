@@ -195,7 +195,7 @@ export const SellDetailList = ({ journals }) => {
   );
 };
 
-export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler}) => {
+export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler, journals}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const {setJournals} = useJournals();
@@ -228,7 +228,7 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler}) =
 
   return (
     <Center>
-          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)}>
+          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"}>
             삭제
           </Button>
           <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>

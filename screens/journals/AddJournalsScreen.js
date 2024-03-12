@@ -49,6 +49,8 @@ const AddJournalsScreen = ({navigation}) => {
                 backgroundColor={"white"}
                 accessibilityLabel="전략 선택"
                 onValueChange={setStrategy}
+                placeholder="(선택사항)매매전략을 선택해주세요..."
+                defaultValue=""
                 >
                 {strategies.map((item) => (
                     <Select.Item key={item.strategyId} label={item.strategyName} value={item.strategyId} />

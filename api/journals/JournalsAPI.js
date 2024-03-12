@@ -97,3 +97,12 @@ export const deleteSellRequest = async (data) => {
     console.error(error);
   }
 }
+
+// 매매일지 상태 변경
+export const changeJournalsStatusRequest = async (data) => {
+  try {
+    const response = await makeRequest("/journals/change", "POST", data);
+  } catch (error) {
+    console.error(error);
+  }
+}
