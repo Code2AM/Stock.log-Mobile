@@ -1,6 +1,5 @@
 import { Box, Button, Divider, FlatList, HStack, Text, VStack } from "native-base"
 import { useEffect, useState } from "react"
-import { StyleSheet } from "react-native";
 import { callCommentsRequest, deleteCommentRequest } from "../../api/comments/CommentsAPI";
 import { useIsFocused } from "@react-navigation/native";
 
@@ -73,7 +72,7 @@ const CommentListContainer = ({journals}) => {
                     data={comments}
                     renderItem={({item}) => {
                         return (
-                            <Button onPress={() => deleteComment(item)}>삭제</Button>
+                            <Button onPress={() => deleteComment(item)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"}>삭제</Button>
                         )
                     }}
                     keyExtractor={(item) => item.commentId}
