@@ -1,5 +1,5 @@
-import { NativeBaseProvider, Text } from "native-base";
-import CommentListContainer from "../../../components/journals/CommentListContainer";
+import { Input, NativeBaseProvider, ScrollView, Text } from "native-base";
+import CommentListContainer from "../../../components/comments/CommentListContainer";
 
 
 const CommentScreen = ({journals}) => {
@@ -7,7 +7,9 @@ const CommentScreen = ({journals}) => {
     return (
         <>
         <NativeBaseProvider>
-        <CommentListContainer journals={journals}/>
+            <ScrollView style={{flex:1}}>
+            <CommentListContainer journals={journals}/>
+            </ScrollView>
         </NativeBaseProvider>
         </>
     )

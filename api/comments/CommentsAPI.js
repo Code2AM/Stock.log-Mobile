@@ -20,3 +20,12 @@ export const deleteCommentRequest = async (data) => {
         console.error(error);
     }
 }
+
+// 매매 코멘트 등록
+export const registCommentRequest = async (data) => {
+    try {
+        const response = await makeRequest("/comments", "POST", data);
+    } catch (error) {
+        console.error(error);
+    }
+}

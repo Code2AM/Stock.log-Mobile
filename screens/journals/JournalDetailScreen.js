@@ -6,7 +6,6 @@ import useJournals from "../../zustand/journals/useJournals";
 import BuyAndSellTabNavigator from "./buyAndSell/BuyAndSellTabNavigator";
 import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
 import TradeCloseButton from "../../components/journals/TradeCloseButton";
-import CommentListContainer from "../../components/journals/CommentListContainer";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
@@ -137,9 +136,9 @@ export const DeleteDialog = ({journals, navigation}) => {
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
-        marginVertical:"4%",
+        marginVertical:"2%",
         backgroundColor:"white",
-        padding:"5%",
-        marginHorizontal:"2.5%"
+        padding:"3%",
+        marginHorizontal:"2%"
     }
 })
