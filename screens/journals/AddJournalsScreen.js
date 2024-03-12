@@ -1,9 +1,10 @@
-import { Button, Center, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { Button, Center, HStack, Input, NativeBaseProvider, Radio, Text, VStack, View } from "native-base";
 import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useStocks } from "../../zustand/stocks/useStocks";
 import { AutocompleteDropdown, AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown';
 import { createJournalsRequest } from "../../api/journals/JournalsAPI";
+import { useStrategies } from "../../zustand/strategies/useStrategies";
 
 
 const AddJournalsScreen = ({navigation}) => {
@@ -16,6 +17,8 @@ const AddJournalsScreen = ({navigation}) => {
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
     const [fee, setFee] = useState(0);
+    const {strategies, fetchStrategies} = useStrategies();
+    const [strategy, setStrategy] = useState(null);
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -30,16 +33,42 @@ const AddJournalsScreen = ({navigation}) => {
     hideDatePicker();
     };
 
-    const stocksToDataSet = () => {
+    const strategiesRadio = () => {
 
-        if(!stocks){
-            return;
+        if(strategies.length === 0){
+            async () => {
+                await fetchStrategies();
+            }
         }
 
-        return stocks.map(item => ({
-            id:item.srtnCd, 
-            title:item.itmsNm
-        }))
+        return (
+            <>
+            <Radio.Group name="strategies" value={strategy} onChange={nextValue => {setStrategy(nextValue)}}>
+                <VStack>
+                    {strategies.map(item => {
+                        return (
+                            <>
+                                <Radio value={item.strategyId} marginLeft={5} marginTop={2.5}>{item.strategyName}</Radio>
+                            </>
+                        )
+                    })}
+                </VStack>
+            </Radio.Group>
+            </>
+        )
+    }
+
+    // 데이터를 못 가져오고 있음!!!
+    const stocksToDataSet = () => {
+
+        // if(stocks){
+        //     return;
+        // }
+
+        // return stocks.map(item => ({
+        //     id:item.srtnCd, 
+        //     title:item.itmsNm
+        // }))
     }
 
     const handleQuantity = value => {
@@ -66,6 +95,10 @@ const AddJournalsScreen = ({navigation}) => {
             return;
         }
 
+        if(fee >= 100){
+            alert("수수료가 100%를 넘을 수 없습니다.");
+        }
+
         if(selectedItem.title == ""){
             alert("종목명을 선택하지 않으셨습니다.");
             return;
@@ -87,10 +120,11 @@ const AddJournalsScreen = ({navigation}) => {
             strategyId:strategyId,
             buyQuantity:quantity,        
             buyPrice:price,        
-            fee:fee
+            fee:fee,
+            strategyId:strategy
         }
 
-        console.log(selectedItem.title)
+        console.log(strategy)
 
         await createJournalsRequest(data);
 
@@ -99,6 +133,7 @@ const AddJournalsScreen = ({navigation}) => {
         setQuantity(0);
         setPrice(0);
         setFee(0);
+        setStrategy(null);
 
         navigation.goBack();
     }
@@ -147,6 +182,7 @@ const AddJournalsScreen = ({navigation}) => {
                     </HStack>
                     </Center>
                     <Text bold marginX={5} marginTop={5} fontSize={"lg"}>매매전략</Text>
+                    {strategiesRadio()}
                     <Text bold marginX={5} marginTop={5} fontSize={"lg"}>첫 매수가</Text>
                     <HStack marginX={5} marginTop={2.5}>
                         <Input backgroundColor="white" placeholder="첫 매수가를 입력해주세요..." onChangeText={handlePrice} width={"100%"} InputRightElement={<Text marginRight={4}>(원)</Text>}/>
