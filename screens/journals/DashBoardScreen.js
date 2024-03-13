@@ -1,4 +1,4 @@
-import { FlatList, Heading, NativeBaseProvider, Pressable, Text } from "native-base";
+import { Box, FlatList, HStack, Heading, NativeBaseProvider, Pressable, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
 import { useEffect} from "react";
 import JournalsList from "../../components/journals/JournalsList";
@@ -6,6 +6,7 @@ import useJournals from "../../zustand/journals/useJournals";
 import AddJournalsButton from "../../components/journals/AddJournalsButton";
 import { useStocks } from "../../zustand/stocks/useStocks";
 import { useStrategies } from "../../zustand/strategies/useStrategies";
+import JournalsChart from "../../components/journals/JournalsChart";
 
 
 const DashBoardScreen = ({navigation}) => {
@@ -39,34 +40,20 @@ const DashBoardScreen = ({navigation}) => {
     return (
         <>
             <NativeBaseProvider>
-                <Heading style={styles.graphs}>
-                    그래프 공간
-                </Heading>
-                        <FlatList 
-                            data={journals} 
-                            renderItem={({item}) => 
-                            <Pressable onPress={() => onPressHandler(item)}>
-                                <JournalsList journals={item}/>
-                            </Pressable>
-                            }
-                            keyExtractor={(item) => item.journalId}
-                        />
-                        <AddJournalsButton journals={journals} navigation={navigation}/>
+                <JournalsChart journals={journals}/>
+                    <FlatList 
+                        data={journals} 
+                        renderItem={({item}) => 
+                        <Pressable onPress={() => onPressHandler(item)}>
+                            <JournalsList journals={item}/>
+                        </Pressable>
+                        }
+                        keyExtractor={(item) => item.journalId}
+                    />
+                <AddJournalsButton journals={journals} navigation={navigation}/>
             </NativeBaseProvider>
         </>
     )
 }
 
 export default DashBoardScreen;
-
-const styles = StyleSheet.create({
-    graphs:{
-        backgroundColor:"#B5D692",
-        width:"100%",
-        height:"30%",
-        alignItems:"center",
-        textAlign:"center",
-        color:"white",
-        marginBottom:"2%"
-    }
-})
