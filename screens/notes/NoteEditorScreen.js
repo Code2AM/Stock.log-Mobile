@@ -1,11 +1,13 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Container, HStack, Input, NativeBaseProvider, Select, Stack, TextArea, VStack, useToast } from "native-base";
+import { Box, Button, Container, HStack, Input, Modal, NativeBaseProvider, Select, Stack, TextArea, VStack, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { deleteNoteRequest, updateNoteRequest } from "../../api/notes/NotesAPI";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
 import LabelAddModal from "../../components/labels/LabelAddModal";
+import LabelModal from "../../components/labels/LabelMadal";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const NoteEditorScreen = () => {
     const { fetchAllNotes } = useStore(useNotes);
@@ -14,7 +16,7 @@ const NoteEditorScreen = () => {
     const [noteContents, setNoteContents] = useState("");
     const { labels } = useStore(useLabels);
     const [selectedLabel, setSelectedLabel] = useState(null); // 선택된 라벨 상태 추가
-  
+
     const route = useRoute();
     const { item } = route.params;
   
@@ -34,7 +36,7 @@ const NoteEditorScreen = () => {
         // validation
         if (!selectedLabel) {
           toast.show({
-              title: "라벨을 정해주세요",
+              title: "라벨을 선택해주세요",
               duration: 1500,
               placement: "top",
               avoidKeyboard: true,
@@ -111,6 +113,8 @@ const NoteEditorScreen = () => {
               <Stack space={4} alignItems="center">
               <Box w="80%">
                     <HStack>
+                    {/* <LabelModal labels={labels} onSelectLabel={setSelectedLabel} /> */}
+                    
                         <Select
                             minWidth="200"
                             accessibilityLabel="Choose Service"
@@ -121,8 +125,8 @@ const NoteEditorScreen = () => {
                             {labels.map((label) => (
                                 <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
                             ))}
-                        </Select>
-                        <LabelAddModal/>
+                        </Select>                     
+                        <LabelAddModal marginLeft={5}/>
                       </HStack>
                   </Box>
 
@@ -141,7 +145,7 @@ const NoteEditorScreen = () => {
                       value={noteContents}
                       onChangeText={setNoteContents}
                   />
-
+                  {/* <LabelModal/> */}
                   <HStack space={2}>
                       <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
                       <Button onPress={handleDelete} backgroundColor={"red.500"}>삭제</Button>

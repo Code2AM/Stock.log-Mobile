@@ -10,7 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 const LabelsScreen = () => {
 
     const navigation = useNavigation();
-  ``
+  
     const { labels, fetchAllLabels } = useStore(useLabels);
 
     useEffect(() =>{

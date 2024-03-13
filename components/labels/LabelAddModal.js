@@ -73,13 +73,13 @@ const LabelAddModal = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>
-              <Button variant="ghost" colorScheme="blueGray" onPress={() => {
-              setModalVisible(false);
-            }}>
-                취소
-              </Button>
-              <Button variant="ghost" colorScheme="blueGray" onPress={handleNewLabel}>
+              <Button w={"50%"} variant="ghost" colorScheme="blueGray" onPress={handleNewLabel}>
                   등록
+              </Button>
+              <Button w={"50%"} variant="ghost" colorScheme="blueGray" onPress={() => {
+              setModalVisible(false);
+                }}>
+                취소
               </Button>
             </Button.Group>
           </Modal.Footer>
@@ -87,10 +87,11 @@ const LabelAddModal = () => {
       </Modal>
       <Center>
         <VStack space={4}>
-        <FontAwesome5
-         size={25} name="tags" onPress={() => handleSizeClick(size)} key={size}
-         _pressed={{color:"lime.500"}}
-         />
+        <Button
+         onPress={() => handleSizeClick(size)} variant={"link"} color={"white"} 
+         >
+          라벨 추가
+        </Button>
         </VStack>
       </Center>
     </>;

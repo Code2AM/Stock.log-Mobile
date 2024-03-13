@@ -1,5 +1,5 @@
-import { Box, Button, Center, Checkbox, Container, FlatList, HStack, Input, NativeBaseProvider, Select, Stack, TextArea, VStack, useToast } from "native-base";
-import { useEffect, useState } from "react";
+import { Box, Button, Container, HStack, Input, NativeBaseProvider, Select, TextArea, VStack, useToast } from "native-base";
+import { useState } from "react";
 import { newNoteRequest, notesRequest } from "../../api/notes/NotesAPI";
 import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
@@ -87,7 +87,7 @@ export const NewNoteScreen = () => {
                                 <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
                             ))}
                         </Select>
-                        <LabelAddModal marginLeft={"5"}/>
+                        <LabelAddModal/>
                       </HStack>
                   </Box>
 
@@ -113,5 +113,5 @@ export const NewNoteScreen = () => {
               </VStack>
           </Container>
       </NativeBaseProvider>
-  );
+    );
   }
