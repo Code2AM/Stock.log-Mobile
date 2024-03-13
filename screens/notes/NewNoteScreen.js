@@ -5,17 +5,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import LabelAddModal from "../../components/labels/LabelAddModal";
 
 
  
-export const NewNoteScreen = ({ modalVisible }) => {
+export const NewNoteScreen = () => {
 
     const { fetchAllNotes } = useStore(useNotes);
     const { labels } = useStore(useLabels);
-
-    const [modalVisible, setModalVisible] = React.useState(false);
     
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
@@ -101,7 +97,7 @@ export const NewNoteScreen = ({ modalVisible }) => {
                                 <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
                             ))}
                         </Select>
-                        <LabelAddModal/>
+                       
                       </HStack>
                   </Box>
 
