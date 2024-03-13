@@ -19,7 +19,6 @@ export const stockRequest = async () => {
 
         const data = response.data;
         const items = data.response.body.items.item;
-        console.log("주식정보",items)
 
         return items;
     }
