@@ -1,4 +1,4 @@
-import { Box, Button, Center, Input, Modal, ScrollView, VStack, useToast } from "native-base";
+import { Box, Button, Center, Input, Modal, VStack, useToast } from "native-base";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import React, { useState } from "react";
 import useLabels from "../../zustand/labels/useLabels";
@@ -20,36 +20,37 @@ const LabelAddModal = () => {
   const toast = useToast();
 
   const handleNewLabel = async () => {
-
-      // validation
-      if (!labelsTitle) {
-          toast.show({
-              title: "라벨 이름을 입력해주세요.",
-              duration: 1500,
-              placement: "top",
-              avoidKeyboard: true,
-          });
-          return; // 함수 종료
-      }
-
-      // 전달할 데이터
-      data = {
-          labelsTitle : labelsTitle
-      }
-      
-      // 등록 메소드
-      const result = await labelAdd(data);
-
-      // 성공시 상단에 등록 성공 출력
-      toast.show({
-          title: "등록 성공",
+      // 입력 값이 유효한지 검증
+      if (!labelsTitle || !labelsTitle.trim()) {
+        // 입력 값이 없으면 에러 토스트 출력
+        toast.show({
+          title: "라벨 제목을 입력해주세요.",
           duration: 1500,
           placement: "top",
           avoidKeyboard: true,
-        })
-
-        fetchAllLabels();
-
+        });
+        return; // 등록 시도를 중지하고 함수 종료
+      }
+  
+      // 전달할 데이터
+      const data = {
+        labelsTitle: labelsTitle
+      };
+      
+      // 등록 메소드
+      const result = await labelAdd(data);
+  
+      // 성공시 토스트를 이용해 상단에 등록 성공 출력
+      toast.show({
+        title: "등록 성공",
+        duration: 1500,
+        placement: "top",
+        avoidKeyboard: true,
+      });
+  
+      // 유저 라벨 불러오기
+      fetchAllLabels();
+  
       // 등록 후 모달 창 닫기
       setModalVisible(false);
   }
@@ -66,8 +67,7 @@ const LabelAddModal = () => {
                     placeholder="라벨의 이름을 입력해주세요."
                     size="lg"
                     width={200}
-                    onChangeText={setLabelsTitle}
-                    value={labelsTitle}
+                    onChangeText={text => setLabelsTitle(text)}
                 />
             </Box>
           </Modal.Body>
@@ -87,7 +87,10 @@ const LabelAddModal = () => {
       </Modal>
       <Center>
         <VStack space={4}>
-        <FontAwesome5 size={25} name="tags" color={"gray"} onPress={() => handleSizeClick(size)} key={size}/>
+        <FontAwesome5
+         size={25} name="tags" onPress={() => handleSizeClick(size)} key={size}
+         _pressed={{color:"lime.500"}}
+         />
         </VStack>
       </Center>
     </>;

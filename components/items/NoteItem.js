@@ -19,61 +19,29 @@ export const NoteItem = ({item}) => {
 
     return (
         <ScrollView>
-            <Pressable
-            onPress={handleDetailNote}
-            >
-
-            <Box
-                borderBottomWidth="1"
-                _dark={{ borderColor: "muted.50" }}
-                borderColor="muted.800"
-                pl={["0", "4"]}
-                pr={["0", "5"]}
-                py="2"
-                minHeight={120}
-                height={120}
-            >
-
-                <HStack space={[2, 3]} justifyContent="space-between">
-
-                    <VStack>
-                        <Text
-                            color="coolGray.600"
-                            _dark={{ color: "warmGray.200" }}>
-                            {item.labelsDTO.labelsTitle}
-                        </Text>
-                        <Text
-                            style={styles.titleText}
-                            _dark={{ color: "warmGray.50" }}
-                            color="coolGray.800"
-                            bold>
-                            {item.noteName}
-                        </Text>
-                        <Text
-                            style={styles.contentText}
-                            color="coolGray.600"
-                            _dark={{ color: "warmGray.200" }}>
-                            {item.noteContents}
-                        </Text>
-                    </VStack>
-
-                    <Spacer />
-
-                    <Text
-                        fontSize="xs"
-                        _dark={{ color: "warmGray.50" }}
-                        color="coolGray.800"
-                        alignSelf="flex-start">
-                        {/* {item.noteDate} 를 시간대 형식으로 변환 */}
-                        {
-                            new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(item.noteDate))
-                        }
-                    </Text>
-                </HStack>
-            </Box>
-        </Pressable>
-    </ScrollView>
-    )
+            <Pressable onPress={handleDetailNote}>
+                <Box
+                    borderBottomWidth={1}
+                    borderColor="gray.300"
+                    p={4}
+                    mb={4}
+                    rounded="md"
+                    _hover={{
+                        backgroundColor: "gray.100"
+                    }}
+                >
+                    <HStack justifyContent="space-between" alignItems="center">
+                        <VStack flex={1} space={2}>
+                            <Text color="gray.700" fontSize="lg" fontWeight="bold">{item.noteName}</Text>
+                            <Text color="gray.500" fontSize="sm">{item.labelsDTO.labelsTitle}</Text>
+                            <Text color="gray.600" fontSize="md">{item.noteContents}</Text>
+                        </VStack>
+                        <Text color="gray.400" fontSize="xs">{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(item.noteDate))}</Text>
+                    </HStack>
+                </Box>
+            </Pressable>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({

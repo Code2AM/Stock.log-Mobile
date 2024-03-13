@@ -54,7 +54,6 @@ const NotesScreen = () => {
                     _pressed={{backgroundColor:"lime.500"}}
                 />
 
-
         </NativeBaseProvider>
     );
 }

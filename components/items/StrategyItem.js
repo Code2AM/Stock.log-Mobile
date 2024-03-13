@@ -2,6 +2,7 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Box, Button, FlatList, HStack, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack } from "native-base"
 import { useEffect } from "react";
+import { StyleSheet } from "react-native";
 
 
 
@@ -17,32 +18,40 @@ export const StrategyItem = ({item}) => {
     }
 
     return (
-        <Pressable
-        onPress={handleDetailStrategy}
-    >
-
-        <Box
-            borderBottomWidth="1"
-            _dark={{ borderColor: "muted.50" }}
-            borderColor="muted.800"
-            pl={["0", "4"]}
-            pr={["0", "5"]}
-            py="2"
-            minHeight={120}
-            height={120}
-        >
-
-                    <Text
-                        _dark={{ color: "warmGray.50" }}
-                        color="coolGray.800"
-                        bold>
-                        {item.strategyName}
-                    </Text>
-
-        </Box>
-    </Pressable>
-    )
+        <Pressable onPress={handleDetailStrategy} style={styles.container}>
+            <Box style={styles.boxStyle}>
+                <HStack>
+                    <VStack>
+                        <Text style={styles.strategyText}>{item.strategyName}</Text>
+                    </VStack>
+                </HStack>
+            </Box>
+      </Pressable>
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      backgroundColor: '#E5E7EB',
+      borderRadius: 8,
+      marginBottom: 10,
+      height:50
+    },
+    boxStyle: {
+        alignItems:"center",
+        justifyContent:"center",
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    strategyText: {
+        marginTop:10,
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#4B5563',
+    },
+  });
 
 
 // const strategyDTO = {

@@ -5,7 +5,6 @@ import { deleteNoteRequest, updateNoteRequest } from "../../api/notes/NotesAPI";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import LabelAddModal from "../../components/labels/LabelAddModal";
 
 const NoteEditorScreen = () => {
@@ -43,7 +42,7 @@ const NoteEditorScreen = () => {
           return; // 함수 종료
       }
 
-         if (!noteName) {
+         if (!noteName || !noteName.trim()) {
           toast.show({
               title: "노트 이름을 입력해주세요.",
               duration: 1500,
@@ -52,16 +51,6 @@ const NoteEditorScreen = () => {
           });
           return; // 함수 종료
       }
-
-      if (!noteContents) {
-        toast.show({
-            title: "내용을 입력해주세요",
-            duration: 1500,
-            placement: "top",
-            avoidKeyboard: true,
-        });
-        return; // 함수 종료
-    }
 
       const selectedLabelValue = labels.find(label => label.labelsId === selectedLabel);
       const data = {    
@@ -89,7 +78,8 @@ const NoteEditorScreen = () => {
   
       navigation.navigate("NotesScreen");
     }
-  
+    
+    // 삭제
     const handleDelete = async () => {
       const data = {
         noteId: item.noteId,
@@ -153,8 +143,8 @@ const NoteEditorScreen = () => {
                   />
 
                   <HStack space={2}>
-                      <Button onPress={handleUpdate}>수정</Button>
-                      <Button onPress={handleDelete}>삭제</Button>
+                      <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
+                      <Button onPress={handleDelete} backgroundColor={"red.500"}>삭제</Button>
                   </HStack>
               </Stack>
           </Container>

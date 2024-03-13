@@ -19,7 +19,7 @@ export const NewLabelScreen = () =>{
     const handleNewLabel = async () => {
 
         // validation
-        if (!labelsTitle) {
+        if (!labelsTitle || !labelsTitle.trim()) {
             toast.show({
                 title: "라벨 이름을 입력해주세요.",
                 duration: 1500,
