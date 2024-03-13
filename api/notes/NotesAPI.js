@@ -12,18 +12,6 @@ export const newNoteRequest = async (data) => {
     }
     catch (error) {
         console.error("newNoteRequest Error:", error);
-
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
-        throw error;
     }
 }
 
@@ -41,17 +29,6 @@ export const notesRequest = async () => {
     catch (error) {
         console.error("newNoteRequest Error:", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
-        throw error;
     }
 }
 
@@ -64,17 +41,6 @@ export const updateNoteRequest = async (data) => {
     catch (error) {
         console.error("newNoteRequest Error:", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
-        throw error;
     }
 }
 
@@ -87,17 +53,6 @@ export const deleteNoteRequest = async (data) => {
     catch (error) {
         console.error("newNoteRequest Error:", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
-        throw error;
     }
 }
 
