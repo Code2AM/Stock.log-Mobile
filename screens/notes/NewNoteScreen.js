@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
+import LabelAddModal from "../../components/labels/LabelAddModal";
 
 
  
@@ -97,7 +98,7 @@ export const NewNoteScreen = () => {
                                 <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
                             ))}
                         </Select>
-                       
+                        <LabelAddModal marginLeft={"5"}/>
                       </HStack>
                   </Box>
 

@@ -6,6 +6,7 @@ import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import LabelAddModal from "../../components/labels/LabelAddModal";
 
 const NoteEditorScreen = () => {
     const { fetchAllNotes } = useStore(useNotes);
@@ -118,19 +119,21 @@ const NoteEditorScreen = () => {
       <NativeBaseProvider>
           <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
               <Stack space={4} alignItems="center">
-                  <Box w="80%">
-                      <Select
-                          minWidth="200"
-                          accessibilityLabel="Choose Service"
-                          placeholder="라벨 선택"
-                          value={selectedLabel} // 선택된 라벨 값 설정
-                          onValueChange={(itemValue) => setSelectedLabel(itemValue)} // 선택된 라벨 값 변경 시 상태 업데이트
-                      >
-                          {labels.map((label) => (
-                              <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
-                          ))}
-                      </Select>
-                      <FontAwesome5 name="tags"/>
+              <Box w="80%">
+                    <HStack>
+                        <Select
+                            minWidth="200"
+                            accessibilityLabel="Choose Service"
+                            placeholder="라벨 선택"
+                            value={selectedLabel} // 선택된 라벨 값 설정
+                            onValueChange={(itemValue) => setSelectedLabel(itemValue)} // 선택된 라벨 값 변경 시 상태 업데이트
+                        >
+                            {labels.map((label) => (
+                                <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
+                            ))}
+                        </Select>
+                        <LabelAddModal/>
+                      </HStack>
                   </Box>
 
                   <Input
