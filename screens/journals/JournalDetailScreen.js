@@ -1,5 +1,5 @@
 import { AlertDialog, Box, Button, Center, Divider, HStack, Heading, NativeBaseProvider, Pressable, Text, VStack } from "native-base";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { deleteJournalsRequest } from "../../api/journals/JournalsAPI";
 import useJournals from "../../zustand/journals/useJournals";
@@ -51,10 +51,12 @@ const JournalDetailScreen = ({route, navigation}) => {
             <NativeBaseProvider>
                 <Box style={styles.journalsDetailContainer}>
                     <VStack>
-                        <HStack style={{ justifyContent: 'space-between' }}>
-                            <Heading>{journal.stockName}</Heading>
-                            <TradeCloseButton journals={journal} navigation={navigation}/>
-                            <DeleteDialog journals={journal} navigation={navigation}/>
+                        <HStack justifyContent={"space-between"}>
+                            <Heading my={2}>{journal.stockName}</Heading>
+                            <HStack space={3}>
+                              <TradeCloseButton journals={journal} navigation={navigation}/>
+                              <DeleteDialog journals={journal} navigation={navigation}/>
+                            </HStack>
                         </HStack>                    
                         <HStack>
                             <VStack>
@@ -88,7 +90,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                         </HStack>                        
                     </VStack>
                 </Box>
-                <Button onPress={inputHandler} disabled={journal.status == "close"} display={journal.status == "close"? "none" : "block"}>기록 추가</Button>
+                <Button onPress={inputHandler} disabled={journal.status == "close"} display={journal.status == "close"? "none" : "block"} bgColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}} mx={2}>기록 추가</Button>
                 <BuyAndSellTabNavigator journals={journal}/>
             </NativeBaseProvider>
         </>
@@ -109,9 +111,9 @@ export const DeleteDialog = ({journals, navigation}) => {
 
   const cancelRef = useRef(null);
   return <Center>
-      <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)}>
-        삭제
-      </Button>
+      <Pressable onPress={() => setIsOpen(!isOpen)}>
+        <Image source={require("../../assets/icons/journals/delete.png")} alt="delete"/>
+      </Pressable>
       <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
         <AlertDialog.Content>
           <AlertDialog.CloseButton />

@@ -1,4 +1,4 @@
-import { Box, Button, Center, FormControl, Input, Modal, TextArea } from "native-base";
+import { Box, Button, Modal, TextArea } from "native-base";
 import { useState } from "react";
 import { registCommentRequest } from "../../api/comments/CommentsAPI";
 
@@ -22,7 +22,7 @@ const CommentRegister = ({ journals, callComments }) => {
 
   return (
     <Box>
-      <Button onPress={() => setShowModal(true)}>코멘트 추가하기</Button>
+      <Button onPress={() => setShowModal(true)} my={2} bgColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}}>코멘트 추가하기</Button>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
