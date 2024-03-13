@@ -32,8 +32,9 @@ const JournalsList = ({journals}) => {
                     <HStack justifyContent="space-between">
                         <VStack>
                             <HStack>
+                            <Image source={journals.status == "open"? require("../../assets/icons/journals/open.png") : journals.status == "close"? require("../../assets/icons/journals/close.png") : "none"} alt="status" cache="reload"/>
                                 <Heading>{journals.stockName}</Heading>
-                                <Text></Text>
+                                
                                 </HStack>
                             <Text style={styles.notImportantFont} >{strategyName}</Text>
                         </VStack>
