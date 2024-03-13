@@ -174,7 +174,7 @@
                         <HStack textAlign={"center"} justifyItems={"center"} marginTop={5}>
                         <Input color={"black"} width={"70%"} value={new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(date.toString()))} isDisabled/>
                         <View>
-                            <Button onPress={showDatePicker} backgroundColor={"#B5D692"}>날짜선택</Button>
+                            <Button onPress={showDatePicker} backgroundColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}}>날짜선택</Button>
                             <DateTimePickerModal
                                 isVisible={isDatePickerVisible}
                                 mode="datetime"
@@ -197,7 +197,7 @@
                         <HStack marginX={5} marginTop={2.5}>
                         <Input backgroundColor="white" placeholder="해당 일지의 매도 수수료를 설정해주세요..." onChangeText={handleFee} width={"100%"} InputRightElement={<Text marginRight={4}>(%)</Text>}/>
                         </HStack>
-                        <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"}>일지 등록</Button>
+                        <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}}>일지 등록</Button>
                     </VStack>
                 </ScrollView>
                 
