@@ -7,8 +7,6 @@ export const strategiesRequest = async () => {
         console.log("strategiesRequest")
 
         const response = await makeRequest("/strategies/findAll", "POST")
-        console.log(response)
-
         return response.data
     }
     catch (error) {

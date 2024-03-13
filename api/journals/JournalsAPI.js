@@ -71,7 +71,38 @@ export const createJournalsRequest = async (data) => {
   try {
     console.log(data);
     const response = await makeRequest("/journals", "POST", data)
+    console.log(response);
   } catch (error) {
     console.error("일지 등록 실패");
+  }
+}
+
+// 매수기록 삭제
+export const deleteBuyRequest = async (data) => {
+  try {
+    console.log(data);
+    const response = await makeRequest("/buy/delete", "POST", data);
+  } catch (error) {
+    console.error("매수 기록 삭제 실패");
+  }
+  
+}
+
+// 매도기록 삭제
+export const deleteSellRequest = async (data) => {
+  try {
+    console.log(data);
+    const response = await makeRequest("/sell/delete", "POST", data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// 매매일지 상태 변경
+export const changeJournalsStatusRequest = async (data) => {
+  try {
+    const response = await makeRequest("/journals/change", "POST", data);
+  } catch (error) {
+    console.error(error);
   }
 }
