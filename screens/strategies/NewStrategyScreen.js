@@ -3,12 +3,13 @@ import { useStrategies } from "../../zustand/strategies/useStrategies";
 import { newStrategyRequest } from "../../api/strategies/StrategiesAPI";
 import { useStore } from "zustand";
 import { useState } from "react";
-import { Button, Input, NativeBaseProvider, useToast } from "native-base";
+import { Box, Button, Input, NativeBaseProvider, useToast } from "native-base";
 
 
 
 
 export const NewStrategyScreen = () => {
+    
     const { fetchStrategies } = useStore(useStrategies);
 
     const [ strategyName , setStrategyName ] = useState("");
@@ -43,15 +44,19 @@ export const NewStrategyScreen = () => {
 
     return (
         <NativeBaseProvider>
-        <Input
-            placeholder="매매전략의 제목을 입력해주세요" 
-            value={strategyName}
-            onChangeText={setStrategyName}
-        />
-
-        <Button
-        onPress={handleNewStrategy}
-        >저장</Button>
+        <Box flex={1} marginTop={10} alignItems="center">
+            <Input
+                variant="underlined"
+                placeholder="매매 전략의의 이름을 입력해주세요."
+                size="lg"
+                width={200}
+                onChangeText={setStrategyName}
+                value={strategyName}
+            />
+            <Button onPress={handleNewStrategy} mt={4} backgroundColor={"#B5D692"}>
+                등록
+            </Button>
+        </Box>
     </NativeBaseProvider>
     )
 }

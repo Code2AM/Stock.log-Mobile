@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Link, NativeBaseProvider, useToast } from "native-base"
+import { Box, Button, Center, Container, Flex, Link, NativeBaseProvider, Stack, useToast } from "native-base"
 import { StyleSheet } from "react-native";
 import { logout } from "../../api/auth/LogoutAPI";
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const SettingScreen = () => {
 

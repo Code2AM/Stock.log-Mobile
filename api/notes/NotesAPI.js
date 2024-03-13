@@ -8,7 +8,7 @@ export const newNoteRequest = async (data) => {
         const response = await makeRequest("/notes/create", "POST", data)
         console.log(response)
 
-        return "등록성공";
+        return response;
     }
     catch (error) {
         console.error("newNoteRequest Error:", error);
