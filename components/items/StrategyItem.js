@@ -18,15 +18,17 @@ export const StrategyItem = ({item}) => {
     }
 
     return (
-        <Pressable onPress={handleDetailStrategy} style={styles.container}>
-            <Box style={styles.boxStyle}>
-                <HStack>
-                    <VStack>
-                        <Text style={styles.strategyText}>{item.strategyName}</Text>
-                    </VStack>
-                </HStack>
-            </Box>
-      </Pressable>
+        <ScrollView>
+            <Pressable onPress={handleDetailStrategy} style={styles.container}>
+                <Box style={styles.boxStyle}>
+                    <HStack>
+                        <VStack>
+                            <Text style={styles.strategyText}>{item.strategyName}</Text>
+                        </VStack>
+                    </HStack>
+                </Box>
+        </Pressable>
+      </ScrollView>
     );
 }
 

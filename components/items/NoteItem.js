@@ -18,7 +18,6 @@ export const NoteItem = ({item}) => {
     }
 
     return (
-        <ScrollView>
             <Pressable onPress={handleDetailNote}>
                 <Box
                     borderBottomWidth={1}
@@ -40,7 +39,6 @@ export const NoteItem = ({item}) => {
                     </HStack>
                 </Box>
             </Pressable>
-        </ScrollView>
     );
 }
 

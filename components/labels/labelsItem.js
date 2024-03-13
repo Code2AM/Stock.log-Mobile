@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Box, HStack, Pressable, Text, VStack } from "native-base";
+import { Box, HStack, Pressable, ScrollView, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
 
 const LabelsItem = ({item}) => {
@@ -13,15 +13,17 @@ const LabelsItem = ({item}) => {
     }
 
     return (
-        <Pressable onPress={handleUpdateLabels} style={styles.container}>
-            <Box style={styles.boxStyle}>
-                <HStack>
-                    <VStack>
-                        <Text style={styles.labelText}>{item.labelsTitle}</Text>
-                    </VStack>
-                </HStack>
-            </Box>
-      </Pressable>
+        <ScrollView>
+            <Pressable onPress={handleUpdateLabels} style={styles.container}>
+                <Box style={styles.boxStyle}>
+                    <HStack>
+                        <VStack>
+                            <Text style={styles.labelText}>{item.labelsTitle}</Text>
+                        </VStack>
+                    </HStack>
+                </Box>
+        </Pressable>
+      </ScrollView>
     );
 }
 export default LabelsItem;

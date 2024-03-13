@@ -25,14 +25,12 @@ const LabelsScreen = () => {
 
     return (
         <NativeBaseProvider>
-          <ScrollView>
             <Box>
                 <FlatList
                     data={labels}
                     renderItem={ ({ item }) => <LabelsItem item = {item}/>}
                     keyExtractor={item => item.labelsId} />
             </Box>
-            </ScrollView>
             <Fab
                 bg={"#B5D692"}
                 onPress={handleNewLabelScreen}

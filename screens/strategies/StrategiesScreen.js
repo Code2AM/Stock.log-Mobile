@@ -21,12 +21,10 @@ export const StrategiesScreen = () => {
     <NativeBaseProvider>
 
       <Box>
-        <ScrollView>
           <FlatList
             data={strategies}
             renderItem={({ item }) => <StrategyItem item={item} />}
             keyExtractor={item => item.strategyId} />
-        </ScrollView>
         </Box>
           <Fab
                 bg={"#B5D692"}

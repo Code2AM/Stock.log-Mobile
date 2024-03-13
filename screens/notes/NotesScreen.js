@@ -1,6 +1,6 @@
 
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Box, Button, Fab, FlatList, HStack, Icon, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack } from "native-base"
+import { Box, Fab, FlatList, Icon, NativeBaseProvider, ScrollView } from "native-base"
 import { useEffect } from "react";
 import { AntDesign } from '@expo/vector-icons';
 import { useStore } from "zustand";
