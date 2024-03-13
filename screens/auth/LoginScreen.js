@@ -5,6 +5,7 @@ import { loginRequest } from "../../api/auth/AuthAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KakaoButton } from "../../components/auth/buttons/KakaoButton";
 import { useStocks } from "../../zustand/stocks/useStocks";
+import { getStocks, storeStocks } from "../../api/common/StockAPI";
 
 
 
@@ -15,7 +16,26 @@ export const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
 
-    const {fetchStocks} = useStocks();
+    const {stocks, fetchStocks, setStocks} = useStocks();
+
+    const stockData = async () => {
+        const data = await getStocks();
+        await setStocks(data);
+        console.log("데이터는 이렇다.",stocks);
+    };
+
+    const storeData = async () => {
+        const data = await fetchStocks();
+        storeStocks(data);
+    }
+
+    useEffect(() => {
+        if(stocks?.length === 0){
+            storeData();
+            stockData();
+            // 새로고침이 아직 없다.
+        }
+    },[])
 
     const handleLogin = async () => {
         const data = {
@@ -27,7 +47,6 @@ export const LoginScreen = () => {
         console.log(result)
 
         // // 요청이 몰리는 것을 막고 앱 실행시 하루에 한번 정도만 불러오면 되기 때문에 로그인 페이지로 이동시킴
-        await fetchStocks();
         alert("로그인 성공")
 
         const accessToken = await AsyncStorage.getItem("accessToken");
@@ -43,8 +62,7 @@ export const LoginScreen = () => {
     const handleSignUp = () => {
         navigation.navigate('SignupStack', { screen: 'SignupEmailAuthScreen' })
     }
-
-
+    
     return (
         <NativeBaseProvider>
             <Center w="100%" h="100%">

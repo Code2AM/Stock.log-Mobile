@@ -62,11 +62,6 @@
 
         const stocksToDataSet = () => {
 
-            if(stocks.length === 0){
-                fetchStocks();
-                return;
-            }
-
             return stocks.map(item => ({
                 id:item.srtnCd, 
                 title:item.itmsNm
@@ -147,7 +142,6 @@
         return (
             <>
             <NativeBaseProvider>
-                <ScrollView>
                 <VStack textAlign="center" alignItems="center" marginTop={5}>
                         <Text bold marginX={5} marginTop={5} fontSize={"lg"}>종목 이름</Text>
                         <View style={{zIndex:50, marginTop:5, width:"90%"}}>
@@ -199,7 +193,6 @@
                         </HStack>
                         <Button onPress={submitDataToJournals} margin={5} backgroundColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}}>일지 등록</Button>
                     </VStack>
-                </ScrollView>
                 
             </NativeBaseProvider>
             </>
