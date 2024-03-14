@@ -1,5 +1,5 @@
 import { Box, Button, Container, HStack, Input, NativeBaseProvider, Select, TextArea, VStack, useToast } from "native-base";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { newNoteRequest, notesRequest } from "../../api/notes/NotesAPI";
 import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
@@ -12,7 +12,7 @@ import LabelAddModal from "../../components/labels/LabelAddModal";
 export const NewNoteScreen = () => {
 
     const { fetchAllNotes } = useStore(useNotes);
-    const { labels } = useStore(useLabels);
+    const { labels, fetchAllLabels } = useStore(useLabels);
     
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
@@ -20,6 +20,11 @@ export const NewNoteScreen = () => {
   
     const navigation = useNavigation();
     const toast = useToast();
+
+    useEffect(() => {
+      // 유저가 페이지 들어올 때 한 번 fetchAllLabels 메소드 작동
+      fetchAllLabels();
+  }, []);
 
     const handleNewNote = async () => {
 

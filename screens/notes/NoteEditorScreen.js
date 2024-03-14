@@ -14,15 +14,20 @@ const NoteEditorScreen = () => {
   
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
-    const { labels } = useStore(useLabels);
+    const { labels, fetchAllLabels } = useStore(useLabels);
     const [selectedLabel, setSelectedLabel] = useState(null); // 선택된 라벨 상태 추가
 
     const route = useRoute();
     const { item } = route.params;
-  
+   
     const navigation = useNavigation();
     const toast = useToast();
-  
+
+    useEffect(() => {
+      // 유저가 페이지 들어올 때 한 번 fetchAllLabels 메소드 작동
+      fetchAllLabels();
+  }, []);
+
     useEffect(() => {
       if (item) {
         setNoteName(item.noteName);
