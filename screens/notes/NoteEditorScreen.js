@@ -8,10 +8,11 @@ import useLabels from "../../zustand/labels/useLabels";
 import LabelAddModal from "../../components/labels/LabelAddModal";
 import LabelModal from "../../components/labels/LabelMadal";
 import DropDownPicker from "react-native-dropdown-picker";
+import { StyleSheet } from "react-native";
 
 const NoteEditorScreen = () => {
     const { fetchAllNotes } = useStore(useNotes);
-  
+    const [open, setOpen] = useState(false);
     const [noteName, setNoteName] = useState("");
     const [noteContents, setNoteContents] = useState("");
     const { labels, fetchAllLabels } = useStore(useLabels);
@@ -114,51 +115,60 @@ const NoteEditorScreen = () => {
   
     return (
       <NativeBaseProvider>
-          <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
-              <Stack space={4} alignItems="center">
-              <Box w="80%">
-                    <HStack>
-                    {/* <LabelModal labels={labels} onSelectLabel={setSelectedLabel} /> */}
-                    
-                        <Select
-                            minWidth="200"
-                            accessibilityLabel="Choose Service"
-                            placeholder="라벨 선택"
-                            value={selectedLabel} // 선택된 라벨 값 설정
-                            onValueChange={(itemValue) => setSelectedLabel(itemValue)} // 선택된 라벨 값 변경 시 상태 업데이트
-                        >
-                            {labels.map((label) => (
-                                <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
-                            ))}
-                        </Select>                     
-                        <LabelAddModal marginLeft={5}/>
-                      </HStack>
-                  </Box>
-
-                  <Input
-                      w="90%"
-                      placeholder="제목을 입력해주세요"
-                      value={noteName}
-                      h={"15%"}
-                      onChangeText={setNoteName}
-                  />
-
-                  <TextArea
-                      w="90%"
-                      h={150}
-                      placeholder="내용을 입력해주세요"
-                      value={noteContents}
-                      onChangeText={setNoteContents}
-                  />
-                  {/* <LabelModal/> */}
-                  <HStack space={2}>
-                      <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
-                      <Button onPress={handleDelete} backgroundColor={"red.500"}>삭제</Button>
-                  </HStack>
-              </Stack>
-          </Container>
+        <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
+          <Stack space={4} alignItems="center">
+            <Box w="80%" flexDirection="row" zIndex={50}>
+              <Box>
+                <DropDownPicker
+                  open={open}
+                  setOpen={setOpen}
+                  items={labels.map(label => ({label: label.labelsTitle, value: label.labelsId}))}
+                  value={selectedLabel}
+                  setValue={setSelectedLabel}
+                  containerStyle={{height: 40}}
+                  style={styles.dropDown}
+                  dropDownStyle={{backgroundColor: '#fafafa'}}
+                  onChangeItem={(item) => setSelectedLabel(item.value)}
+                  placeholder="라벨을 선택해주세요"
+                />
+              </Box>
+              <Box>
+                <LabelAddModal />
+              </Box>
+            </Box>
+    
+            <Input
+              w="90%"
+              placeholder="제목을 입력해주세요"
+              value={noteName}
+              h={"15%"}
+              onChangeText={setNoteName}
+            />
+    
+            <TextArea
+              w="90%"
+              h={150}
+              placeholder="내용을 입력해주세요"
+              value={noteContents}
+              onChangeText={setNoteContents}
+            />
+    
+            <HStack space={2}>
+              <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
+              <Button onPress={handleDelete} backgroundColor={"red.500"}>삭제</Button>
+            </HStack>
+          </Stack>
+        </Container>
       </NativeBaseProvider>
-  );
+    );
   }
   
   export default NoteEditorScreen;
+
+  const styles = StyleSheet.create({
+    dropDown:{
+        backgroundColor: '#fafafa',
+        width:"90%",
+        marginLeft:22,
+    }
+  })
