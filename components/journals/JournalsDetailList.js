@@ -1,4 +1,4 @@
-import { AlertDialog, Button, Center, Divider, FlatList, HStack, Text, VStack } from "native-base";
+import { AlertDialog, Box, Button, Center, Divider, FlatList, HStack, Text, VStack } from "native-base";
 import { useEffect, useRef, useState } from "react";
 import { SellRequest, buyRequest, deleteBuyRequest, deleteSellRequest } from "../../api/journals/JournalsAPI";
 import { useIsFocused } from "@react-navigation/native";
@@ -22,21 +22,24 @@ export const BuyDetailList = ({ journals }) => {
 
   return (
     <>
-        <HStack>
-          <VStack>
-          <Text>매수날짜</Text>
-          <FlatList
-            data={buyList}
-            renderItem={({item}) => {
-              return (
-                <VStack>
-                  <Text>
-                      {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.buyDate))}
-                  </Text>
-                </VStack>
-              )
-            }}
-          />
+    <Box style={{backgroundColor:"white", minHeight:400 ,maxHeight:420}} p={2}>
+      <HStack justifyContent="center" alignItems="flex-start">
+          <VStack flex={1}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수날짜</Text>
+            </Box>
+            <FlatList
+              data={buyList}
+              renderItem={({item}) => {
+                return (
+                  <VStack>
+                    <Text textAlign={"center"}>
+                        {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.buyDate))}
+                    </Text>
+                  </VStack>
+                )
+              }}
+            />
           </VStack>
           <Divider
             bg="emerald.500"
@@ -44,14 +47,16 @@ export const BuyDetailList = ({ journals }) => {
             mx="2"
             orientation="vertical"
           />
-          <VStack>
-            <Text>매수가</Text>
+          <VStack flex={0.3}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수가</Text>
+            </Box>
             <FlatList
               data={buyList}
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text>{item.buyPrice}</Text>
+                    <Text textAlign={"center"}>{item.buyPrice}</Text>
                   </VStack>
                 )
               }}
@@ -64,13 +69,15 @@ export const BuyDetailList = ({ journals }) => {
             orientation="vertical"
           />
           <VStack>
-            <Text>매수량</Text>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수량</Text>
+            </Box>
             <FlatList
               data={buyList}
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text>{item.buyQuantity}</Text>
+                    <Text textAlign={"center"}>{item.buyQuantity}</Text>
                   </VStack>
                 )
               }}
@@ -83,7 +90,9 @@ export const BuyDetailList = ({ journals }) => {
             orientation="vertical"
           />
           <VStack>
-            <Text>기능</Text>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>기능</Text>
+            </Box>
             <FlatList
               data={buyList}
               renderItem={({item}) => {
@@ -96,6 +105,8 @@ export const BuyDetailList = ({ journals }) => {
             />
           </VStack>
         </HStack>
+    </Box>
+        
     </>
   );
 };
@@ -117,15 +128,18 @@ export const SellDetailList = ({ journals }) => {
 
   return (
     <>
-        <HStack>
-          <VStack>
-          <Text>매도날짜</Text>
+    <Box style={{backgroundColor:"white", minHeight:400 ,maxHeight:420}} p={2}>
+    <HStack justifyContent="center" alignItems="flex-start">
+          <VStack flex={1}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+            <Text bold>매도날짜</Text>
+            </Box>
           <FlatList
             data={sellList}
             renderItem={({item}) => {
               return (
                 <VStack>
-                  <Text>
+                  <Text textAlign={"center"}>
                       {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.sellDate))}
                   </Text>
                 </VStack>
@@ -140,13 +154,15 @@ export const SellDetailList = ({ journals }) => {
             orientation="vertical"
           />
           <VStack>
-            <Text>매수가</Text>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+            <Text bold>매도가</Text>
+            </Box>
             <FlatList
               data={sellList}
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text>{item.sellPrice}</Text>
+                    <Text textAlign={"center"}>{item.sellPrice}</Text>
                   </VStack>
                 )
               }}
@@ -159,13 +175,15 @@ export const SellDetailList = ({ journals }) => {
             orientation="vertical"
           />
           <VStack>
-            <Text>매수량</Text>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매도량</Text>
+            </Box>
             <FlatList
               data={sellList}
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text>{item.sellQuantity}</Text>
+                    <Text textAlign={"center"}>{item.sellQuantity}</Text>
                   </VStack>
                 )
               }}
@@ -178,7 +196,9 @@ export const SellDetailList = ({ journals }) => {
             orientation="vertical"
           />
           <VStack>
-            <Text>기능</Text>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>기능</Text>
+            </Box>
             <FlatList
               data={sellList}
               renderItem={({item}) => {
@@ -191,6 +211,7 @@ export const SellDetailList = ({ journals }) => {
             />
           </VStack>
         </HStack>
+    </Box>
     </>
   );
 };
@@ -228,7 +249,7 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler, jo
 
   return (
     <Center>
-          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"}>
+          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} my={1}>
             삭제
           </Button>
           <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>

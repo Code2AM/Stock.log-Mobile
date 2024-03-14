@@ -15,10 +15,18 @@ const BuyAndSellTabNavigator = ({journals}) => {
     const CommentScreenWithProps = () => <CommentScreen journals={journals} />;
     return (
     <>
-    <Tab.Navigator>
+    <Tab.Navigator
+        screenOptions={{
+            swipeEnabled:false,
+            tabBarActiveTintColor:"green",
+            tabBarPressColor:"yellowgreen",
+            tabBarIndicatorStyle:{
+                backgroundColor:"green"
+            }
+        }}>
         <Tab.Screen name="Buy" component={BuyScreenWithProps} />
         <Tab.Screen name="Sell" component={SellScreenWithProps}/>
-        <Tab.Screen name="Comment" component={CommentScreenWithProps}/>
+        <Tab.Screen name="Comments" component={CommentScreenWithProps}/>
     </Tab.Navigator>
     </>
     )

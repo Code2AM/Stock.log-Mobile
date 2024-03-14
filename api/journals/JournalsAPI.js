@@ -59,7 +59,6 @@ export const postSellRequest = async (data) => {
 // 매매일지 삭제
 export const deleteJournalsRequest = async (data) => {
   try {
-    console.log(data)
     const response = await makeRequest("/journals/delete", "POST", data)
   } catch (error) {
     console.error(error);
@@ -69,7 +68,6 @@ export const deleteJournalsRequest = async (data) => {
 // 매매일지 추가
 export const createJournalsRequest = async (data) => {
   try {
-    console.log(data);
     const response = await makeRequest("/journals", "POST", data)
     console.log(response);
   } catch (error) {
@@ -80,7 +78,6 @@ export const createJournalsRequest = async (data) => {
 // 매수기록 삭제
 export const deleteBuyRequest = async (data) => {
   try {
-    console.log(data);
     const response = await makeRequest("/buy/delete", "POST", data);
   } catch (error) {
     console.error("매수 기록 삭제 실패");
@@ -91,7 +88,6 @@ export const deleteBuyRequest = async (data) => {
 // 매도기록 삭제
 export const deleteSellRequest = async (data) => {
   try {
-    console.log(data);
     const response = await makeRequest("/sell/delete", "POST", data);
   } catch (error) {
     console.error(error);
