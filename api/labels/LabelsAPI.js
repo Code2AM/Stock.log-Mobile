@@ -1,6 +1,5 @@
 import { makeRequest } from "../common/Api";
 
-// 사용자의 라벨을 출력
 export const labelList = async () => {
 
     try {
