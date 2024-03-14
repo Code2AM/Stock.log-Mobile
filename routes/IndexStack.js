@@ -1,11 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
-import { SettingStack } from "./SettingStack";
 import { NotesStack } from "./notes/NotesStack";
-import { SettingStack } from "./setting/SettingStack";
 import { TestScreen } from "../screens/auth/test/TestScreen";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { SettingStack } from "./setting/SettingStack";
 
 const Tab = createBottomTabNavigator();
 
