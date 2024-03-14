@@ -6,7 +6,6 @@ import { makeRequest } from "../common/Api";
 export const newNoteRequest = async (data) => {
     try {
         const response = await makeRequest("/notes/create", "POST", data)
-        console.log(response)
 
         return response;
     }
@@ -22,7 +21,6 @@ export const notesRequest = async () => {
         console.log("noteRequest")
 
         const response = await makeRequest("/notes/allNotes", "POST")
-        console.log(response)
 
         return response.data
     }
@@ -35,7 +33,6 @@ export const notesRequest = async () => {
 export const updateNoteRequest = async (data) => {
     try {
         const response = await makeRequest("/notes/update", "POST", data);
-        console.log(response.data)
         return response.data;
     }
     catch (error) {
@@ -47,7 +44,6 @@ export const updateNoteRequest = async (data) => {
 export const deleteNoteRequest = async (data) => {
     try {
         const response = await makeRequest("/notes/delete", "POST", data);
-        console.log(response.data)
         return response.data;
     }
     catch (error) {
