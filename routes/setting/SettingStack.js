@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SettingScreen from "../../screens/Setting/SettingScreen";
-import LabelsScreen from "../../screens/Setting/labels/LabelsScreen";
 import { StrategiesStack } from "../strategies/StrategiesStack";
+import { LabelsStack } from "../labels/LabelsStack";
+import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,23 +13,46 @@ export const SettingStack = () => {
              <Stack.Screen
                 name="SettingScreen"
                 component={SettingScreen}
-                options={{ title: '설정' }}
+                options={{
+                    title: '설정',
+                    headerStyle:styles.settingsHeader, 
+                    headerTitleAlign:"center",
+                    headerTitleStyle:styles.settingsHeaderTitleStyle
+                 }}
             />
 
             <Stack.Screen
                 name="LabelsScreen"
-                component={LabelsScreen}
+                component={LabelsStack}
+                options={{
+                    title: '라벨',
+                    headerStyle:styles.settingsHeader, 
+                    headerTitleAlign:"center",
+                    headerTitleStyle:styles.settingsHeaderTitleStyle
+                 }}
             />
 
             <Stack.Screen
                 name="StrategiesStack"
                 component={StrategiesStack}
-                options={{ title: '매매전략' }}
-                
+                options={{
+                    title: '매매전략',
+                    headerStyle:styles.settingsHeader, 
+                    headerTitleAlign:"center",
+                    headerTitleStyle:styles.settingsHeaderTitleStyle
+                 }}  
             />
-
-
             
         </Stack.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+    settingsHeader : {
+        backgroundColor:"#B5D692"
+    },
+    settingsHeaderTitleStyle : {
+        color:"white",
+        fontWeight:"bold"
+    }
+})

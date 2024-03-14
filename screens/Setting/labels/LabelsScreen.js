@@ -1,80 +1,53 @@
-import { AddIcon, Button, CheckIcon, Container, HStack, Input, NativeBaseProvider, Text, VStack, View } from "native-base";
+import { AddIcon, Box, Button, CheckIcon, Container, Fab, FlatList, HStack, Icon, Input, NativeBaseProvider, ScrollView, Tag, Text, VStack, View, useToast } from "native-base";
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { labelList } from "../../../api/labels/LabelsAPI";
+import { useStore } from "zustand";
+import useLabels from "../../../zustand/labels/useLabels";
+import LabelsItem from "../../../components/labels/labelsItem";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from '@expo/vector-icons';
+
 
 const LabelsScreen = () => {
 
-    const [showInput, setShowInput] = useState(false);
-    const [buttonText, setButtonText] = useState('추가');
+    const navigation = useNavigation();
+  
+    const { labels, fetchAllLabels } = useStore(useLabels);
 
-    const toggleInput = () => {
-        setShowInput(!showInput);
-        setButtonText(showInput ? '추가' : '취소');
-    };
+    useEffect(() =>{
+      fetchAllLabels();
+    },[])
 
-    const [labelData, setLabelData] = useState(null);
+    console.log(labels);
 
-    useEffect(() => {
-    const fetchData = async () => {
-        try {
-        const response = await labelList();
-        setLabelData(response);
-        } catch (error) {
-        console.error(error);
-        }
-    };
-
-    fetchData();
-    }, []);
-
+    const handleNewLabelScreen = () => {
+      navigation.navigate("NewLabelScreen");
+    }
 
     return (
         <NativeBaseProvider>
-            <Container>
-                {/* Input과 CheckIcon */}
-                <HStack style={styles.hstack}>
-                    {/* Input과 CheckIcon */}
-                    {showInput && (
-                        <>
-                            <Input variant="filled" placeholder="라벨 이름을 입력해주세요" />
-                            <CheckIcon style={styles.check} name="check-circle" size="sm" />
-                        </>
-                    )}
-                </HStack>
-                {labelData && (
-                <View>
-                    {labelData.map((label) => (
-                    <Text key={label.labelsId}>{label.labelsTitle}</Text>
-                    ))}
-                </View>
-                )}
-
-                {/* 추가 버튼 */}
-                <Button style={styles.addBtn} onPress={toggleInput} leftIcon={<AddIcon name="cloud-upload-outline" size="sm" />}>
-                    {buttonText}
-                </Button>
-            </Container>
+          <ScrollView>
+            <Box>
+                <FlatList
+                    data={labels}
+                    renderItem={ ({ item }) => <LabelsItem item = {item}/>}
+                    keyExtractor={item => item.labelsId} />
+            </Box>
+            </ScrollView>
+            <Fab
+                bg={"#B5D692"}
+                onPress={handleNewLabelScreen}
+                renderInPortal={false}
+                shadow={5}
+                size="16"
+                icon={<Icon color="white" as={AntDesign} name="plus" size="6"/>}
+                bottom={10}
+                right={10}
+                _pressed={{backgroundColor:"lime.500"}}
+            />
+          
         </NativeBaseProvider>
     );
-};
+  }
+
 export default LabelsScreen;
 
-const styles = StyleSheet.create({
-    addBtn: {
-        position: 'absolute', // 절대 위치 지정
-        marginTop:"90%",
-        marginLeft:"50%",
-        backgroundColor: "#B5D692",
-    },
-    
-    hstack:{
-      marginLeft:"20%",
-      marginTop:"5%",
-      space:"2",
-      alignItems:"center"
-    },
-    check:{
-        marginLeft:"5%"
-    }
-});

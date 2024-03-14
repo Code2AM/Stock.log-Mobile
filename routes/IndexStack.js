@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { JournalsStack } from "./journals/JournalsStack";
-<<<<<<< HEAD
 import { SettingStack } from "./SettingStack";
-=======
 import { NotesStack } from "./notes/NotesStack";
 import { SettingStack } from "./setting/SettingStack";
 import { TestScreen } from "../screens/auth/test/TestScreen";
->>>>>>> 3ceff3acd8003c92242443089f316fe5299c7236
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +16,12 @@ export const IndexStack = () => {
             <Tab.Screen
                 name="Journals"
                 component={JournalsStack}
-                options={{ headerShown: false }}
+                options={{
+                     headerShown: false,
+                     tabBarIcon: ({color, size}) => (
+                        <FontAwesome5 name="file-invoice-dollar" color={color} size={size} />
+                      ),
+                     }}
             />
 
             {/* <Tab.Screen
@@ -78,20 +81,32 @@ export const IndexStack = () => {
                 component={Darkmode}
             /> */}
 
-            {/* <Tab.Screen
             <Tab.Screen
                 name="Notes"
                 component={NotesStack}
-            /> */}
+                options={{ 
+                    headerShown: false,
+                    tabBarIcon: ({color, size}) => (
+                        <FontAwesome5 name="pen" color={color} size={size} />
+                      ),
+                 }}
+            />
 
             <Tab.Screen
                 name="Settings"
                 component={SettingStack}
+                options={{
+                     headerShown: false,
+                     tabBarIcon: ({color, size}) => (
+                        <FontAwesome5 name="wrench" color={color} size={size} />
+                      ),
+                }}
             />
 
             <Tab.Screen
                 name="Test"
                 component={TestScreen}
+                options={{ headerShown: false }}
             />
 
 

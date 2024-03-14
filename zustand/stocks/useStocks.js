@@ -7,7 +7,8 @@ export const useStocks = create((set) => ({
         const fetchedStocks = await stockRequest();
 
         set({ stocks: fetchedStocks })
-    }
+    },
+    setStocks:(value) => set({stocks:value})
 
     
 }))
