@@ -30,6 +30,16 @@ const EditLabelScreen = () =>{
 
     const handleupdateLabel = async () => {
 
+        if (!labelsTitle || !labelsTitle.trim()) {
+            toast.show({
+                title: "라벨 이름을 입력해주세요.",
+                duration: 1500,
+                placement: "top",
+                avoidKeyboard: true,
+            });
+            return; // 함수 종료
+        }
+
         console.log("update");
 
         // 전달할 데이터
