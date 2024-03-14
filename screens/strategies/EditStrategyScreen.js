@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStrategies } from "../../zustand/strategies/useStrategies";
 import { useNavigation, useRoute } from "@react-navigation/core";
-import { Button, Input, NativeBaseProvider, useToast } from "native-base";
+import { Box, Button, Input, NativeBaseProvider, useToast } from "native-base";
 import { deleteStrategyRequest, updateStrateyRequest } from "../../api/strategies/StrategiesAPI";
 import { useStore } from "zustand";
 
@@ -85,17 +85,22 @@ export const EditStrategyScreen = () => {
 
     return (
         <NativeBaseProvider>
+        <Box flex={1} marginTop={10} alignItems="center">
             <Input
-                placeholder="제목을 입력해주세요"
-                value={strategyName}
+                variant="underlined"
+                placeholder="매매 전략의 이름을 입력해주세요."
+                size="lg"
+                width={200}
                 onChangeText={setStrategyName}
+                value={strategyName}
             />
-            <Button
-                onPress={handleUpdate}
-            >수정</Button>
-            <Button
-                onPress={handleDelete}
-            >삭제</Button>
-        </NativeBaseProvider>
+            <Button onPress={handleUpdate} mt={4} backgroundColor={"#B5D692"}>
+                수정
+            </Button>
+            <Button onPress={handleDelete} mt={4} backgroundColor={"#B5D692"}>
+                삭제
+            </Button>
+        </Box>
+    </NativeBaseProvider>
     )
 }

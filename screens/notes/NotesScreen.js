@@ -1,6 +1,6 @@
 
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Box, Button, Fab, FlatList, HStack, Icon, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack } from "native-base"
+import { Box, Fab, FlatList, Icon, NativeBaseProvider, ScrollView } from "native-base"
 import { useEffect } from "react";
 import { AntDesign } from '@expo/vector-icons';
 import { useStore } from "zustand";
@@ -34,14 +34,12 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-            <ScrollView>
                 <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }
                         keyExtractor={item => item.noteId} />
                 </Box>
-            </ScrollView>
                 <Fab
                     bg={"#B5D692"}
                     onPress={handleNewNotePress}
@@ -53,7 +51,6 @@ const NotesScreen = () => {
                     right={10}
                     _pressed={{backgroundColor:"lime.500"}}
                 />
-
 
         </NativeBaseProvider>
     );

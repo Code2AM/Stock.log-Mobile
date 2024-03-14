@@ -1,10 +1,11 @@
-import { Box, Button, Center, Checkbox, Container, FlatList, HStack, Input, NativeBaseProvider, Select, Stack, TextArea, VStack, useToast } from "native-base";
-import { useEffect, useState } from "react";
+import { Box, Button, Container, HStack, Input, NativeBaseProvider, Select, TextArea, VStack, useToast } from "native-base";
+import { useState } from "react";
 import { newNoteRequest, notesRequest } from "../../api/notes/NotesAPI";
 import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import useLabels from "../../zustand/labels/useLabels";
+import LabelAddModal from "../../components/labels/LabelAddModal";
 
 
  
@@ -25,16 +26,15 @@ export const NewNoteScreen = () => {
           // validation
           if (!selectedLabel) {
             toast.show({
-                title: "라벨을 선택해주세요",
+                title: "라벨을 정해주세요",
                 duration: 1500,
                 placement: "top",
                 avoidKeyboard: true,
             });
             return; // 함수 종료
-          }
+        }
   
-           // validation
-           if (!noteName) {
+           if (!noteName || !noteName.trim()) {
             toast.show({
                 title: "노트 이름을 입력해주세요.",
                 duration: 1500,
@@ -42,16 +42,6 @@ export const NewNoteScreen = () => {
                 avoidKeyboard: true,
             });
             return; // 함수 종료
-          }
-  
-        if (!noteContents) {
-          toast.show({
-              title: "내용을 입력해주세요",
-              duration: 1500,
-              placement: "top",
-              avoidKeyboard: true,
-          });
-          return; // 함수 종료
         }
 
       const selectedLabelValue = labels.find(label => label.labelsId === selectedLabel); // 선택된 라벨의 객체 가져오기
@@ -97,7 +87,7 @@ export const NewNoteScreen = () => {
                                 <Select.Item key={label.labelsId} label={label.labelsTitle} value={label.labelsId} />
                             ))}
                         </Select>
-                       
+                        <LabelAddModal/>
                       </HStack>
                   </Box>
 
@@ -123,5 +113,5 @@ export const NewNoteScreen = () => {
               </VStack>
           </Container>
       </NativeBaseProvider>
-  );
+    );
   }

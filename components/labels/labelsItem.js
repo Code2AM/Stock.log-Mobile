@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Box, HStack, Pressable, Text, VStack } from "native-base";
+import { Box, HStack, Pressable, ScrollView, Text, VStack } from "native-base";
 import { StyleSheet } from "react-native";
 
 const LabelsItem = ({item}) => {
@@ -13,33 +13,40 @@ const LabelsItem = ({item}) => {
     }
 
     return (
-        <Pressable onPress={handleUpdateLabels} style={styles.container}>
-            <Box style={styles.boxStyle}>
-                <HStack>
-                    <VStack>
-                        <Text style={styles.labelText}>{item.labelsTitle}</Text>
-                    </VStack>
-                </HStack>
-            </Box>
+        <ScrollView>
+            <Pressable onPress={handleUpdateLabels} style={styles.container}>
+                <Box style={styles.boxStyle}>
+                    <HStack>
+                        <VStack>
+                            <Text style={styles.labelText}>{item.labelsTitle}</Text>
+                        </VStack>
+                    </HStack>
+                </Box>
         </Pressable>
+      </ScrollView>
     );
 }
 export default LabelsItem;
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft:58,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      backgroundColor: '#E5E7EB',
+      borderRadius: 8,
+      marginBottom: 10,
+      height:50
+    },
+    boxStyle: {
         alignItems:"center",
-        width:"70%",
-        marginTop:20,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 5,
-        marginBottom: 5,
+        justifyContent:"center",
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     labelText: {
-        fontSize: 16,
+        marginTop:10,
+        fontSize: 17,
         fontWeight: 'bold',
+        color: '#4B5563',
     },
-});
+  });
