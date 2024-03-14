@@ -21,7 +21,7 @@ export const LoginScreen = () => {
     const stockData = async () => {
         const data = await getStocks();
         await setStocks(data);
-        console.log("데이터는 이렇다.",stocks);
+        console.log(stocks, "데이터는 이렇다.");
     };
 
     const storeData = async () => {

@@ -1,4 +1,4 @@
-    import { Button, HStack, Input, NativeBaseProvider, ScrollView, Select, Text, VStack, View } from "native-base";
+    import { Button, HStack, Input, NativeBaseProvider, Select, Text, VStack, View } from "native-base";
     import { useState } from "react";
     import DateTimePickerModal from "react-native-modal-datetime-picker";
     import { useStocks } from "../../zustand/stocks/useStocks";
@@ -9,16 +9,16 @@
 
     const AddJournalsScreen = ({navigation}) => {
 
-        const {stocks, fetchStocks} = useStocks();
+        const {stocks} = useStocks();
         const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
         const [date, setDate] = useState(new Date());
         const [selectedItem, setSelectedItem] = useState(null);
-        const [strategyId, setStrategyId] = useState(0);
         const [quantity, setQuantity] = useState(0);
         const [price, setPrice] = useState(0);
         const [fee, setFee] = useState(0);
         const {strategies, fetchStrategies} = useStrategies();
         const [strategy, setStrategy] = useState(null);
+        const [query, setQuery] = useState("");
 
         const showDatePicker = () => {
             setDatePickerVisibility(true);
@@ -51,6 +51,7 @@
                     onValueChange={setStrategy}
                     placeholder="매매전략을 선택해주세요..."
                     defaultValue=""
+                    mt={2.5}
                     >
                     {strategies.map((item) => (
                         <Select.Item key={item.strategyId} label={item.strategyName} value={item.strategyId} />
@@ -60,12 +61,23 @@
             )
         }
 
+        // 필터링
         const stocksToDataSet = () => {
-
-            return stocks.map(item => ({
+            const data = stocks.map(item => ({
                 id:item.srtnCd, 
                 title:item.itmsNm
-            }))
+            }));
+
+            const result = data.filter(stock => {
+                return stock.title.toLowerCase().includes(query.toLowerCase());
+            });
+
+            // 중복 제거
+            const uniqueResult = Array.from(new Set(result.map(stock => stock.id))).map(id => {
+                return result.find(stock => stock.id === id);
+            });
+
+            return uniqueResult;
         }
 
         const handleQuantity = value => {
@@ -130,7 +142,6 @@
             await createJournalsRequest(data);
 
             setSelectedItem(null);
-            setStrategyId(0);
             setQuantity(0);
             setPrice(0);
             setFee(0);
@@ -146,16 +157,19 @@
                         <Text bold marginX={5} marginTop={5} fontSize={"lg"}>종목 이름</Text>
                         <View style={{zIndex:50, marginTop:5, width:"90%"}}>
                         <AutocompleteDropdownContextProvider>
-                                    <AutocompleteDropdown
+                                <AutocompleteDropdown
                                     clearOnFocus={false}
                                     closeOnBlur={true}
                                     closeOnSubmit={false}
                                     initialValue={{ id: '2' }} // or just '2'
+                                    onChangeText={(text) => setQuery(text)}
                                     onSelectItem={setSelectedItem}
                                     dataSet={stocksToDataSet}
                                     suggestionsListContainerStyle={{
                                         position:"absolute",
-                                        right:21
+                                        right:21,
+                                        top:-130,
+                                        overflow:"hidden"
                                     }}
                                     inputContainerStyle={{
                                         backgroundColor:"white"
