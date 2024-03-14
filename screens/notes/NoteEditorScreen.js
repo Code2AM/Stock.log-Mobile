@@ -117,7 +117,7 @@ const NoteEditorScreen = () => {
       <NativeBaseProvider>
         <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
           <Stack space={4} alignItems="center">
-            <Box w="80%" flexDirection="row" zIndex={50}>
+            <Box w="75%" flexDirection="row" zIndex={50}>
               <Box>
                 <DropDownPicker
                   open={open}
@@ -138,7 +138,7 @@ const NoteEditorScreen = () => {
             </Box>
     
             <Input
-              w="90%"
+              w="100%"
               placeholder="제목을 입력해주세요"
               value={noteName}
               h={"15%"}
@@ -146,8 +146,8 @@ const NoteEditorScreen = () => {
             />
     
             <TextArea
-              w="90%"
-              h={150}
+              w="100%"
+              h={200}
               placeholder="내용을 입력해주세요"
               value={noteContents}
               onChangeText={setNoteContents}
@@ -168,7 +168,7 @@ const NoteEditorScreen = () => {
   const styles = StyleSheet.create({
     dropDown:{
         backgroundColor: '#fafafa',
-        width:"90%",
-        marginLeft:22,
+        width:"100%",
+        alignItems:"center"
     }
   })
