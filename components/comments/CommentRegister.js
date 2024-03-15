@@ -43,7 +43,9 @@ const CommentRegister = ({ journals, callComments }) => {
               <Button
                 onPress={
                     registerComment
-                }>
+                }
+                bgColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}}
+                >
                 저장
               </Button>
             </Button.Group>
