@@ -11,9 +11,14 @@ import { NoteItem } from "../../components/items/NoteItem";
 
 const NotesScreen = () => {
 
-    const { notes } = useStore(useNotes)
+    const { notes, fetchAllNotes } = useStore(useNotes)
 
     const navigation = useNavigation();
+
+    useEffect(() =>{
+        fetchAllNotes();
+      },[])
+  
 
     // component 마운트 될 때마다
     useEffect(() => {
@@ -34,7 +39,7 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-                <Box>
+            <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }

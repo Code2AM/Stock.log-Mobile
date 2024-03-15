@@ -7,6 +7,7 @@ import useLabels from "../../../zustand/labels/useLabels";
 
 export const NewLabelScreen = () =>{
 
+
     const { fetchAllLabels } = useStore(useLabels);
 
     const [labelsTitle, setLabelsTitle] = useState('');
@@ -52,7 +53,7 @@ export const NewLabelScreen = () =>{
     }
     return (
         <NativeBaseProvider>
-            <Box flex={1} marginTop={10} alignItems="center">
+            <Box>
                 <Input
                     variant="underlined"
                     placeholder="라벨의 이름을 입력해주세요."

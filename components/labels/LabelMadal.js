@@ -2,10 +2,6 @@
 
 import { Button, Center, HStack, Input, Modal, Radio, Text, VStack, View } from "native-base";
 import { useState } from "react";
-import { TextInput } from "react-native";
-import useLabels from "../../zustand/labels/useLabels";
-import { useStore } from "zustand";
-import { useRoute } from "@react-navigation/native";
 
 const LabelModal = ({ labels, onSelectLabel }) => {
     const [showModal, setShowModal] = useState(false);
