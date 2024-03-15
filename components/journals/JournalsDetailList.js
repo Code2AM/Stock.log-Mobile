@@ -33,9 +33,11 @@ export const BuyDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
+                    <Box h={"12"} my={1} px={1}>
                     <Text textAlign={"center"}>
                         {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.buyDate))}
                     </Text>
+                    </Box>
                   </VStack>
                 )
               }}
@@ -56,7 +58,9 @@ export const BuyDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
+                    <Box h={"12"} my={1} px={1}>
                     <Text textAlign={"center"}>{item.buyPrice}</Text>
+                    </Box>
                   </VStack>
                 )
               }}
@@ -77,7 +81,9 @@ export const BuyDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
+                    <Box h={"12"} my={1} px={1}>
                     <Text textAlign={"center"}>{item.buyQuantity}</Text>
+                    </Box>
                   </VStack>
                 )
               }}
@@ -98,7 +104,9 @@ export const BuyDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
+                    <Box h={"12"} my={1} px={1}>
                     <DeleteButton buyId={item.buyId} journals={journals} buyListHandler={buyListHandler}/>
+                    </Box>
                   </VStack>
                 )
               }}
@@ -139,9 +147,11 @@ export const SellDetailList = ({ journals }) => {
             renderItem={({item}) => {
               return (
                 <VStack>
+                  <Box h={"12"} my={1} px={1}>
                   <Text textAlign={"center"}>
                       {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.sellDate))}
                   </Text>
+                  </Box>
                 </VStack>
               )
             }}
@@ -162,7 +172,10 @@ export const SellDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text textAlign={"center"}>{item.sellPrice}</Text>
+                    <Box h={"12"} my={1} px={1}>
+                      <Text textAlign={"center"}>{item.sellPrice}</Text>
+                    </Box>
+                    
                   </VStack>
                 )
               }}
@@ -183,7 +196,9 @@ export const SellDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <Text textAlign={"center"}>{item.sellQuantity}</Text>
+                    <Box h={"12"} my={1} px={1}>
+                      <Text textAlign={"center"}>{item.sellQuantity}</Text>
+                    </Box>                    
                   </VStack>
                 )
               }}
@@ -204,7 +219,10 @@ export const SellDetailList = ({ journals }) => {
               renderItem={({item}) => {
                 return (
                   <VStack>
-                    <DeleteButton sellId={item.sellId} journals={journals} sellListHandler={sellListHandler}/>
+                    <Box h={"12"} my={1} px={1}>
+                      <DeleteButton sellId={item.sellId} journals={journals} sellListHandler={sellListHandler}/>
+                    </Box>
+                    
                   </VStack>
                 )
               }}

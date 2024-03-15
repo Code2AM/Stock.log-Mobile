@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KakaoButton } from "../../components/auth/buttons/KakaoButton";
 import { useStocks } from "../../zustand/stocks/useStocks";
 import { getStocks, storeStocks } from "../../api/common/StockAPI";
+import * as SplashScreen from 'expo-splash-screen';
 
 
 
@@ -15,13 +16,11 @@ export const LoginScreen = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
-
     const {stocks, fetchStocks, setStocks} = useStocks();
 
     const stockData = async () => {
         const data = await getStocks();
         await setStocks(data);
-        console.log("데이터는 이렇다.",stocks);
     };
 
     const storeData = async () => {
@@ -30,11 +29,16 @@ export const LoginScreen = () => {
     }
 
     useEffect(() => {
+        
         if(stocks?.length === 0){
             storeData();
             stockData();
             // 새로고침이 아직 없다.
         }
+
+        setTimeout(() => {
+            SplashScreen.hideAsync();
+        },2000)
     },[])
 
     const handleLogin = async () => {

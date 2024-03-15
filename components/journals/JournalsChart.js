@@ -54,9 +54,9 @@ const JournalsChart = ({journals}) => {
         </VStack>
         <Box>
             <HStack space={3}>
-                <Text color={data.colors[0]} bold>진행중({data.data[0]*100}%)</Text>
-                <Text color={data.colors[1]} bold>익절({data.data[1]*100}%)</Text>
-                <Text color={data.colors[2]} bold>손절({data.data[2]*100}%)</Text>
+                <Text color={data.colors[0]} bold>진행중({data.data[0]? data.data[0]*100 : 0}%)</Text>
+                <Text color={data.colors[1]} bold>익절({data.data[1]? data.data[1]*100 : 0}%)</Text>
+                <Text color={data.colors[2]} bold>손절({data.data[2]? data.data[2]*100 : 0}%)</Text>
             </HStack>
         </Box>
         <VStack>
