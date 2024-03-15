@@ -17,9 +17,13 @@ const JournalDetailScreen = ({route, navigation}) => {
     const [strategyName, setStrategyName] = useState("");
 
     const getStrategyName = async () => {
+      if(strategyName === ""){
         const response = await strategyFindByIdRequest(journal);
         const strategyName = response;
         setStrategyName(strategyName);
+      }
+
+      return strategyName;
     }
 
     const assetValue = () => {

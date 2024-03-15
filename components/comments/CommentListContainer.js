@@ -1,14 +1,15 @@
-import { Box, Button, Divider,  HStack, Text, VStack } from "native-base"
+import {  Box, Button, Divider,  HStack, Pressable, Text, VStack } from "native-base"
 import { useEffect, useState } from "react"
 import { callCommentsRequest, deleteCommentRequest } from "../../api/comments/CommentsAPI";
 import { useIsFocused } from "@react-navigation/native";
 import CommentRegister from "./CommentRegister";
-import { StyleSheet } from "react-native";
+import { Alert } from "react-native";
 
 
 const CommentListContainer = ({journals}) => {
 
     const [comments, setComments] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     const callComments = async () => {
         const commentList = await callCommentsRequest(journals);
@@ -39,7 +40,20 @@ const CommentListContainer = ({journals}) => {
                         </Box>
                         {comments.map((item, index) => (
                             <>
-                            <Text key={index} textAlign={"center"}>{item.comment}</Text>
+                            <Pressable key={index} onPress={() => {
+                                Alert.alert(
+                                    '코멘트',
+                                    item.comment,
+                                    [
+                                        { text: '확인', onPress: () => console.log('확인') }
+                                    ],
+                                    { cancelable: false }
+                                );
+                            }}>
+                            <Box h={"12"} my={1} px={1} overflow={"hidden"} borderStyle={"solid"} borderColor={"green.100"} borderWidth={1}>
+                                <Text numberOfLines={2}>{item.comment}</Text>
+                            </Box>
+                            </Pressable>
                             </>
                         ))}
                     </VStack>
@@ -55,8 +69,10 @@ const CommentListContainer = ({journals}) => {
                         </Box>
                             {comments.map((item, index) => (
                                 <>
+                                <Box h={"12"} my={1} px={1} overflow={"hidden"} borderStyle={"solid"} borderColor={"rgba(0, 128, 0, 0)"} borderWidth={1}>
                                 <Text key={index} textAlign={"center"}>{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit'}).format(new Date(item.commentDate))}</Text>
                                 <Text key={index} textAlign={"center"}>{new Intl.DateTimeFormat('ko-KR', { hour: '2-digit', minute: '2-digit'}).format(new Date(item.commentDate))}</Text>
+                                </Box>                                
                                 </>
                         ))}
                     </VStack>
@@ -72,7 +88,7 @@ const CommentListContainer = ({journals}) => {
                         </Box>
                         {comments.map((item, index) => (
                             <>
-                            <Button key={index} onPress={() => deleteComment(item)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} bgColor={"red.500"}my={1} _pressed={{bgColor:"red.800"}}>삭제</Button>
+                            <Button h={12} key={index} onPress={() => deleteComment(item)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} bgColor={"red.500"}my={1} _pressed={{bgColor:"red.800"}}>삭제</Button>
                             </>
                             
                         ))}
@@ -86,7 +102,3 @@ const CommentListContainer = ({journals}) => {
 }
 
 export default CommentListContainer;
-
-const styles = StyleSheet.create({
-
-})

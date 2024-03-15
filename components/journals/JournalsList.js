@@ -32,7 +32,7 @@ const JournalsList = ({journals}) => {
                     <HStack justifyContent="space-between">
                         <VStack>
                             <HStack>
-                            <Image source={journals.status == "open"? require("../../assets/icons/journals/open.png") : journals.status == "close"? require("../../assets/icons/journals/close.png") : "none"} alt="status" cache="reload"/>
+                            <Image source={journals.status == "open"? require("../../assets/icons/journals/open_small.png") : journals.status == "close"? require("../../assets/icons/journals/close_small.png") : "none"} alt="status" cache="reload"/>
                                 <Heading>{journals.stockName}</Heading>
                                 
                                 </HStack>
@@ -72,13 +72,14 @@ export default JournalsList;
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
-        marginVertical:"2%",
+        marginVertical:"1%",
         backgroundColor:"white",
-        padding:"10%",
-        marginHorizontal:"2.5%"
+        padding:"5%",
+        marginHorizontal:"3%"
     },
 
     notImportantFont : {
-        color:"gray"
+        color:"gray",
+        fontSize:12
     }
 })
