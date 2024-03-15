@@ -81,7 +81,7 @@ export const NewNoteScreen = () => {
       <NativeBaseProvider>
         <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
           <Stack space={4} alignItems="center">
-            <Box w="80%" flexDirection="row" zIndex={50}>
+            <Box w="75%" flexDirection="row" zIndex={50}>
               <Box>
                 <DropDownPicker
                   open={open}
@@ -102,16 +102,19 @@ export const NewNoteScreen = () => {
             </Box>
     
             <Input
-              w="90%"
+              w="100%"
               placeholder="제목을 입력해주세요"
+              borderColor={"black"}
               value={noteName}
               h={"15%"}
+              marginTop={3}
               onChangeText={setNoteName}
             />
     
             <TextArea
-              w="90%"
-              h={150}
+              w="100%"
+              h={200}
+              borderColor={"black"}
               placeholder="내용을 입력해주세요"
               value={noteContents}
               onChangeText={setNoteContents}
@@ -128,8 +131,9 @@ export const NewNoteScreen = () => {
 
   const styles = StyleSheet.create({
     dropDown:{
-        backgroundColor: '#fafafa',
-        width:"90%",
-        marginLeft:22,
+        width:"100%",
+        alignItems:"center",
+        backgroundColor:"#f1f1f1",
+        borderColor:"gray",
     }
   })

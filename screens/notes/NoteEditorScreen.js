@@ -127,7 +127,6 @@ const NoteEditorScreen = () => {
                   setValue={setSelectedLabel}
                   containerStyle={{height: 40}}
                   style={styles.dropDown}
-                  dropDownStyle={{backgroundColor: '#fafafa'}}
                   onChangeItem={(item) => setSelectedLabel(item.value)}
                   placeholder="라벨을 선택해주세요"
                 />
@@ -140,6 +139,7 @@ const NoteEditorScreen = () => {
             <Input
               w="100%"
               placeholder="제목을 입력해주세요"
+              borderColor={"black"}
               value={noteName}
               h={"15%"}
               onChangeText={setNoteName}
@@ -150,6 +150,7 @@ const NoteEditorScreen = () => {
               h={200}
               placeholder="내용을 입력해주세요"
               value={noteContents}
+              borderColor={"black"}
               onChangeText={setNoteContents}
             />
     
@@ -167,8 +168,9 @@ const NoteEditorScreen = () => {
 
   const styles = StyleSheet.create({
     dropDown:{
-        backgroundColor: '#fafafa',
         width:"100%",
-        alignItems:"center"
+        alignItems:"center",
+        backgroundColor:"#f1f1f1",
+        borderColor:"gray",
     }
   })
