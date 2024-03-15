@@ -3,7 +3,7 @@ import { makeRequest } from "../common/Api";
 export const labelList = async () => {
 
     try {
-      const response = await makeRequest("/labels", "GET");
+      const response = await makeRequest("/labels/get", "POST");
   
       return response.data;
   

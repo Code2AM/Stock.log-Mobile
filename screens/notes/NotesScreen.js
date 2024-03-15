@@ -6,7 +6,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import { NoteItem } from "../../components/items/NoteItem";
-import { useDarkMode } from "../darkmode/themContext";
 
 
 

@@ -3,7 +3,6 @@ import SettingScreen from "../../screens/Setting/SettingScreen";
 import { StrategiesStack } from "../strategies/StrategiesStack";
 import { LabelsStack } from "../labels/LabelsStack";
 import { StyleSheet } from "react-native";
-import DarkmodeScreen from "../../screens/darkmode/darkModeScreen";
 
 const Stack = createNativeStackNavigator();
 export const SettingStack = () => {
@@ -37,17 +36,6 @@ export const SettingStack = () => {
                 component={StrategiesStack}
                 options={{
                     title: '매매전략',
-                    headerStyle:styles.settingsHeader, 
-                    headerTitleAlign:"center",
-                    headerTitleStyle:styles.settingsHeaderTitleStyle
-                 }}  
-            />
-
-            <Stack.Screen
-                name="DarkmodeScreen"
-                component={DarkmodeScreen}
-                options={{
-                    title: '다크모드',
                     headerStyle:styles.settingsHeader, 
                     headerTitleAlign:"center",
                     headerTitleStyle:styles.settingsHeaderTitleStyle
