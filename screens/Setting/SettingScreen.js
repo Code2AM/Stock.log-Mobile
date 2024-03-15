@@ -21,19 +21,16 @@ const SettingScreen = () => {
       navigation.navigate("StrategiesStack")
     }
 
-    const handleDarkmode = () => {
-        navigation.navigate("DarkmodeScreen")
-      }
-
 
     return (
         <NativeBaseProvider>
+            <Box>
             <Stack flex={1} space={4} alignItems="center">
                 
             <TouchableOpacity onPress={hanlderBtnPress} style={styles.button}>
                 <ZStack>
                     <View style={styles.iconContainer}>
-                        <Feather name="book" style={styles.icon} size={35} />
+                        <Feather name="book" style={styles.icon} size={30} />
                     </View>
                     <Text style={styles.text}>라벨</Text>
                 </ZStack>
@@ -41,31 +38,23 @@ const SettingScreen = () => {
             <TouchableOpacity onPress={handleStrategies} style={styles.button}>
                 <ZStack>
                     <View style={styles.iconContainer}>
-                        <Feather name="bookmark" style={styles.icon} size={35} />
+                        <Feather name="bookmark" style={styles.icon} size={30} />
                     </View>
                     <Text style={styles.text}>매매전략</Text>
-                </ZStack>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleDarkmode} style={styles.button}>
-                <ZStack>
-                    <View style={styles.iconContainer}>
-                        <Feather name="bookmark" style={styles.icon} size={35} />
-                    </View>
-                    <Text style={styles.text}>다크모드</Text>
                 </ZStack>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleLogout} style={styles.button}>
                 <ZStack>
                     <View style={styles.iconContainer}>
-                        <Feather name="bookmark" style={styles.icon} size={35} />
+                        <Feather name="unlock" style={styles.icon} size={30} />
                     </View>
                     <Text style={styles.text}>로그아웃</Text>
                 </ZStack>
             </TouchableOpacity>
                 
             </Stack>
+            </Box>
         </NativeBaseProvider>
     );
 }
@@ -73,7 +62,7 @@ export default SettingScreen;
 
 const styles = StyleSheet.create({
     button: {
-        height: 100, // 버튼 높이를 조정
+        height: 50, // 버튼 높이를 조정
         width: 400, // 버튼 너비를 조정
         marginTop: 25,
     },
@@ -88,7 +77,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        marginLeft:100,
-        marginTop:15
+        marginLeft:80,
+        marginTop:11
     }
 });

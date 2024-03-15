@@ -79,7 +79,8 @@ export const NewNoteScreen = () => {
   
     return (
       <NativeBaseProvider>
-        <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
+        <Box>
+          <Container alignItems={"center"} marginLeft={"10"} marginTop={"7"}>
           <Stack space={4} alignItems="center">
             <Box w="75%" flexDirection="row" zIndex={50}>
               <Box>
@@ -125,6 +126,7 @@ export const NewNoteScreen = () => {
             </HStack>
           </Stack>
         </Container>
+        </Box>
       </NativeBaseProvider>
     );
   }

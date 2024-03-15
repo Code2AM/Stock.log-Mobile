@@ -6,7 +6,6 @@ import { StyleSheet } from "react-native";
 import DarkmodeScreen from "../../screens/darkmode/darkModeScreen";
 
 const Stack = createNativeStackNavigator();
-
 export const SettingStack = () => {
     return(
         <Stack.Navigator>

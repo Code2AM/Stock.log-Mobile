@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import { NoteItem } from "../../components/items/NoteItem";
+import { useDarkMode } from "../darkmode/themContext";
 
 
 
@@ -39,7 +40,7 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-                <Box>
+            <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }
