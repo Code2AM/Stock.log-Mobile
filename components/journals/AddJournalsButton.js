@@ -1,9 +1,7 @@
-import { Box, Center, Fab, Icon } from "native-base";
+import { Fab, Icon } from "native-base";
 import { AntDesign } from '@expo/vector-icons';
 
-const AddJournalsButton = ({journals, navigation}) => {
-
-    const journalId = journals.journalId;
+const AddJournalsButton = ({ navigation}) => {
 
     const addJournals = () => {
         navigation.navigate("AddJournals");

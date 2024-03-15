@@ -1,16 +1,14 @@
-import { Button, Divider, FlatList, HStack, Text, VStack } from "native-base";
-import { useEffect, useState } from "react";
-import { SellRequest, buyRequest } from "../../api/journals/JournalsAPI";
+import { AlertDialog, Box, Button, Center, Divider, FlatList, HStack, Text, VStack } from "native-base";
+import { useEffect, useRef, useState } from "react";
+import { SellRequest, buyRequest, deleteBuyRequest, deleteSellRequest } from "../../api/journals/JournalsAPI";
 import { useIsFocused } from "@react-navigation/native";
+import useJournals from "../../zustand/journals/useJournals";
 
 export const BuyDetailList = ({ journals }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [buyList, setBuyList] = useState([]);
 
   const buyListHandler = async () => {
     setBuyList(await buyRequest(journals));
-    console.log(buyList);
-    setIsOpen(!isOpen);
   };
 
   // 일단 이렇게 함
@@ -18,149 +16,262 @@ export const BuyDetailList = ({ journals }) => {
   useEffect(() => {
     if (isFocused) {
         buyListHandler();
+        console.log(buyList);
     }
   }, [isFocused]);
 
   return (
     <>
-      <Button
-        onPress={buyListHandler}>
-        매수기록
-      </Button>
-      {isOpen && (
-        <HStack>
-          <Text>매수날짜</Text>
-          <Divider
-            bg="emerald.500"
-            thickness="2"
-            mx="2"
-            orientation="vertical"
-          />
-          <Text>매수가</Text>
-          <Divider
-            bg="emerald.500"
-            thickness="2"
-            mx="2"
-            orientation="vertical"
-          />
-          <Text>매수량</Text>
-        </HStack>
-      )}
-      {isOpen && (
-        <FlatList
-          data={buyList}
-          renderItem={({ item }) => {
-            return (
-              <VStack>
-                <HStack>
+    <Box style={{backgroundColor:"white", minHeight:400 ,maxHeight:420}} p={2}>
+      <HStack justifyContent="center" alignItems="flex-start">
+          <VStack flex={1}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수날짜</Text>
+            </Box>
+            <FlatList
+              data={buyList}
+              renderItem={({item}) => {
+                return (
                   <VStack>
-                    <Text>
+                    <Text textAlign={"center"}>
                         {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.buyDate))}
                     </Text>
                   </VStack>
-                  <Divider
-                    bg="emerald.500"
-                    thickness="2"
-                    mx="2"
-                    orientation="vertical"
-                  />
+                )
+              }}
+            />
+          </VStack>
+          <Divider
+            bg="emerald.500"
+            thickness="2"
+            mx="2"
+            orientation="vertical"
+          />
+          <VStack flex={0.3}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수가</Text>
+            </Box>
+            <FlatList
+              data={buyList}
+              renderItem={({item}) => {
+                return (
                   <VStack>
-                    <Text>{item.buyPrice}</Text>
+                    <Text textAlign={"center"}>{item.buyPrice}</Text>
                   </VStack>
-                  <Divider
-                    bg="emerald.500"
-                    thickness="2"
-                    mx="2"
-                    orientation="vertical"
-                  />
+                )
+              }}
+            />
+          </VStack>
+          <Divider
+            bg="emerald.500"
+            thickness="2"
+            mx="2"
+            orientation="vertical"
+          />
+          <VStack>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매수량</Text>
+            </Box>
+            <FlatList
+              data={buyList}
+              renderItem={({item}) => {
+                return (
                   <VStack>
-                    <Text>{item.buyQuantity}</Text>
+                    <Text textAlign={"center"}>{item.buyQuantity}</Text>
                   </VStack>
-                </HStack>
-              </VStack>
-            );
-          }}
-        />
-      )}
+                )
+              }}
+            />
+          </VStack>          
+          <Divider
+            bg="emerald.500"
+            thickness="2"
+            mx="2"
+            orientation="vertical"
+          />
+          <VStack>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>기능</Text>
+            </Box>
+            <FlatList
+              data={buyList}
+              renderItem={({item}) => {
+                return (
+                  <VStack>
+                    <DeleteButton buyId={item.buyId} journals={journals} buyListHandler={buyListHandler}/>
+                  </VStack>
+                )
+              }}
+            />
+          </VStack>
+        </HStack>
+    </Box>
+        
     </>
   );
 };
 
 export const SellDetailList = ({ journals }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [sellList, setSellList] = useState([]);
 
   const sellListHandler = async () => {
     setSellList(await SellRequest(journals));
-    console.log(sellList);
-    setIsOpen(!isOpen);
   };
 
   const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
         sellListHandler();
+        console.log(sellList);
     }
   }, [isFocused]);
 
   return (
     <>
-      <Button onPress={sellListHandler}>매도기록</Button>
-      {isOpen && (
-        <HStack>
-          <Text>매도날짜</Text>
+    <Box style={{backgroundColor:"white", minHeight:400 ,maxHeight:420}} p={2}>
+    <HStack justifyContent="center" alignItems="flex-start">
+          <VStack flex={1}>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+            <Text bold>매도날짜</Text>
+            </Box>
+          <FlatList
+            data={sellList}
+            renderItem={({item}) => {
+              return (
+                <VStack>
+                  <Text textAlign={"center"}>
+                      {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.sellDate))}
+                  </Text>
+                </VStack>
+              )
+            }}
+          />
+          </VStack>
           <Divider
             bg="emerald.500"
             thickness="2"
             mx="2"
             orientation="vertical"
           />
-          <Text>매도가</Text>
+          <VStack>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+            <Text bold>매도가</Text>
+            </Box>
+            <FlatList
+              data={sellList}
+              renderItem={({item}) => {
+                return (
+                  <VStack>
+                    <Text textAlign={"center"}>{item.sellPrice}</Text>
+                  </VStack>
+                )
+              }}
+            />
+          </VStack>
           <Divider
             bg="emerald.500"
             thickness="2"
             mx="2"
             orientation="vertical"
           />
-          <Text>매도량</Text>
+          <VStack>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>매도량</Text>
+            </Box>
+            <FlatList
+              data={sellList}
+              renderItem={({item}) => {
+                return (
+                  <VStack>
+                    <Text textAlign={"center"}>{item.sellQuantity}</Text>
+                  </VStack>
+                )
+              }}
+            />
+          </VStack>
+          <Divider
+            bg="emerald.500"
+            thickness="2"
+            mx="2"
+            orientation="vertical"
+          />
+          <VStack>
+            <Box alignItems={"center"} bgColor={"lime.200"}>
+              <Text bold>기능</Text>
+            </Box>
+            <FlatList
+              data={sellList}
+              renderItem={({item}) => {
+                return (
+                  <VStack>
+                    <DeleteButton sellId={item.sellId} journals={journals} sellListHandler={sellListHandler}/>
+                  </VStack>
+                )
+              }}
+            />
+          </VStack>
         </HStack>
-      )}
-      {isOpen && (
-        <FlatList
-          data={sellList}
-          renderItem={({ item }) => {
-            return (
-              <VStack>
-                <HStack>
-                  <VStack>
-                  <Text>
-                    {new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(item.sellDate))}
-                    </Text>
-                  </VStack>
-                  <Divider
-                    bg="emerald.500"
-                    thickness="2"
-                    mx="2"
-                    orientation="vertical"
-                  />
-                  <VStack>
-                    <Text>{item.sellPrice}</Text>
-                  </VStack>
-                  <Divider
-                    bg="emerald.500"
-                    thickness="2"
-                    mx="2"
-                    orientation="vertical"
-                  />
-                  <VStack>
-                    <Text>{item.sellQuantity}</Text>
-                  </VStack>
-                </HStack>
-              </VStack>
-            );
-          }}
-        />
-      )}
+    </Box>
     </>
   );
 };
+
+export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler, journals}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const {setJournals} = useJournals();
+
+  const onClose = () => setIsOpen(false);
+
+  const corfirmDelete = async () => {
+    if(buyId){
+      const buyJson = {
+        buyId:buyId
+      }
+      await deleteBuyRequest(buyJson);
+    }
+
+    if(sellId){
+      const sellJson = {
+        sellId:sellId
+      }
+      await deleteSellRequest(sellJson);
+    }
+
+    onClose();
+
+    await setJournals();
+    await buyListHandler(journals);
+    await sellListHandler(journals);
+  }
+
+  const cancelRef = useRef(null);
+
+  return (
+    <Center>
+          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} my={1}>
+            삭제
+          </Button>
+          <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+            <AlertDialog.Content>
+              <AlertDialog.CloseButton />
+              <AlertDialog.Header>경고</AlertDialog.Header>
+              <AlertDialog.Body>
+                정말 기록을 삭제하시겠습니까?
+                </AlertDialog.Body>
+              <AlertDialog.Footer>
+                <Button.Group space={2}>
+                  <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
+                    취소
+                  </Button>
+                  <Button colorScheme="danger" onPress={corfirmDelete}>
+                    삭제
+                  </Button>
+                </Button.Group>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog>
+        </Center>
+  )
+    
+}

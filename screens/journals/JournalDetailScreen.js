@@ -1,9 +1,11 @@
-import { AlertDialog, Box, Button, Center, Divider, HStack, Heading, NativeBaseProvider, Text, VStack } from "native-base";
-import { StyleSheet } from "react-native";
-import { BuyDetailList, SellDetailList } from "../../components/journals/JournalsDetailList";
+import { AlertDialog, Box, Button, Center, Divider, HStack, Heading, NativeBaseProvider, Pressable, Text, VStack } from "native-base";
+import { Image, StyleSheet } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { deleteJournalsRequest } from "../../api/journals/JournalsAPI";
 import useJournals from "../../zustand/journals/useJournals";
+import BuyAndSellTabNavigator from "./buyAndSell/BuyAndSellTabNavigator";
+import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
+import TradeCloseButton from "../../components/journals/TradeCloseButton";
 
 const JournalDetailScreen = ({route, navigation}) => {
 
@@ -12,6 +14,13 @@ const JournalDetailScreen = ({route, navigation}) => {
     const {journals, setJournals} = useJournals();
 
     const journal = journals.find((journal) => journal.journalId === journalId);
+    const [strategyName, setStrategyName] = useState("");
+
+    const getStrategyName = async () => {
+        const response = await strategyFindByIdRequest(journal);
+        const strategyName = response;
+        setStrategyName(strategyName);
+    }
 
     const assetValue = () => {
         const value = (journal.avgBuyPrice * journal.totalQuantity)
@@ -29,6 +38,7 @@ const JournalDetailScreen = ({route, navigation}) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
+            getStrategyName();
             setJournals();
         });
 
@@ -41,13 +51,16 @@ const JournalDetailScreen = ({route, navigation}) => {
             <NativeBaseProvider>
                 <Box style={styles.journalsDetailContainer}>
                     <VStack>
-                        <HStack>
-                            <Heading>{journal.stockName}</Heading>
-                            <Text>상태 아이콘</Text>
-                            <DeleteDialog journals={journal} navigation={navigation}/>
+                        <HStack justifyContent={"space-between"}>
+                            <Heading my={2}>{journal.stockName}</Heading>
+                            <HStack space={3}>
+                              <TradeCloseButton journals={journal} navigation={navigation}/>
+                              <DeleteDialog journals={journal} navigation={navigation}/>
+                            </HStack>
                         </HStack>                    
                         <HStack>
                             <VStack>
+                                <Text bold>매매전략</Text>
                                 <Text bold>매수가</Text>
                                 <Text bold>매도가</Text>
                                 <Text bold>보유물량</Text>
@@ -64,6 +77,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                             orientation="vertical"
                             />
                             <VStack>
+                            <Text>{strategyName}</Text>
                             <Text>{journal.avgBuyPrice}</Text>
                             <Text>{journal.avgSellPrice}</Text>
                             <Text>{journal.totalQuantity}</Text>
@@ -76,21 +90,8 @@ const JournalDetailScreen = ({route, navigation}) => {
                         </HStack>                        
                     </VStack>
                 </Box>
-                <Button onPress={inputHandler}>기록 추가</Button>
-                <HStack>
-                    <VStack>
-                        <BuyDetailList journals = {journal}/>
-                    </VStack>
-                        <Divider
-                            bg="emerald.500"
-                            thickness="2"
-                            mx="2"
-                            orientation="vertical"
-                        />
-                    <VStack>
-                        <SellDetailList journals={journal}/>
-                    </VStack>
-                </HStack>
+                <Button onPress={inputHandler} disabled={journal.status == "close"} display={journal.status == "close"? "none" : "block"} bgColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}} mx={2}>기록 추가</Button>
+                <BuyAndSellTabNavigator journals={journal}/>
             </NativeBaseProvider>
         </>
     )
@@ -110,9 +111,9 @@ export const DeleteDialog = ({journals, navigation}) => {
 
   const cancelRef = useRef(null);
   return <Center>
-      <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)}>
-        삭제
-      </Button>
+      <Pressable onPress={() => setIsOpen(!isOpen)}>
+        <Image source={require("../../assets/icons/journals/delete.png")} alt="delete"/>
+      </Pressable>
       <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
         <AlertDialog.Content>
           <AlertDialog.CloseButton />
@@ -137,9 +138,9 @@ export const DeleteDialog = ({journals, navigation}) => {
 
 const styles = StyleSheet.create({
     journalsDetailContainer:{
-        marginVertical:"4%",
+        marginVertical:"2%",
         backgroundColor:"white",
-        padding:"5%",
-        marginHorizontal:"2.5%"
+        padding:"3%",
+        marginHorizontal:"2%"
     }
 })

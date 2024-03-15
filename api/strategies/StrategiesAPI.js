@@ -7,8 +7,6 @@ export const strategiesRequest = async () => {
         console.log("strategiesRequest")
 
         const response = await makeRequest("/strategies/findAll", "POST")
-        console.log(response)
-
         return response.data
     }
     catch (error) {
@@ -107,5 +105,17 @@ export const deleteStrategyRequest = async (data) => {
         }
         console.log(error.config)
         throw error;
+    }
+}
+
+/* 특정 매매전략 조회 */
+export const strategyFindByIdRequest = async (data) => {
+
+    try {
+        const response = await makeRequest("/strategies/read", "POST", data);
+        const result = response.data.strategyName;
+        return result;
+    } catch (error) {
+        console.error("strategyFindByIdRequest Error", error);
     }
 }

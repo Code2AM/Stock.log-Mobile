@@ -1,8 +1,8 @@
 
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Box, Button, FlatList, HStack, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack } from "native-base"
+import { Box, Fab, FlatList, Icon, NativeBaseProvider, ScrollView } from "native-base"
 import { useEffect } from "react";
-
+import { AntDesign } from '@expo/vector-icons';
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
 import { NoteItem } from "../../components/items/NoteItem";
@@ -34,15 +34,23 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-
                 <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }
                         keyExtractor={item => item.noteId} />
-                    <Button onPress={handleNewNotePress} variant={Link}>노트 추가</Button>
                 </Box>
-
+                <Fab
+                    bg={"#B5D692"}
+                    onPress={handleNewNotePress}
+                    renderInPortal={false}
+                    shadow={5}
+                    size="16"
+                    icon={<Icon color="white" as={AntDesign} name="plus" size="6"/>}
+                    bottom={10}
+                    right={10}
+                    _pressed={{backgroundColor:"lime.500"}}
+                />
 
         </NativeBaseProvider>
     );
