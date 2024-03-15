@@ -4,11 +4,11 @@ import { MainStack } from "./routes/MainStack";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <StatusBar/>
-      <NavigationContainer>
-        <MainStack/>
-      </NavigationContainer>
-    </NativeBaseProvider>
+      <NativeBaseProvider>
+        <StatusBar/>
+        <NavigationContainer>
+          <MainStack/>
+        </NavigationContainer>
+      </NativeBaseProvider>
   );
 }
