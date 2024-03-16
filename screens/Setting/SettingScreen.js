@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, NativeBaseProvider, Stack, Text, View, ZStack, useToast } from "native-base"
+import { Box, Button, Link, NativeBaseProvider, Stack, Text, View, ZStack, useToast } from "native-base"
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { logout } from "../../api/auth/LogoutAPI";
 import Feather from 'react-native-vector-icons/Feather';
+import LogoutButton from "../../components/auth/buttons/LogoutButton";
 
 const SettingScreen = () => {
 
@@ -13,10 +14,6 @@ const SettingScreen = () => {
         navigation.navigate("LabelsScreen");
     }
 
-    const handleLogout = async () => {
-        await logout(navigation, toast);
-    };
-
     const handleStrategies = () => {
       navigation.navigate("StrategiesStack")
     }
@@ -24,10 +21,12 @@ const SettingScreen = () => {
 
     return (
         <NativeBaseProvider>
-            <Box>
             <Stack flex={1} space={4} alignItems="center">
+                <Button variant={Link} onPress={hanlderBtnPress} w={"100%"}h={"20%"} size={"lg"}>라벨</Button>
+                <Button variant={Link} onPress={handleStrategies} w={"100%"}h={"20%"} size={"lg"}>매매전략</Button>
+                <LogoutButton/>
                 
-            <TouchableOpacity onPress={hanlderBtnPress} style={styles.button}>
+            {/* <TouchableOpacity onPress={hanlderBtnPress} style={styles.button}>
                 <ZStack>
                     <View style={styles.iconContainer}>
                         <Feather name="book" style={styles.icon} size={30} />
@@ -51,10 +50,9 @@ const SettingScreen = () => {
                     </View>
                     <Text style={styles.text}>로그아웃</Text>
                 </ZStack>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
                 
             </Stack>
-            </Box>
         </NativeBaseProvider>
     );
 }
