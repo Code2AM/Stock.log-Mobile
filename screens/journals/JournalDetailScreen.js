@@ -40,6 +40,11 @@ const JournalDetailScreen = ({route, navigation}) => {
         navigation.navigate("BuyAndSellInput", {item:journal});
     }
 
+    const totalQuantity = () => {
+      console.log(journal);
+      return journal.totalBuyQuantity - journal.totalSellQuantity;
+    }
+
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             getStrategyName();
@@ -84,7 +89,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                             <Text>{strategyName}</Text>
                             <Text>{journal.avgBuyPrice}</Text>
                             <Text>{journal.avgSellPrice}</Text>
-                            <Text>{journal.totalQuantity}</Text>
+                            <Text>{totalQuantity()}</Text>
                             <Text>{totalInvestment()}</Text>
                             <Text>{assetValue()}</Text>
                             <Text>{journal.profit}</Text>
