@@ -60,7 +60,7 @@ const BuyAndSellInput = ({navigation, route}) => {
 
         }else if(value === 2){
             dataToSubmit = {
-                journalId:item.journalId,
+                journals:item,
                 sellDate:date,
                 sellPrice:price,
                 sellQuantity:quantity
