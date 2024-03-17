@@ -11,8 +11,8 @@ const CommentRegister = ({ journals, callComments }) => {
     console.log(comment);
 
     const data = {
-        journalId:journals.journalId,
-        comment:comment
+        journals,
+        comment
     }
 
     await registCommentRequest(data);
