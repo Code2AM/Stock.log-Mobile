@@ -61,8 +61,8 @@ const JournalsChart = ({journals}) => {
         </Box>
         <VStack>
             <HStack space={2}>
-                <Text bold>보유 주식량 : </Text>
-                <Text>{journalsLength}주</Text>
+                <Text bold>보유 주식 수 : </Text>
+                <Text>{journalsLength}개</Text>
                 <Spacer/>
                 <Text bold>전체 손익금 : </Text>
                 <Text style={{ color: totalProfit() > 0 ? "green" : "red" }}>{totalProfit()}</Text>
