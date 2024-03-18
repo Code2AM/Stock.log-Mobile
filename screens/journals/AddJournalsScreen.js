@@ -170,7 +170,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
                                     position:"absolute",
                                     right:21,
                                     top:-112,
-                                    overflow:"hidden"
+                                    overflow:"hidden",
+                                    zIndex:50
                                 }}
                                 inputContainerStyle={{
                                     backgroundColor:"white"

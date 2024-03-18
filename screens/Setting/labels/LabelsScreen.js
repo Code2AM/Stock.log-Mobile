@@ -18,6 +18,14 @@ const LabelsScreen = () => {
       fetchAllLabels();
     },[])
 
+    useEffect(() => {
+      console.log("useEffect working");
+      console.log(labels);
+      if (labels.length === 0) {
+          navigation.navigate('NewLabelScreen');
+      }
+  }, [labels]);
+
     console.log(labels);
 
     const handleNewLabelScreen = () => {
