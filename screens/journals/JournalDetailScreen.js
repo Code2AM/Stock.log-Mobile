@@ -84,7 +84,7 @@ const JournalDetailScreen = ({route, navigation}) => {
                             <Text>{strategyName}</Text>
                             <Text>{journal.avgBuyPrice}</Text>
                             <Text>{journal.avgSellPrice}</Text>
-                            <Text>{journal.totalQuantity}</Text>
+                            <Text>{journal.totalBuyQuantity + journal.totalSellQuantity}</Text>
                             <Text>{totalInvestment()}</Text>
                             <Text>{assetValue()}</Text>
                             <Text>{journal.profit}</Text>
