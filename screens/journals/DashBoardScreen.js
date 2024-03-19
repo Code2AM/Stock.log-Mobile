@@ -12,6 +12,7 @@ const DashBoardScreen = ({navigation}) => {
     // 전역 변수화
     const {journals, setJournals} = useJournals();
     const {strategies, fetchStrategies} = useStrategies();
+    
 
     const handleJournals = async () => {
         await setJournals();

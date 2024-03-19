@@ -1,4 +1,4 @@
-import { Button, Link, Modal, Text, useToast } from "native-base";
+import { Button, Center, Link, Modal, Text, useToast } from "native-base";
 import { useState } from "react";
 import { logout } from "../../../api/auth/LogoutAPI";
 import { useNavigation } from "@react-navigation/native";
@@ -23,13 +23,15 @@ const LogoutButton = () => {
 
             {/* 로그아웃 확인 모달 */}
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-             <Modal.Content maxWidth="350">
-                    <Modal.Header>로그아웃</Modal.Header>
-                    <Modal.Body>
-                        <Text>정말 로그아웃하시겠습니까?</Text>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button w={"45%"} colorScheme="green" mr={3} onPress={handleLogout}>확인</Button>
+                <Modal.Content maxWidth="350" borderWidth={0}>
+                    <Center mt={5}>
+                        <Text fontSize="xl" fontWeight="bold">로그아웃</Text>
+                    </Center>
+                    <Center mt={10}>
+                        <Text fontSize="xl">정말 로그아웃하시겠습니까?</Text>
+                    </Center>
+                    <Modal.Footer mt={10}>
+                        <Button w={"45%"} backgroundColor="#B5D692" mr={3} onPress={handleLogout}>확인</Button>
                         <Button w={"45%"} variant="ghost" onPress={() => setIsModalOpen(false)}>취소</Button>
                     </Modal.Footer>
                 </Modal.Content>

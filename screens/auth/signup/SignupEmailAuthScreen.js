@@ -1,25 +1,26 @@
- 
+
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import { Box, Button, Center, FormControl, HStack, Heading, Icon, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
 import { useState } from "react";
 import { sendCodeRequest } from "../../../api/auth/MailAPI";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
- export const SignupEmailAuthScreen = () => {
+export const SignupEmailAuthScreen = () => {
 
-    const [ email,setEmail ] = useState("");
-    const [ isSending, setIsSending ] = useState(null);
+    const [email, setEmail] = useState("");
+    const [isSending, setIsSending] = useState(null);
 
     const navigation = useNavigation();
 
     const handleEmailAuth = async () => {
 
         const data = {
-            email : email
+            email: email
         }
 
-        if(!isSending){
+        if (!isSending) {
             setIsSending(true)
 
             alert("인증번호를 발송했습니다.")
@@ -30,22 +31,22 @@ import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
             alert("인증코드가 발송되었습니다.")
 
-            navigation.navigate('SignupStack', { 
+            navigation.navigate('SignupStack', {
                 screen: 'SignupAuthVerifyScreen',
                 params: {
                     data,
                 }
-             })
+            })
         }
         else {
             alert("이메일을 발송 중입니다.")
         }
 
-        
+
 
     }
 
-   
+
     return (
         <NativeBaseProvider>
             <Center w="100%" h="100%">
@@ -66,13 +67,13 @@ import { sendCodeRequest } from "../../../api/auth/MailAPI";
                         <FormControl>
                             {/* <FormControl.Label>Email</FormControl.Label> */}
                             <Input
-                                type={"email"}
-                                placeholder={"이메일을 입력해주세요"}
+                                placeholder="Email"
                                 value={email}
                                 onChangeText={setEmail}
-                            />
+                                InputLeftElement={<Icon as={<MaterialIcons name="person" />}
+                                    size={5} ml="2" color="muted.400" />} />
                         </FormControl>
-                        
+
                         <Button
                             mt="2"
                             bgColor="#B5D692"
@@ -87,4 +88,4 @@ import { sendCodeRequest } from "../../../api/auth/MailAPI";
 
     )
 
- }
+}

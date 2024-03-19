@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack } from "native-base";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Center, FormControl, HStack, Heading, Icon, Input, Link, NativeBaseProvider, Pressable, Text, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/core";
 import { loginRequest } from "../../api/auth/AuthAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KakaoButton } from "../../components/auth/buttons/KakaoButton";
 import { useStocks } from "../../zustand/stocks/useStocks";
 import { getStocks, storeStocks } from "../../api/common/StockAPI";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as SplashScreen from 'expo-splash-screen';
 
 
@@ -17,6 +18,7 @@ export const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
     const {stocks, fetchStocks, setStocks} = useStocks();
+    const [show, setShow] = React.useState(false);
 
     const stockData = async () => {
         const data = await getStocks();
@@ -85,19 +87,21 @@ export const LoginScreen = () => {
 
                     <VStack space={3} mt="5" >
                         <FormControl>
-                            <FormControl.Label>Email ID</FormControl.Label>
-                            <Input
-                                placeholder={"Email"}
-                                value={username}
-                                onChangeText={setUsername}
-                            />
+                                <Input
+                                    placeholder="Email"
+                                    value={username}
+                                    onChangeText={setUsername}
+                                    marginBottom={3}
+                                    InputLeftElement={<Icon as={<MaterialIcons name="person" />}
+                                    size={5} ml="2" color="muted.400" />} />
                         </FormControl>
                         <FormControl>
-                            <FormControl.Label>Password</FormControl.Label>
                             <Input
-                                placeholder={"Password"}
-                                value={password}
-                                onChangeText={setPassword}
+                                value= {password}
+                                onChangeText= {setPassword}
+                                type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                                <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                            </Pressable>} placeholder="Password"
                             />
                             <Link
                                 _text={{

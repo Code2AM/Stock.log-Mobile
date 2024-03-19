@@ -1,8 +1,9 @@
  
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack, useTheme, useToast } from "native-base";
+import { Box, Button, Center, FormControl, HStack, Heading, Icon, Input, Link, NativeBaseProvider, Text, VStack, useTheme, useToast } from "native-base";
 import { useState } from "react";
 import { sendCodeRequest } from "../../../api/auth/MailAPI";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const FindPassEmailAuthScreen = () => {
     const [ email,setEmail ] = useState("");
@@ -79,11 +80,11 @@ export const FindPassEmailAuthScreen = () => {
                         <FormControl>
                             {/* <FormControl.Label>Email</FormControl.Label> */}
                             <Input
-                                type={"email"}
-                                placeholder={"이메일을 입력해주세요"}
+                                placeholder="Email"
                                 value={email}
                                 onChangeText={setEmail}
-                            />
+                                InputLeftElement={<Icon as={<MaterialIcons name="person" />}
+                                size={5} ml="2" color="muted.400" />} />
                         </FormControl>
                         
                         <Button

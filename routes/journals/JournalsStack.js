@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import DashBoardScreen from "../../screens/journals/DashBoardScreen";
 import { useStore } from "zustand";
 import { useNotes } from "../../zustand/notes/useNotes";
@@ -29,8 +29,10 @@ export const JournalsStack = () => {
                         title:"매매일지",
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
-                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                        headerTitleStyle:styles.journalsHeaderTitleStyle,
+                        gestureEnabled:false
                     }}
+
                 />
                 <Stack.Screen
                     name="JournalDetail"

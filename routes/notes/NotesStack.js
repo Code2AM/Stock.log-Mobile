@@ -3,8 +3,7 @@ import NoteEditorScreen from "../../screens/notes/NoteEditorScreen";
 import NotesScreen from "../../screens/notes/NotesScreen";
 import { NewNoteScreen } from "../../screens/notes/NewNoteScreen";
 import { StyleSheet } from "react-native";
-
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Stack = createNativeStackNavigator();
@@ -34,7 +33,7 @@ export const NotesStack = () => {
                     title: '노트 수정',
                     headerStyle:styles.NotesHeader, 
                     headerTitleAlign:"center",
-                    headerTitleStyle:styles.NotesHeaderTitleStyle
+                    headerTitleStyle:styles.NotesHeaderTitleStyle,
                 }}
             />
 
