@@ -11,9 +11,22 @@ import { NoteItem } from "../../components/items/NoteItem";
 
 const NotesScreen = () => {
 
-    const { notes } = useStore(useNotes)
+    const { notes, fetchAllNotes } = useStore(useNotes)
 
     const navigation = useNavigation();
+
+    useEffect(() =>{
+        fetchAllNotes();
+      },[])
+
+      useEffect(() => {
+        console.log("useEffect working");
+        console.log(notes);
+        if (notes.length === 0) { // 노트가 없을 경우
+            navigation.navigate('NewNoteScreen'); // 노트 생성 페이지로 이동
+        }
+    }, [notes]);
+  
 
     // component 마운트 될 때마다
     useEffect(() => {
@@ -34,7 +47,7 @@ const NotesScreen = () => {
 
     return (
         <NativeBaseProvider>
-                <Box>
+            <Box>
                     <FlatList
                         data={notes}
                         renderItem={ ({ item }) => <NoteItem item ={item}/> }

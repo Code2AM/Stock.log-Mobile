@@ -9,6 +9,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 const LabelsScreen = () => {
 
+
     const navigation = useNavigation();
   
     const { labels, fetchAllLabels } = useStore(useLabels);
@@ -16,6 +17,14 @@ const LabelsScreen = () => {
     useEffect(() =>{
       fetchAllLabels();
     },[])
+
+    useEffect(() => {
+      console.log("useEffect working");
+      console.log(labels);
+      if (labels.length === 0) {
+          navigation.navigate('NewLabelScreen');
+      }
+  }, [labels]);
 
     console.log(labels);
 
@@ -25,7 +34,7 @@ const LabelsScreen = () => {
 
     return (
         <NativeBaseProvider>
-            <Box>
+             <Box>
                 <FlatList
                     data={labels}
                     renderItem={ ({ item }) => <LabelsItem item = {item}/>}

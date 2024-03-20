@@ -5,7 +5,6 @@ import { useStrategies } from "../../zustand/strategies/useStrategies";
 import { StrategyItem } from "../../components/items/StrategyItem";
 import { AntDesign } from '@expo/vector-icons';
 
-
 export const StrategiesScreen = () => {
 
   const { strategies } = useStore(useStrategies);
@@ -15,7 +14,6 @@ export const StrategiesScreen = () => {
   const handleNewStrategy = () => {
     navigation.navigate("NewStrategyScreen");
   }
-  
 
   return (
     <NativeBaseProvider>

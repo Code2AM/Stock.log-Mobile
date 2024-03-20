@@ -251,8 +251,10 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler, jo
 
     if(sellId){
       const sellJson = {
-        sellId:sellId
+        sellId:sellId,
+        journalId:journals.journalId
       }
+      console.log(sellJson)
       await deleteSellRequest(sellJson);
     }
 

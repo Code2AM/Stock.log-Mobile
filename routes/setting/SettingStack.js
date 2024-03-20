@@ -5,10 +5,11 @@ import { LabelsStack } from "../labels/LabelsStack";
 import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
-
 export const SettingStack = () => {
     return(
-        <Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName="SettingScreen"
+        >
 
              <Stack.Screen
                 name="SettingScreen"

@@ -77,7 +77,7 @@ const LabelAddModal = () => {
                   등록
               </Button>
               <Button w={"50%"} variant="ghost" colorScheme="blueGray" onPress={() => {
-              setModalVisible(false);
+                  setModalVisible(false);
                 }}>
                 취소
               </Button>
@@ -88,7 +88,7 @@ const LabelAddModal = () => {
       <Center>
         <VStack space={4}>
         <Button
-         onPress={() => handleSizeClick(size)} variant={"link"} color={"white"} 
+         onPress={() => handleSizeClick(size)} variant={"link"} color={"#B5D692"} 
          >
           라벨 추가
         </Button>

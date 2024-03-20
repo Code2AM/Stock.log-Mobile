@@ -102,7 +102,7 @@ const EditLabelScreen = () =>{
 
     return(
         <NativeBaseProvider>
-        <Box flex={1} marginTop={10} alignItems="center">
+            <Box>
             <Input
                 variant="underlined"
                 placeholder="라벨의 이름을 입력해주세요."

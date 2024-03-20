@@ -11,7 +11,7 @@ const AddJournalsButton = ({ navigation}) => {
     return (
         <>
             <Fab
-                bg={"lime.400"}
+                bg={"#B5D692"}
                 onPress={addJournals}
                 renderInPortal={false}
                 shadow={5}
