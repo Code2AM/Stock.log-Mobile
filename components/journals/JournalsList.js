@@ -2,18 +2,20 @@ import { Box, Center, HStack, Heading, Spacer, Text, VStack } from "native-base"
 import { StyleSheet, Image } from "react-native";
 import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
 import { useState } from "react";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const JournalsList = ({journals}) => {
+
+const JournalsList = ({ journals }) => {
 
     const determineUpImage = () => {
-      if (journals.profit > 0) {
-        // 이미지는 네이티브 베이스에서 불러올 경우 cache를 지우지 못해서 변경이 안된다.
-        return <Image source={require("../../assets/icons/journals/상승.png")} alt="image" cache="reload"/>
-      } else if (journals.profit < 0) {
-        return <Image source={require("../../assets/icons/journals/하락.png")} alt="image" cache="reload"/>
-      } else {
-        return <Image source={require("../../assets/icons/journals/제로섬.png")} alt="image" cache="reload"/>
-      }
+        if (journals.profit > 0) {
+            // 이미지는 네이티브 베이스에서 불러올 경우 cache를 지우지 못해서 변경이 안된다.
+            return <Image source={require("../../assets/icons/journals/상승.png")} alt="image" cache="reload" />
+        } else if (journals.profit < 0) {
+            return <Image source={require("../../assets/icons/journals/하락.png")} alt="image" cache="reload" />
+        } else {
+            return <Image source={require("../../assets/icons/journals/제로섬.png")} alt="image" cache="reload" />
+        }
     };
 
     const [strategyName, setStrategyName] = useState("");
@@ -24,7 +26,7 @@ const JournalsList = ({journals}) => {
     }
 
     getStrategyName();
-    
+
     return (
         <>
             <Box style={styles.journalsDetailContainer}>
@@ -32,15 +34,23 @@ const JournalsList = ({journals}) => {
                     <HStack justifyContent="space-between">
                         <VStack>
                             <HStack>
-                            <Image source={journals.status == "open"? require("../../assets/icons/journals/open_small.png") : journals.status == "close"? require("../../assets/icons/journals/close_small.png") : "none"} alt="status" cache="reload"/>
+                                <Box marginRight={1} marginBottom={1}>
+                                    {journals.status === "open" ? (
+                                        <MaterialCommunityIcons name="note-check-outline" size={35} color={"green"} />
+                                    ) : journals.status === "close" ? (
+                                        <MaterialCommunityIcons name="note-check" size={35} color={"red"} />
+                                    ) : (
+                                        null // 다른 상황에 대한 처리가 필요한 경우 추가할 수 있습니다.
+                                    )}
+                                </Box>
                                 <Heading>{journals.stockName}</Heading>
-                                
-                                </HStack>
+
+                            </HStack>
                             <Text style={styles.notImportantFont} >{strategyName}</Text>
                         </VStack>
                         <VStack>
-                        <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit'}).format(new Date(journals.lastedTradeDate))}</Text>
-                        <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', {hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                            <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', { year: '2-digit', month: '2-digit', day: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
+                            <Text style={styles.notImportantFont} >{new Intl.DateTimeFormat('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journals.lastedTradeDate))}</Text>
                         </VStack>
                         {determineUpImage()}
                     </HStack>
@@ -71,15 +81,15 @@ const JournalsList = ({journals}) => {
 export default JournalsList;
 
 const styles = StyleSheet.create({
-    journalsDetailContainer:{
-        marginVertical:"1%",
-        backgroundColor:"white",
-        padding:"5%",
-        marginHorizontal:"3%"
+    journalsDetailContainer: {
+        marginVertical: "1%",
+        backgroundColor: "white",
+        padding: "5%",
+        marginHorizontal: "3%"
     },
 
-    notImportantFont : {
-        color:"gray",
-        fontSize:12
+    notImportantFont: {
+        color: "gray",
+        fontSize: 12
     }
 })

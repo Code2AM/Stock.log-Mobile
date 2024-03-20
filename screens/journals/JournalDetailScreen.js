@@ -6,6 +6,7 @@ import useJournals from "../../zustand/journals/useJournals";
 import BuyAndSellTabNavigator from "./buyAndSell/BuyAndSellTabNavigator";
 import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
 import TradeCloseButton from "../../components/journals/TradeCloseButton";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const JournalDetailScreen = ({route, navigation}) => {
 
@@ -105,6 +106,7 @@ export default JournalDetailScreen;
 
 export const DeleteDialog = ({journals, navigation}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isPressed, setIsPressed] = useState(false);
 
   const onClose = () => setIsOpen(false);
 
@@ -115,8 +117,13 @@ export const DeleteDialog = ({journals, navigation}) => {
 
   const cancelRef = useRef(null);
   return <Center>
-      <Pressable onPress={() => setIsOpen(!isOpen)}>
-        <Image source={require("../../assets/icons/journals/delete.png")} alt="delete"/>
+      <Pressable
+       onPress={() => setIsOpen(!isOpen)}
+       onPressIn={() => setIsPressed(true)}
+       onPressOut={() => setIsPressed(false)}
+       >
+        <MaterialCommunityIcons name="bookmark-remove-outline" alt="delete"
+          color={isPressed ? "brown" : "red"} size={60}/>
       </Pressable>
       <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
         <AlertDialog.Content>

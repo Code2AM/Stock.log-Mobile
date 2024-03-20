@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { SellRequest, buyRequest, deleteBuyRequest, deleteSellRequest } from "../../api/journals/JournalsAPI";
 import { useIsFocused } from "@react-navigation/native";
 import useJournals from "../../zustand/journals/useJournals";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const BuyDetailList = ({ journals }) => {
   const [buyList, setBuyList] = useState([]);
@@ -222,7 +223,6 @@ export const SellDetailList = ({ journals }) => {
                     <Box h={"12"} my={1} px={1}>
                       <DeleteButton sellId={item.sellId} journals={journals} sellListHandler={sellListHandler}/>
                     </Box>
-                    
                   </VStack>
                 )
               }}
@@ -269,9 +269,7 @@ export const DeleteButton = ({buyId, sellId, buyListHandler, sellListHandler, jo
 
   return (
     <Center>
-          <Button colorScheme="danger" onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} my={1}>
-            삭제
-          </Button>
+          <MaterialCommunityIcons name="delete-outline" color={"red"} size={35} onPress={() => setIsOpen(!isOpen)} disabled={journals.status == "close"} display={journals.status == "close"? "none" : "block"} my={1} />
           <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
             <AlertDialog.Content>
               <AlertDialog.CloseButton />
