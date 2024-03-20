@@ -9,9 +9,8 @@ export const KakaoButton = () => {
     const navigation = useNavigation();
 
     const handleKakaoLogin = () => {
+        console.log('handleKakaoLogin')
         navigation.navigate('AuthStack', { screen: 'KakaoWebViewScreen' });
-
-
     }
 
 

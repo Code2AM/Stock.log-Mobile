@@ -30,7 +30,6 @@ export const JournalsStack = () => {
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
                         headerTitleStyle:styles.journalsHeaderTitleStyle,
-                        gestureEnabled:false
                     }}
 
                 />

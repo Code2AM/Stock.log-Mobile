@@ -109,7 +109,7 @@ export const storeTokens = async (accessToken, refreshToken, accessTokenExpiresI
     await AsyncStorage.setItem("accessToken", accessToken);
     await AsyncStorage.setItem("refreshToken", refreshToken);
     await AsyncStorage.setItem("expiresAt", JSON.stringify(Date.now() + accessTokenExpiresIn));
-    await AsyncStorage.setItem("isLogin", "true");
+    await AsyncStorage.setItem("Logined", "true");
     console.log("Tokens stored successfully!");
   } catch (error) {
     console.error("Error storing tokens:", error);

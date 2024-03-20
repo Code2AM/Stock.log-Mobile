@@ -2,16 +2,20 @@ import { Button, Center, Link, Modal, Text, useToast } from "native-base";
 import { useState } from "react";
 import { logout } from "../../../api/auth/LogoutAPI";
 import { useNavigation } from "@react-navigation/native";
+import { useStore } from "zustand";
+import { useAuth } from "../../../zustand/useAuth/useAuth";
 
 const LogoutButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 변수
+
+    const { setIsSignedIn } = useStore(useAuth);
 
     const navigation = useNavigation();
     const toast = useToast();
 
     // 로그아웃 함수
     const handleLogout = async () => {
-        await logout(navigation, toast);
+        await logout(navigation, toast, setIsSignedIn);
 
         setIsModalOpen(false);
     };
