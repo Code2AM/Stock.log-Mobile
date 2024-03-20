@@ -3,7 +3,6 @@ import NoteEditorScreen from "../../screens/notes/NoteEditorScreen";
 import NotesScreen from "../../screens/notes/NotesScreen";
 import { NewNoteScreen } from "../../screens/notes/NewNoteScreen";
 import { StyleSheet } from "react-native";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const Stack = createNativeStackNavigator();

@@ -17,7 +17,6 @@ export const JournalsStack = () => {
     useEffect(() => {
       fetchAllNotes();
     },[])
-    
 
     return (
         <>
@@ -30,9 +29,7 @@ export const JournalsStack = () => {
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
                         headerTitleStyle:styles.journalsHeaderTitleStyle,
-                        gestureEnabled:false
                     }}
-
                 />
                 <Stack.Screen
                     name="JournalDetail"
@@ -41,7 +38,8 @@ export const JournalsStack = () => {
                         title:"매매기록",
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
-                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                        headerTitleStyle:styles.journalsHeaderTitleStyle,
+                       
                     }}
                 />
                 <Stack.Screen
@@ -51,7 +49,8 @@ export const JournalsStack = () => {
                         title:"기록 추가",
                         headerStyle:styles.journalsHeader, 
                         headerTitleAlign:"center", 
-                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                        headerTitleStyle:styles.journalsHeaderTitleStyle,
+                        
                     }}
                 />
                 <Stack.Screen
@@ -61,7 +60,8 @@ export const JournalsStack = () => {
                         title:"일지 추가",
                         headerStyle:styles.journalsHeader,
                         headerTitleAlign:"center",
-                        headerTitleStyle:styles.journalsHeaderTitleStyle
+                        headerTitleStyle:styles.journalsHeaderTitleStyle,
+     
                     }}
                 />
             </Stack.Navigator>

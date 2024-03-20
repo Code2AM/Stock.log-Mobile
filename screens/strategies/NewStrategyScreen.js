@@ -21,6 +21,16 @@ export const NewStrategyScreen = () => {
 
     const handleNewStrategy = async () => {
 
+        if (!strategyName || !strategyName.trim()) {
+            toast.show({
+              title: "매매전략 이름을 입력해주세요.",
+              duration: 1500,
+              placement: "top",
+              avoidKeyboard: true,
+            });
+            return; // 함수 종료
+          }
+
         const data = {
             strategyName : strategyName,
         }
