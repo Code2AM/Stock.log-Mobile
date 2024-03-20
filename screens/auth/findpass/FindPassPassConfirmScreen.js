@@ -1,13 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Text, VStack, useToast } from "native-base";
-import { useEffect, useState } from "react";
+import { Box, Button, Center, FormControl, HStack, Heading, Icon, Input, Link, NativeBaseProvider, Pressable, Text, VStack, useToast } from "native-base";
+import React, { useEffect, useState } from "react";
 import { changePasswordRequest } from "../../../api/auth/AuthAPI";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const FindPassPassConfirmScreen = () => {
 
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState(null);
+    const [show, setShow] = React.useState(false);
 
     const navigation = useNavigation();
     const route = useRoute();
@@ -29,11 +31,11 @@ export const FindPassPassConfirmScreen = () => {
 
     const handleChangPass = async () => {
 
-        if (passwordCheck){
+        if (passwordCheck) {
 
             const data = {
-                email : email,
-                password : password,
+                email: email,
+                password: password,
             }
 
             const result = await changePasswordRequest(data);
@@ -43,7 +45,7 @@ export const FindPassPassConfirmScreen = () => {
                 duration: 1800,
                 placement: "top",
                 avoidKeyboard: true,
-              })
+            })
 
             navigation.navigate('AuthStack', { screen: 'LoginScreen' })
 
@@ -54,10 +56,10 @@ export const FindPassPassConfirmScreen = () => {
                 duration: 1800,
                 placement: "top",
                 avoidKeyboard: true,
-              })
+            })
         }
 
-        
+
     }
 
     return (
@@ -79,19 +81,21 @@ export const FindPassPassConfirmScreen = () => {
                     <VStack space={3} mt="5" >
                         <FormControl>
                             <Input
-                                type={"password"}
-                                placeholder={"비밀번호"}
                                 value={password}
                                 onChangeText={setPassword}
+                                type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                                    <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                                </Pressable>} placeholder="Password"
                             />
                         </FormControl>
 
                         <FormControl>
                             <Input
-                                type={"confirmPassword"}
-                                placeholder={"비밀번호 확인"}
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
+                                type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                                    <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                                </Pressable>} placeholder="Password"
                             />
                         </FormControl>
 

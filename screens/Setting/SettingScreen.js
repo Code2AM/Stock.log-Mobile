@@ -1,14 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { Box, Button, Link, NativeBaseProvider, Stack, Text, View, ZStack, useToast } from "native-base"
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { logout } from "../../api/auth/LogoutAPI";
-import Feather from 'react-native-vector-icons/Feather';
 import LogoutButton from "../../components/auth/buttons/LogoutButton";
 
 const SettingScreen = () => {
 
     const navigation = useNavigation();
-    const toast = useToast();
 
     const hanlderBtnPress = () => {
         navigation.navigate("LabelsScreen");
@@ -18,12 +15,19 @@ const SettingScreen = () => {
       navigation.navigate("StrategiesStack")
     }
 
+    const handleTerms = () => {
+        navigation.navigate("TermsScreen")
+      }
+
+
 
     return (
         <NativeBaseProvider>
             <Stack flex={1} space={4} alignItems="center">
-                <Button variant={Link} onPress={hanlderBtnPress} w={"100%"}h={"20%"} size={"lg"}>라벨</Button>
-                <Button variant={Link} onPress={handleStrategies} w={"100%"}h={"20%"} size={"lg"}>매매전략</Button>
+                <Button variant={Link} onPress={hanlderBtnPress} w={"100%"}h={"10%"} size={"lg"}>라벨</Button>
+                <Button variant={Link} onPress={handleStrategies} w={"100%"}h={"10%"} size={"lg"}>매매전략</Button>
+                <Button variant={Link} onPress={handleTerms} w={"100%"}h={"10%"} size={"lg"}>이용약관</Button>
+                {/* <Button variant={Link} onPress={handleStrategies} w={"100%"}h={"10%"} size={"lg"}>많이 묻는 질문</Button> */}
                 <LogoutButton/>
                 
             {/* <TouchableOpacity onPress={hanlderBtnPress} style={styles.button}>
@@ -60,7 +64,7 @@ export default SettingScreen;
 
 const styles = StyleSheet.create({
     button: {
-        height: 50, // 버튼 높이를 조정
+        height: 30, // 버튼 높이를 조정
         width: 400, // 버튼 너비를 조정
         marginTop: 25,
     },
