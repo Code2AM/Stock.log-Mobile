@@ -1,13 +1,15 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Center, FormControl, Heading, Input, NativeBaseProvider, Text, VStack } from "native-base";
-import { useEffect, useState } from "react";
+import { Box, Button, Center, FormControl, Heading, Icon, Input, NativeBaseProvider, Pressable, Text, VStack } from "native-base";
+import React, { useEffect, useState } from "react";
 import { signupRequest } from "../../../api/auth/AuthAPI";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const SignupPassConfirmScreen = () => {
 
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
     const [passwordCheck, setPasswordCheck] = useState(null);
+    const [show, setShow] = React.useState(false);
 
     const navigation = useNavigation();
     const route = useRoute();
@@ -69,25 +71,27 @@ export const SignupPassConfirmScreen = () => {
                     <VStack space={3} mt="5" >
                         <FormControl>
                             <Input
-                                type={"password"}
-                                placeholder={"비밀번호"}
                                 value={password}
                                 onChangeText={setPassword}
+                                type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                                    <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                                </Pressable>} placeholder="Password"
                             />
                         </FormControl>
 
                         <FormControl>
                             <Input
-                                type={"confirmPassword"}
-                                placeholder={"비밀번호 확인"}
                                 value={confirmPassword}
                                 onChangeText={setConfirmPassword}
+                                type={show ? "text" : "password"} InputRightElement={<Pressable onPress={() => setShow(!show)}>
+                                    <Icon as={<MaterialIcons name={show ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted.400" />
+                                </Pressable>} placeholder="Password"
                             />
                         </FormControl>
 
                         <VStack mt="6" justifyContent="center">
 
-                            { passwordCheck ? (
+                            {passwordCheck ? (
                                 <Text fontSize="sm" color="#B5D692" _dark={{ color: "warmGray.200" }}>
                                     비밀번호가 일치합니다
                                 </Text>
