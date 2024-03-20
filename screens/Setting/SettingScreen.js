@@ -20,7 +20,6 @@ const SettingScreen = () => {
       }
 
 
-
     return (
         <NativeBaseProvider>
             <Stack flex={1} space={4} alignItems="center">

@@ -35,7 +35,8 @@ export const SettingStack = () => {
                     title: '설정',
                     headerStyle: styles.settingsHeader, 
                     headerTitleAlign: "center",
-                    headerTitleStyle: styles.settingsHeaderTitleStyle
+                    headerTitleStyle: styles.settingsHeaderTitleStyle,
+                    gestureEnabled:false
                 }}
             />
             <Stack.Screen

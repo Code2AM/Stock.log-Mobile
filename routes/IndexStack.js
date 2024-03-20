@@ -9,15 +9,11 @@ const Tab = createBottomTabNavigator();
 export const IndexStack = () => {
 
     return (
+        
         <Tab.Navigator
-            tabBarOptions={{
-                activeTintColor: '#B5D692',
-                gestureEnabled:false
-                // 전체 탭 바 배경색
-            }}
-            screenOptions={{
+            screenOptions={{               
                 tabBarStyle: { backgroundColor: "#F2F2F2" },
-                gestureEnabled:false
+                tabBarActiveTintColor:'#B5D692'
             }}
         >
             <Tab.Screen
@@ -27,11 +23,9 @@ export const IndexStack = () => {
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="layers-edit" color={color} size={size} />
-                    ),
-                    gestureEnabled: false // 뒤로 가기 제스처 비활성화
+                    ), 
                 }}
             />
-
 
             <Tab.Screen
                 name="노트"
@@ -42,7 +36,7 @@ export const IndexStack = () => {
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="note-edit-outline" color={color} size={size} />
                     ),
-                    gestureEnabled: false // 뒤로 가기 제스처 비활성화
+                    
                 }}
             />
 
@@ -55,7 +49,6 @@ export const IndexStack = () => {
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="cog-outline" color={color} size={size} />
                     ),
-                    gestureEnabled: false // 뒤로 가기 제스처 비활성화
                 }}
             />
 

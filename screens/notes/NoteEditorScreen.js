@@ -156,10 +156,10 @@ const NoteEditorScreen = () => {
             onChangeText={setNoteContents}
           />
 
-          <HStack space={2}>
-            <Button onPress={handleUpdate} background={"#B5D692"} w={"50%"}>수정</Button>
-            <MaterialCommunityIcons name="delete-outline" size={50} color="red" onPress={handleDelete} />
-          </HStack>
+          <VStack space={2} justifyContent={"center"}>
+            <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
+            <Button onPress={handleDelete} mt={3} colorScheme="secondary">삭제</Button>
+          </VStack>
         </Stack>
       </Container>
     </NativeBaseProvider>
