@@ -8,6 +8,7 @@ import { useStocks } from "../../zustand/stocks/useStocks";
 import { getStocks, storeStocks } from "../../api/common/StockAPI";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as SplashScreen from 'expo-splash-screen';
+import { background } from "native-base/lib/typescript/theme/styled-system";
 
 
 
@@ -82,7 +83,7 @@ export const LoginScreen = () => {
                         _dark={{
                             color: "warmGray.50"
                         }}>
-                        stock.log
+                        stock.logfdfdsafedwsfdsrfsadf
                     </Heading>
 
                     <VStack space={3} mt="5" >
@@ -119,7 +120,8 @@ export const LoginScreen = () => {
                             mt="2"
                             bgColor="#B5D692"
                             marginTop={10}
-                            onPress={handleLogin}>
+                            onPress={handleLogin}
+                            _pressed={{backgroundColor:'emerald.400'}}>
                             로그인
                         </Button>
                         <HStack mt="6" justifyContent="center">
