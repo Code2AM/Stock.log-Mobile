@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Input, NativeBaseProvider, useToast } from "native-base";
+import { Box, Button, Center, Input, Modal, NativeBaseProvider, Text, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { useStore } from "zustand";
 import { labelDelete, labelUpdate } from "../../../api/labels/LabelsAPI";
@@ -11,6 +11,8 @@ const EditLabelScreen = () =>{
     const { fetchAllLabels } = useStore(useLabels);
 
     const [labelsTitle, setLabelsTitle] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 변수
+
 
     const toast = useToast();
 
@@ -95,30 +97,42 @@ const EditLabelScreen = () =>{
           })
 
           fetchAllLabels();
-
+          setIsModalOpen(false)
         // 수정 후 라벨 메인 페이지로 이동
           navigation.navigate("LabelsScreen");
     }
 
     return(
         <NativeBaseProvider>
-            <Box>
-            <Input
-                variant="underlined"
-                placeholder="라벨의 이름을 입력해주세요."
-                size="lg"
-                width={200}
-                onChangeText={setLabelsTitle}
-                value={labelsTitle}
-            />
-            <Button onPress={handleupdateLabel} mt={4} backgroundColor={"#B5D692"}>
-                수정
-            </Button>
-            <Button onPress={handleDeleteLabel} mt={4} backgroundColor={"#B5D692"}>
-                삭제
-            </Button>
-        </Box>
-    </NativeBaseProvider>
+           <Box flex={1} marginTop={10} alignItems="center">
+                <Input
+                    variant="underlined"
+                    placeholder="라벨의 이름을 입력해주세요."
+                    size="lg"
+                    width={200}
+                    onChangeText={setLabelsTitle}
+                    value={labelsTitle}
+                />
+                <Button onPress={handleupdateLabel} mt={4} backgroundColor={"#B5D692"}>
+                    수정
+                </Button>
+
+                <Button onPress={() => setIsModalOpen(true)} mt={4} colorScheme="secondary">
+                    삭제
+                </Button>
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <Modal.Content maxWidth="350" borderWidth={0}>
+                    <Center mt={10}>
+                        <Text fontSize="xl">정말 삭제하시겠습니까?</Text>
+                    </Center>
+                    <Modal.Footer mt={10}>
+                        <Button w={"45%"} backgroundColor="#B5D692" mr={3} onPress={handleDeleteLabel}>삭제</Button>
+                        <Button w={"45%"} variant="ghost" onPress={() => setIsModalOpen(false)}>취소</Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
+            </Box>
+        </NativeBaseProvider>
     )
 }
 export default EditLabelScreen;

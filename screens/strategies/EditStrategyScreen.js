@@ -27,6 +27,16 @@ export const EditStrategyScreen = () => {
 
     const handleUpdate = async () => {
 
+        if (!strategyName || !strategyName.trim()) {
+            toast.show({
+                title: "매매전략 이름을 입력해주세요.",
+                duration: 1500,
+                placement: "top",
+                avoidKeyboard: true,
+            });
+            return; // 함수 종료
+        }
+
         console.log("handleUpdate")
 
 // const strategyDTO = {
@@ -97,7 +107,7 @@ export const EditStrategyScreen = () => {
             <Button onPress={handleUpdate} mt={4} backgroundColor={"#B5D692"}>
                 수정
             </Button>
-            <Button onPress={handleDelete} mt={4} backgroundColor={"#B5D692"}>
+            <Button onPress={handleDelete} mt={4} backgroundColor={"#FF0000"}>
                 삭제
             </Button>
         </Box>

@@ -8,105 +8,105 @@ import { strategyFindByIdRequest } from "../../api/strategies/StrategiesAPI";
 import TradeCloseButton from "../../components/journals/TradeCloseButton";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const JournalDetailScreen = ({route, navigation}) => {
+const JournalDetailScreen = ({ route, navigation }) => {
 
-    let {journalId} = route.params;
+  let { journalId } = route.params;
 
-    const {journals, setJournals} = useJournals();
+  const { journals, setJournals } = useJournals();
 
-    const journal = journals.find((journal) => journal.journalId === journalId);
-    const [strategyName, setStrategyName] = useState("");
+  const journal = journals.find((journal) => journal.journalId === journalId);
+  const [strategyName, setStrategyName] = useState("");
 
-    const getStrategyName = async () => {
-      if(strategyName === ""){
-        const response = await strategyFindByIdRequest(journal);
-        const strategyName = response;
-        setStrategyName(strategyName);
-      }
-
-      return strategyName;
+  const getStrategyName = async () => {
+    if (strategyName === "") {
+      const response = await strategyFindByIdRequest(journal);
+      const strategyName = response;
+      setStrategyName(strategyName);
     }
 
-    const assetValue = () => {
-        const value = (journal.avgBuyPrice * journal.totalQuantity)
-        return value;
-    }
+    return strategyName;
+  }
 
-    const totalInvestment = () => {
-        const value = assetValue() + Math.abs(journal.profit);
-        return value;
-    }
+  const assetValue = () => {
+    const value = (journal.avgBuyPrice * journal.totalQuantity)
+    return value;
+  }
 
-    const inputHandler = () => {
-        navigation.navigate("BuyAndSellInput", {item:journal});
-    }
+  const totalInvestment = () => {
+    const value = assetValue() + Math.abs(journal.profit);
+    return value;
+  }
 
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            getStrategyName();
-            setJournals();
-        });
+  const inputHandler = () => {
+    navigation.navigate("BuyAndSellInput", { item: journal });
+  }
 
-        // Clean up
-        return unsubscribe;
-    }, [navigation]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getStrategyName();
+      setJournals();
+    });
 
-    return (
-        <>
-            <NativeBaseProvider>
-                <Box style={styles.journalsDetailContainer}>
-                    <VStack>
-                        <HStack justifyContent={"space-between"}>
-                            <Heading my={2}>{journal.stockName}</Heading>
-                            <HStack space={3}>
-                              <TradeCloseButton journals={journal} navigation={navigation}/>
-                              <DeleteDialog journals={journal} navigation={navigation}/>
-                            </HStack>
-                        </HStack>                    
-                        <HStack>
-                            <VStack>
-                                <Text bold>매매전략</Text>
-                                <Text bold>매수가</Text>
-                                <Text bold>매도가</Text>
-                                <Text bold>보유물량</Text>
-                                <Text bold>총투자금</Text>
-                                <Text bold>자산가치</Text>
-                                <Text bold>실익</Text>
-                                <Text bold>최초거래일</Text>
-                                <Text bold>최종거래일</Text>
-                            </VStack>
-                            <Divider
-                            bg="emerald.500"
-                            thickness="2"
-                            mx="2"
-                            orientation="vertical"
-                            />
-                            <VStack>
-                            <Text>{strategyName}</Text>
-                            <Text>{journal.avgBuyPrice}</Text>
-                            <Text>{journal.avgSellPrice}</Text>
-                            <Text>{journal.totalBuyQuantity + journal.totalSellQuantity}</Text>
-                            <Text>{totalInvestment()}</Text>
-                            <Text>{assetValue()}</Text>
-                            <Text>{journal.profit}</Text>
-                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.journalDate))}</Text>
-                            <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.lastedTradeDate))}</Text>
-                            </VStack>                            
-                        </HStack>                        
-                    </VStack>
-                </Box>
-                <Button onPress={inputHandler} disabled={journal.status == "close"} display={journal.status == "close"? "none" : "block"} bgColor={"#B5D692"} _pressed={{bgColor:"#A9C282"}} mx={2}>기록 추가</Button>
-                <BuyAndSellTabNavigator journals={journal}/>
-            </NativeBaseProvider>
-        </>
-    )
+    // Clean up
+    return unsubscribe;
+  }, [navigation]);
+
+  return (
+    <>
+      <NativeBaseProvider>
+        <Box style={styles.journalsDetailContainer}>
+          <VStack>
+            <HStack justifyContent={"space-between"}>
+              <Heading my={2}>{journal.stockName}</Heading>
+              <HStack space={3}>
+                <TradeCloseButton journals={journal} navigation={navigation} />
+                <DeleteDialog journals={journal} navigation={navigation} />
+              </HStack>
+            </HStack>
+            <HStack>
+              <VStack>
+                <Text bold>매매전략</Text>
+                <Text bold>매수가</Text>
+                <Text bold>매도가</Text>
+                <Text bold>보유물량</Text>
+                <Text bold>총투자금</Text>
+                <Text bold>자산가치</Text>
+                <Text bold>실익</Text>
+                <Text bold>최초거래일</Text>
+                <Text bold>최종거래일</Text>
+              </VStack>
+              <Divider
+                bg="emerald.500"
+                thickness="2"
+                mx="2"
+                orientation="vertical"
+              />
+              <VStack>
+                <Text>{strategyName}</Text>
+                <Text>{journal.avgBuyPrice}</Text>
+                <Text>{journal.avgSellPrice}</Text>
+                <Text>{journal.totalBuyQuantity + journal.totalSellQuantity}</Text>
+                <Text>{totalInvestment()}</Text>
+                <Text>{assetValue()}</Text>
+                <Text>{journal.profit}</Text>
+                <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.journalDate))}</Text>
+                <Text>{new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(journal.lastedTradeDate))}</Text>
+              </VStack>
+            </HStack>
+          </VStack>
+        </Box>
+        <Button onPress={inputHandler} disabled={journal.status == "close"} display={journal.status == "close" ? "none" : "block"} bgColor={"#B5D692"} _pressed={{ bgColor: "#A9C282" }} mx={2}>기록 추가</Button>
+        <BuyAndSellTabNavigator journals={journal} />
+      </NativeBaseProvider>
+    </>
+  )
 }
 
 export default JournalDetailScreen;
 
-export const DeleteDialog = ({journals, navigation}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isPressed, setIsPressed] = useState(false);
+export const DeleteDialog = ({ journals, navigation }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   const onClose = () => setIsOpen(false);
 
@@ -116,42 +116,42 @@ export const DeleteDialog = ({journals, navigation}) => {
   }
 
   const cancelRef = useRef(null);
-  return <Center>
-      <Pressable
-       onPress={() => setIsOpen(!isOpen)}
-       onPressIn={() => setIsPressed(true)}
-       onPressOut={() => setIsPressed(false)}
-       >
-        <MaterialCommunityIcons name="bookmark-remove-outline" alt="delete"
-          color={isPressed ? "brown" : "red"} size={60}/>
-      </Pressable>
-      <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-        <AlertDialog.Content>
-          <AlertDialog.CloseButton />
-          <AlertDialog.Header>경고</AlertDialog.Header>
-          <AlertDialog.Body>
-            정말 삭제하시겠습니까?
-            </AlertDialog.Body>
-          <AlertDialog.Footer>
-            <Button.Group space={2}>
-              <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
-                취소
-              </Button>
-              <Button colorScheme="danger" onPress={corfirmDelete}>
-                삭제
-              </Button>
-            </Button.Group>
-          </AlertDialog.Footer>
-        </AlertDialog.Content>
-      </AlertDialog>
-    </Center>;
+  return <Center marginTop={1}>
+    <Pressable
+      onPress={() => setIsOpen(!isOpen)}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+    >
+      <MaterialCommunityIcons name="clipboard-text-off-outline" alt="delete"
+        color={isPressed ? "brown" : "red"} size={50} />
+    </Pressable>
+    <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+      <AlertDialog.Content>
+        <AlertDialog.CloseButton />
+        <AlertDialog.Header>경고</AlertDialog.Header>
+        <AlertDialog.Body>
+          정말 삭제하시겠습니까?
+        </AlertDialog.Body>
+        <AlertDialog.Footer>
+          <Button.Group space={2}>
+            <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
+              취소
+            </Button>
+            <Button colorScheme="danger" onPress={corfirmDelete}>
+              삭제
+            </Button>
+          </Button.Group>
+        </AlertDialog.Footer>
+      </AlertDialog.Content>
+    </AlertDialog>
+  </Center>;
 }
 
 const styles = StyleSheet.create({
-    journalsDetailContainer:{
-        marginVertical:"2%",
-        backgroundColor:"white",
-        padding:"3%",
-        marginHorizontal:"2%"
-    }
+  journalsDetailContainer: {
+    marginVertical: "2%",
+    backgroundColor: "white",
+    padding: "3%",
+    marginHorizontal: "2%"
+  }
 })

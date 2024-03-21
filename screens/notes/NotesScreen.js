@@ -15,10 +15,10 @@ const NotesScreen = () => {
 
     const navigation = useNavigation();
 
-    useEffect(() =>{
+    useEffect(() => {
         fetchAllNotes();
-      },[])
-  
+    }, [])
+
 
     // component 마운트 될 때마다
     useEffect(() => {
@@ -40,22 +40,22 @@ const NotesScreen = () => {
     return (
         <NativeBaseProvider>
             <Box>
-                    <FlatList
-                        data={notes}
-                        renderItem={ ({ item }) => <NoteItem item ={item}/> }
-                        keyExtractor={item => item.noteId} />
-                </Box>
-                <Fab
-                    bg={"#B5D692"}
-                    onPress={handleNewNotePress}
-                    renderInPortal={false}
-                    shadow={5}
-                    size="16"
-                    icon={<Icon color="white" as={AntDesign} name="plus" size="6"/>}
-                    bottom={10}
-                    right={10}
-                    _pressed={{backgroundColor:"lime.500"}}
-                />
+                <FlatList
+                    data={notes}
+                    renderItem={({ item }) => <NoteItem item={item} />}
+                    keyExtractor={item => item.noteId} />
+            </Box>
+            <Fab
+                bg={"#B5D692"}
+                onPress={handleNewNotePress}
+                renderInPortal={false}
+                shadow={5}
+                size="16"
+                icon={<Icon color="white" as={AntDesign} name="plus" size="6" />}
+                bottom={10}
+                right={10}
+                _pressed={{ backgroundColor: "lime.500" }}
+            />
 
         </NativeBaseProvider>
     );

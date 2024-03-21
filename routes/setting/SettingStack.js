@@ -16,7 +16,7 @@ export const SettingStack = () => {
     // 설정 탭을 눌렀을 때 설정 화면으로 이동하도록 설정
     useEffect(() => {
         const unsubscribe = navigation.addListener('tabPress', (e) => {
-            // 현재 화면이 설정 화면이 아닌 경우에만 설정 화면으로 이동
+            // 현재 화면이 노트 화면이 아닌 경우에만 노트 화면으로 이동
             if (route.name !== 'SettingScreen') {
                 e.preventDefault();
                 navigation.navigate('SettingScreen');

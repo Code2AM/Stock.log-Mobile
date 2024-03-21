@@ -24,11 +24,11 @@ const TradeCloseButton = ({ journals, navigation }) => {
        onPressOut={() => setIsPressed(false)}
        >
         {journals.status === "open" ? (
-          <MaterialCommunityIcons name="note-check-outline" size={50} color={isPressed ? "lightgreen" : "green"} />
+          <MaterialCommunityIcons name="note-check-outline" size={50} color={isPressed ? "gray" : "green"} />
         ) : journals.status === "close" ? (
           <MaterialCommunityIcons name="note-check" size={50} color={"red"} />
         ) : (
-          null // 다른 상황에 대한 처리가 필요한 경우 추가할 수 있습니다.
+          null 
         )}
       </Pressable>
       <Center>

@@ -40,7 +40,7 @@ const JournalsList = ({ journals }) => {
                                     ) : journals.status === "close" ? (
                                         <MaterialCommunityIcons name="note-check" size={35} color={"red"} />
                                     ) : (
-                                        null // 다른 상황에 대한 처리가 필요한 경우 추가할 수 있습니다.
+                                        null
                                     )}
                                 </Box>
                                 <Heading>{journals.stockName}</Heading>

@@ -13,7 +13,7 @@ export const IndexStack = () => {
         <Tab.Navigator
             screenOptions={{               
                 tabBarStyle: { backgroundColor: "#F2F2F2" },
-                tabBarActiveTintColor:'#B5D692'
+                tabBarActiveTintColor:'#B5D692',
             }}
         >
             <Tab.Screen

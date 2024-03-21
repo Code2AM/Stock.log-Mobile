@@ -3,11 +3,27 @@ import NoteEditorScreen from "../../screens/notes/NoteEditorScreen";
 import NotesScreen from "../../screens/notes/NotesScreen";
 import { NewNoteScreen } from "../../screens/notes/NewNoteScreen";
 import { StyleSheet } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useEffect } from "react";
 
 
-const Stack = createNativeStackNavigator();
 
 export const NotesStack = () => {
+    const navigation = useNavigation();
+    const Stack = createNativeStackNavigator();
+    const route = useRoute();
+
+    // 노트 탭을 눌렀을 때 노트 화면으로 이동하도록 설정
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('tabPress', (e) => {
+            if (route.name !== 'NotesScreen') {
+                e.preventDefault();
+                navigation.navigate('NotesScreen');
+            }
+        });
+
+        return unsubscribe;
+    }, [navigation, route]);
 
     return (
 
