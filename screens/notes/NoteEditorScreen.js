@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Container, Flex, HStack, Input, Modal, NativeBaseProvider, Select, Stack, TextArea, VStack, useToast } from "native-base";
+import { Box, Button, Center, Container, Flex, HStack, Input, Modal, NativeBaseProvider, Select, Stack, Text, TextArea, VStack, useToast } from "native-base";
 import { useEffect, useState } from "react";
 import { deleteNoteRequest, updateNoteRequest } from "../../api/notes/NotesAPI";
 import { useStore } from "zustand";
@@ -8,7 +8,6 @@ import useLabels from "../../zustand/labels/useLabels";
 import LabelAddModal from "../../components/labels/LabelAddModal";
 import DropDownPicker from "react-native-dropdown-picker";
 import { StyleSheet } from "react-native";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const NoteEditorScreen = () => {
   const { fetchAllNotes } = useStore(useNotes);
@@ -17,6 +16,7 @@ const NoteEditorScreen = () => {
   const [noteContents, setNoteContents] = useState("");
   const { labels, fetchAllLabels } = useStore(useLabels);
   const [selectedLabel, setSelectedLabel] = useState(null); // 선택된 라벨 상태 추가
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 변수
 
   const route = useRoute();
   const { item } = route.params;
@@ -89,6 +89,9 @@ const NoteEditorScreen = () => {
 
   // 삭제
   const handleDelete = async () => {
+
+   
+    
     const data = {
       noteId: item.noteId,
       noteName: noteName,
@@ -109,7 +112,7 @@ const NoteEditorScreen = () => {
       placement: "top",
       avoidKeyboard: true,
     });
-
+    setIsModalOpen(false);
     navigation.navigate("NotesScreen");
   }
 
@@ -158,7 +161,18 @@ const NoteEditorScreen = () => {
 
           <VStack space={2} justifyContent={"center"}>
             <Button onPress={handleUpdate} background={"#B5D692"}>수정</Button>
-            <Button onPress={handleDelete} mt={3} colorScheme="secondary">삭제</Button>
+            <Button onPress={() => setIsModalOpen(true)} mt={3} colorScheme="secondary">삭제</Button>
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <Modal.Content maxWidth="350" borderWidth={0}>
+                    <Center mt={10}>
+                        <Text fontSize="xl">정말 삭제하시겠습니까?</Text>
+                    </Center>
+                    <Modal.Footer mt={10}>
+                        <Button w={"45%"} backgroundColor="#B5D692" mr={3}  onPress={handleDelete}>삭제</Button>
+                        <Button w={"45%"} variant="ghost" onPress={() => setIsModalOpen(false)}>취소</Button>
+                    </Modal.Footer>
+                </Modal.Content>
+            </Modal>
           </VStack>
         </Stack>
       </Container>
