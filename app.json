@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/splash.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.isac7722.stocklogMobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1567864e-1549-4ce8-8245-63a4cf9bd17a"
+      }
     }
   }
 }

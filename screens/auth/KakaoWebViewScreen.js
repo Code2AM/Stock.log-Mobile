@@ -5,8 +5,8 @@ import { kakaoLoginRequest } from "../../api/auth/SocialAPI";
 import { useStore } from "zustand";
 import { useAuth } from "../../zustand/useAuth/useAuth";
 
-const REST_API_KEY = process.env.EXPO_PUBLIC_REST_API_KEY;
-const REDIRECT_URI = process.env.EXPO_PUBLIC_REDIRECT_URL;
+const REST_API_KEY = '90c89051f8411e2bede27122b3866f52';
+const REDIRECT_URI = "http://192.168.0.13:8081/callback";
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
 
 export const KakaoWebViewScreen = () => {
