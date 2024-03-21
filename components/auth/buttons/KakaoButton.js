@@ -6,17 +6,17 @@ const image = require('../../../assets/icons/auth/kakao_login_medium_narrow.png'
 
 export const KakaoButton = () => {
 
-
     const navigation = useNavigation();
 
     const handleKakaoLogin = () => {
+        console.log('handleKakaoLogin')
         navigation.navigate('AuthStack', { screen: 'KakaoWebViewScreen' });
     }
 
 
     return (
         <Button onPress={handleKakaoLogin}
-            bgColor={	"#FEE500"}
+            bgColor={"#FEE500"}
             _style={{ alignSelf: 'center' }}
             width={180} // Adjust width as needed
             height={12}
