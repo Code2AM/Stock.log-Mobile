@@ -8,7 +8,6 @@ import { useStocks } from "../../zustand/stocks/useStocks";
 import { getStocks, storeStocks } from "../../api/common/StockAPI";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as SplashScreen from 'expo-splash-screen';
-import { background } from "native-base/lib/typescript/theme/styled-system";
 
 
 
