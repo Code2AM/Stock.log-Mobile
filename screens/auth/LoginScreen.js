@@ -55,9 +55,9 @@ export const LoginScreen = () => {
         // // 요청이 몰리는 것을 막고 앱 실행시 하루에 한번 정도만 불러오면 되기 때문에 로그인 페이지로 이동시킴
         alert("로그인 성공")
 
-        const accessToken = await AsyncStorage.getItem("accessToken");
+        // const accessToken = await AsyncStorage.getItem("accessToken");
 
-        navigation.navigate('IndexStack', { screen: 'Journals' })
+        navigation.navigate('IndexStack', { screen: '매매일지' })
     };
 
 
