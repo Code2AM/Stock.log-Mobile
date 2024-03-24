@@ -1,7 +1,6 @@
 
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Box, Button, FlatList, HStack, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack } from "native-base"
-import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Box, HStack, Pressable, ScrollView, Text, VStack } from "native-base"
 import { StyleSheet } from "react-native";
 
 
@@ -52,12 +51,3 @@ export const NoteItem = ({item}) => {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    titleText:{
-        fontSize:"20"
-    },
-    contentText:{
-        fontSize:"15"
-    }
-})

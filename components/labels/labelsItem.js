@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Box, HStack, Pressable, ScrollView, Text, VStack, View } from "native-base";
+import { Box, Pressable, ScrollView, Text, View } from "native-base";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 

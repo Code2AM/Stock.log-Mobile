@@ -41,7 +41,7 @@ export const signupRequest = async (data) => {
 export const loginRequest = async (data) => {
 
   try {
-    const response = await makeRequest("auth/login", "POST", data);
+    const response = await makeRequest("/auth/login", "POST", data);
     // const response = await request.post("auth/login", { ...data });
     // 성공적으로 로그인한 경우
 
@@ -64,15 +64,14 @@ export const loginRequest = async (data) => {
 
 // 로그아웃 요청 API
 export const logoutRequest = async (data) => {
-
   try {
-    const response = await makeRequest("auth/logout", "POST", data);
+    const response = await makeRequest("/auth/logout", "POST", data);
 
     return response.data;
 
   }
   catch (error) {
-    console.error("login Request Error:", error);
+    console.error("LOGOUT ERROR", error);
     throw error;
   }
 
@@ -89,7 +88,7 @@ export const changePasswordRequest = async (data) => {
 
   }
   catch (error) {
-    console.error("changePassword Error:", error);
+    console.error("CHANGE PASSWORD ERROR ", error);
     throw error;
   }
 
@@ -112,8 +111,9 @@ export const storeTokens = async (accessToken, refreshToken, accessTokenExpiresI
     await AsyncStorage.setItem("isLogin", "true");
     console.log("Tokens stored successfully!");
   } catch (error) {
-    console.error("Error storing tokens:", error);
-    // Handle storage failures gracefully (e.g., display an error message)
+    console.error("STORE TOKEN ERROR", error);
+    
+    throw error;
   }
 };
 

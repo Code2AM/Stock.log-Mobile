@@ -3,13 +3,13 @@ import { makeRequest } from "../common/Api";
 export const labelList = async () => {
 
     try {
-      const response = await makeRequest("/labels/get", "POST");
+      const response = await makeRequest("/labels/get", "GET");
   
       return response.data;
   
     }
     catch (error) {
-      console.error("login Request Error:", error);
+      console.error("GET LABELS ERROR", error);
       throw error;
     }
   
@@ -25,7 +25,8 @@ export const labelList = async () => {
       return response;
     }
     catch (error) {
-      console.error( "Error:", error);
+      console.error("CREATE LABEL ERROR", error);
+      throw error;
     }
   }
 
@@ -39,7 +40,8 @@ export const labelList = async () => {
       return "라벨 삭제";
     }
     catch (error) {
-      console.error("Error:", error);
+      console.error("DELETE LABEL ERROR", error);
+      throw error;
     }
   }
 
@@ -53,8 +55,7 @@ export const labelList = async () => {
 
       }
       catch (error) {
-        console.error("Error:", error);
+        console.error("UPDATE LABEL ERROR", error);
+        throw error;
       }
   }
-
-

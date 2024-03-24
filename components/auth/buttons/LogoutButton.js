@@ -11,13 +11,13 @@ const LogoutButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 변수
 
     const navigation = useNavigation();
-    const toast = useToast();
 
     // 로그아웃 함수
     const handleLogout = async () => {
-        await logout(navigation, toast);
 
         setIsModalOpen(false);
+
+        await logout(navigation);
     };
 
     return (

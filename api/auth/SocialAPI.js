@@ -1,7 +1,7 @@
 import axios from "axios";
 import { storeTokens } from "./AuthAPI";
 
-const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
+const BACKEND_URL = "http://112.222.187.244:8083";
 
 // 카카오 로그인
 export const kakaoLoginRequest = async (code) => {

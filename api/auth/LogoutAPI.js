@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { logoutRequest } from "./AuthAPI";
 
 // 로그인 화면으로 돌아가기 위해서 useNavigation으로 props로 받아야함
-export const logout = async (navigation, toast) => {
+export const logout = async (navigation) => {
   try {
     // 액세스 토큰과 리프레시 토큰 가져오기
 
@@ -28,17 +28,13 @@ export const logout = async (navigation, toast) => {
     await AsyncStorage.removeItem('expiresAt');
     await AsyncStorage.removeItem('isLogin');
 
-    toast.show({
-      title: result,
-      duration: 1800,
-      placement: "top",
-      avoidKeyboard: true,
-    })
+    console.log("LOGOUT: "+result)
 
     // 로그인 화면으로 이동
     navigation.navigate("AuthStack", { screen: "LoginScreen" });
   } catch (error) {
     console.error('로그아웃 에러:', error);
     // 로그아웃 에러 처리 (예: 사용자에게 에러 메시지 표시)
+    throw error;
   }
 };
