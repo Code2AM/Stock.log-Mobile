@@ -1,6 +1,6 @@
 
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { Box, Button, FlatList, HStack, Link, NativeBaseProvider, Pressable, ScrollView, Spacer, Text, VStack, View } from "native-base"
+import { useNavigation } from "@react-navigation/native";
+import { Box, Pressable, ScrollView, Text, View } from "native-base"
 import { StyleSheet } from "react-native";
 
 
@@ -51,9 +51,3 @@ const styles = StyleSheet.create({
         color: '#4B5563',
     },
 });
-
-// const strategyDTO = {
-//   strategyId: 1,
-//   strategyName: 1,
-//   strategyStatus: 1,
-// }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const BACKEND_URL = "https://www.stocklogdev.shop:8082";
+const BACKEND_URL = "http://112.222.187.244:8083/";
 
 // 토큰 가져오기
 const getAccessToken = async () => {

@@ -1,4 +1,4 @@
-import { NativeBaseProvider, Text, VStack } from "native-base"
+import { NativeBaseProvider, Text } from "native-base"
 import AuthInput from "../parkjiho/components/auth/AuthInput";
 import AuthButton from "../parkjiho/components/auth/AuthButton";
 import { StyleSheet } from "react-native";

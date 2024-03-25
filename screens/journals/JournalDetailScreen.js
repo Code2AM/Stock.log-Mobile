@@ -14,7 +14,9 @@ const JournalDetailScreen = ({ route, navigation }) => {
 
   const { journals, setJournals } = useJournals();
 
+  // 해당 매매일지의 데이터 모두 가져온다 (1개)
   const journal = journals.find((journal) => journal.journalId === journalId);
+
   const [strategyName, setStrategyName] = useState("");
 
   const getStrategyName = async () => {
@@ -71,7 +73,7 @@ const JournalDetailScreen = ({ route, navigation }) => {
                 <Text bold>보유물량</Text>
                 <Text bold>총투자금</Text>
                 <Text bold>자산가치</Text>
-                <Text bold>실익</Text>
+                <Text bold>실현손익</Text>
                 <Text bold>최초거래일</Text>
                 <Text bold>최종거래일</Text>
               </VStack>
@@ -85,7 +87,7 @@ const JournalDetailScreen = ({ route, navigation }) => {
                 <Text>{strategyName}</Text>
                 <Text>{journal.avgBuyPrice}</Text>
                 <Text>{journal.avgSellPrice}</Text>
-                <Text>{journal.totalBuyQuantity + journal.totalSellQuantity}</Text>
+                <Text>{journal.totalQuantity}</Text>
                 <Text>{totalInvestment()}</Text>
                 <Text>{assetValue()}</Text>
                 <Text>{journal.profit}</Text>

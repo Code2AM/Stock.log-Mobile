@@ -68,7 +68,7 @@ const JournalsList = ({ journals }) => {
                             <Text>{journals.avgSellPrice}</Text>
                         </VStack>
                         <VStack>
-                            <Text bold>실익</Text>
+                            <Text bold>실현손익</Text>
                             <Text>{journals.profit}</Text>
                         </VStack>
                     </HStack>

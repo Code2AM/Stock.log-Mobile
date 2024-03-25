@@ -1,6 +1,5 @@
 import { AlertDialog, Button, Center, Pressable } from "native-base"
 import { useRef, useState } from "react";
-import { Image } from "react-native"
 import { changeJournalsStatusRequest } from "../../api/journals/JournalsAPI";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 

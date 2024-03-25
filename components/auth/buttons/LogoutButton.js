@@ -13,13 +13,13 @@ const LogoutButton = () => {
     const { setIsSignedIn } = useStore(useAuth);
 
     const navigation = useNavigation();
-    const toast = useToast();
 
     // 로그아웃 함수
     const handleLogout = async () => {
-        await logout(navigation, toast, setIsSignedIn);
 
         setIsModalOpen(false);
+
+        await logout(navigation);
     };
 
     return (

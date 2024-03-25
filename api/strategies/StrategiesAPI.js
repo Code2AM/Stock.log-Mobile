@@ -6,22 +6,12 @@ export const strategiesRequest = async () => {
     try {
         console.log("strategiesRequest")
 
-        const response = await makeRequest("/strategies/findAll", "POST")
+        const response = await makeRequest("/strategies/findAll", "GET")
         return response.data
     }
     catch (error) {
-        console.error("strategiesRequest Error:", error);
+        console.error("GET ALL STRATEGIES ERROR", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
         throw error;
     }
 }
@@ -37,18 +27,9 @@ export const newStrategyRequest = async (data) => {
         return response.data
     }
     catch (error) {
-        console.error("newStrategyRequest Error:", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
+        console.error("CREATE STRATEGY ERROR", error);
+
         throw error;
     }
 }
@@ -65,18 +46,8 @@ export const updateStrateyRequest = async (data) => {
         return response.data
     }
     catch (error) {
-        console.error("updateStrateyRequest Error:", error);
+        console.error("UPDATE STRATEGY ERROR", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
         throw error;
     }
 }
@@ -92,18 +63,8 @@ export const deleteStrategyRequest = async (data) => {
         return response.data
     }
     catch (error) {
-        console.error("deleteStrategyRequest Error:", error);
+        console.error("DELETE STRATEGY ERROR", error);
 
-        if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-        } else if (error.request) {
-            console.log(error.request)
-        } else {
-            console.log('Error', error.message)
-        }
-        console.log(error.config)
         throw error;
     }
 }
@@ -116,6 +77,8 @@ export const strategyFindByIdRequest = async (data) => {
         const result = response.data.strategyName;
         return result;
     } catch (error) {
-        console.error("strategyFindByIdRequest Error", error);
+        console.error("GET STRATEGY BY ID ERROR", error);
+        
+        throw error;
     }
 }

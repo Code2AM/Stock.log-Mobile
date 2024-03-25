@@ -1,6 +1,6 @@
 // 라벨 리스트 , 
 
-import { Button, Center, HStack, Input, Modal, Radio, Text, VStack, View } from "native-base";
+import { Button, Center, Modal, Text, VStack } from "native-base";
 import { useState } from "react";
 
 const LabelModal = ({ labels, onSelectLabel }) => {

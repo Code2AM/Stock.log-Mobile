@@ -10,7 +10,8 @@ export const newNoteRequest = async (data) => {
         return response;
     }
     catch (error) {
-        console.error("newNoteRequest Error:", error);
+        console.error("CREATE NOTE ERROR ", error);
+        throw error;
     }
 }
 
@@ -20,12 +21,13 @@ export const notesRequest = async () => {
     try {
         console.log("noteRequest")
 
-        const response = await makeRequest("/notes/allNotes", "POST")
+        const response = await makeRequest("/notes/allNotes", "GET")
 
         return response.data
     }
     catch (error) {
-        console.error("newNoteRequest Error:", error);
+        console.error("GET ALL NOTE ERROR ", error);
+        throw error;
 
     }
 }
@@ -36,8 +38,8 @@ export const updateNoteRequest = async (data) => {
         return response.data;
     }
     catch (error) {
-        console.error("newNoteRequest Error:", error);
-
+        console.error("UPDATE NOTE ERROR ", error);
+        throw error;
     }
 }
 
@@ -47,24 +49,7 @@ export const deleteNoteRequest = async (data) => {
         return response.data;
     }
     catch (error) {
-        console.error("newNoteRequest Error:", error);
-
+        console.error("DELETE NOTE ERROR ", error);
+        throw error;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

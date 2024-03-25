@@ -82,7 +82,7 @@ export const LoginScreen = () => {
                         _dark={{
                             color: "warmGray.50"
                         }}>
-                        stock.logfdfdsafedwsfdsrfsadf
+                        stock.log
                     </Heading>
 
                     <VStack space={3} mt="5" >

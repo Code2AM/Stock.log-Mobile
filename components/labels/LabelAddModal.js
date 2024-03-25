@@ -1,5 +1,4 @@
 import { Box, Button, Center, Input, Modal, VStack, useToast } from "native-base";
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import React, { useState } from "react";
 import useLabels from "../../zustand/labels/useLabels";
 import { useStore } from "zustand";

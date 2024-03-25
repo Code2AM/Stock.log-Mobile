@@ -28,6 +28,10 @@ const CommentListContainer = ({journals}) => {
         await deleteCommentRequest(item);
         await callComments();
     }
+
+    const handleComment = () => {
+      
+    }
     
     return (
         <>
@@ -35,7 +39,7 @@ const CommentListContainer = ({journals}) => {
             <VStack>
                 <HStack justifyContent="center" alignItems="flex-start">
                     <VStack flex={1.5}>
-                        <Box alignItems={"center"} bgColor={"lime.200"}>
+                        <Box alignItems={"center"} bgColor={"white"} marginBottom={5}>
                             <Text bold>코멘트</Text>
                         </Box>
                         {comments.map((item, index) => (
@@ -43,6 +47,7 @@ const CommentListContainer = ({journals}) => {
                             <Pressable key={index} onPress={() => {
                                 Alert.alert(
                                     '코멘트',
+                                    // {new Intl.DateTimeFormat('ko-KR', { hour: '2-digit', minute: '2-digit'}).format(new Date(item.commentDate))},
                                     item.comment,
                                     [
                                         { text: '확인', onPress: () => console.log('확인') }
@@ -50,21 +55,21 @@ const CommentListContainer = ({journals}) => {
                                     { cancelable: false }
                                 );
                             }}>
-                            <Box h={"12"} my={1} px={1} overflow={"hidden"} borderStyle={"solid"} borderColor={"green.100"} borderWidth={1}>
+                            <Box h={"12"} my={1} px={1} overflow={"hidden"} borderStyle={"solid"} borderColor={"#E9E7FD"} borderWidth={1} borderRadius={5} p={0.3}>
                                 <Text numberOfLines={2}>{item.comment}</Text>
                             </Box>
                             </Pressable>
                             </>
                         ))}
                     </VStack>
-                    <Divider
+                    {/* <Divider
                         bg="emerald.500"
                         thickness="2"
                         mx="2"
                         orientation="vertical"
-                    />
+                    /> */}
                     <VStack flex={0.5}>
-                        <Box alignItems={"center"} bgColor={"lime.200"}>
+                        <Box alignItems={"center"} bgColor={"white"} marginBottom={5}>
                         <Text bold>작성일</Text>
                         </Box>
                             {comments.map((item, index) => (
@@ -76,15 +81,15 @@ const CommentListContainer = ({journals}) => {
                                 </>
                         ))}
                     </VStack>
-                    <Divider
+                    {/* <Divider
                         bg="emerald.500"
                         thickness="2"
                         mx="2"
                         orientation="vertical"
-                    />
+                    /> */}
                     <VStack >
-                        <Box  alignItems={"center"} bgColor={"lime.200"}>
-                        <Text bold alignItems={"center"}>기능</Text>
+                        <Box  alignItems={"center"} bgColor={"white"}>
+                        <Text bold alignItems={"center"}></Text>
                         </Box>
                         {comments.map((item, index) => (
                             <>
