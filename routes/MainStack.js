@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useStore } from "zustand";
 import { useAuth } from "../zustand/useAuth/useAuth";
 
+
 const Stack = createNativeStackNavigator();
 
 export const MainStack = () => {
