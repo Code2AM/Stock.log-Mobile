@@ -4,22 +4,42 @@ import { SellRequest, buyRequest, deleteBuyRequest, deleteSellRequest } from "..
 import { useIsFocused } from "@react-navigation/native";
 import useJournals from "../../zustand/journals/useJournals";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useStore } from "zustand";
+import { useUpdate } from "../../zustand/update/useUpdate";
 
 export const BuyDetailList = ({ journals }) => {
   const [buyList, setBuyList] = useState([]);
+
+  const { needUpdateBuy , setNeedUpdateBuy } = useStore(useUpdate);
+
+  const [hasFetchedData, setHasFetchedData] = useState(false);
 
   const buyListHandler = async () => {
     setBuyList(await buyRequest(journals));
   };
 
-  // 일단 이렇게 함
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
-      buyListHandler();
-      console.log(buyList);
-    }
-  }, [isFocused]);
+    buyListHandler();
+
+    console.log("RENDERED BUY")
+  }, []);
+
+
+
+  // 일단 이렇게 함
+  // const isFocused = useIsFocused();
+  // useEffect(() => {
+  //   console.log('needUPDATE')
+  //   console.log(needUpdateBuy)
+
+  //   if (isFocused) {
+  //     if (needUpdateBuy == true ) {
+  //       buyListHandler();
+  //       console.log(buyList);
+  //     }
+       
+  //   }
+  // }, [isFocused]);
 
   return (
     <>
@@ -123,13 +143,9 @@ export const SellDetailList = ({ journals }) => {
     setSellList(await SellRequest(journals));
   };
 
-  const isFocused = useIsFocused();
   useEffect(() => {
-    if (isFocused) {
-      sellListHandler();
-      console.log(sellList);
-    }
-  }, [isFocused]);
+    sellListHandler();
+  },[])
 
   return (
     <>

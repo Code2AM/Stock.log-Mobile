@@ -4,7 +4,7 @@ import { makeRequest } from "./Api";
 
 const SERVICE_KEY = "IbT4rQ05kHSxow5C8rcu%2F4AtxMS6PW%2Fi7FP0dC%2BxzmNn%2FVZIAlLGi5wvOFad4jca3Cz%2FqOf1gnoD%2FB3HRcNr8w%3D%3D";
 
-const MAX_STOCKS = 2;
+const MAX_STOCKS = 300000;
 
 export const stockRequest = async () => {
   
